@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    *{box-sizing:border-box;}
+    ul{
+        padding:0px;
+        overflow:hidden;
+        background-color:green;
+    }
+    li{
+        list-style-type:none; /* li에만 들어가는 속성. */
+        float:left;
+        width:25%;
+        text-align:center;
+        transition-duration:1s;
+    }
+    li:hover{
+        background-color:bisque;
+        color:darkorange;
+        cursor:pointer;
+        /* transition-duration:1s; */
+    }
+</style>
+<body>
+    <ul>
+        <li>Home</li>
+        <li>AboutMe</li>
+        <li>Portfolio</li>
+        <li>Contact</li>
+    </ul>
+</body>
+</html>

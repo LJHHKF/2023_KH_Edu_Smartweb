@@ -11,43 +11,123 @@
 
         .container{width:800px; height:600px; margin:auto;}
         
-        
-        .header{height:20%;}
+        .header{height:20%; text-align:center;}
         .header>div{float:left;height:100%;}
-        .header>.logo{width:20%; background-color:lightgreen;}
-        .header>.title{width:60%; background-color:pink;}
-        .header>.reserved{width:20%; background-color:lightyellow;}
+        .header>.logo{width:20%;}
+        .header>.title{ width:65%;}
+        .header>.reserved{width:15%; background-color:lightyellow;}
         .header>.title>img,.header>.logo>img{width:100%;height:100%;}
 
-        .navi{height:5%; background-color:lightcyan;}
+        .navi{height:5%;}
+        .navi>ul{
+            height:100%;
+            padding:0px;
+            margin:0px;
+            overflow:hidden;
+            background-color:lightyellow;
+        }
+        .navi>ul>li{
+            color:darkcyan;
+            list-style-type:none;
+            float:left;
+            width:25%;
+            height:100%;
+            text-align:center;
+            transition-duration:1s;
+        }
+        .navi>ul>li:hover{background-color:bisque;color:darkorange;cursor:pointer;}
 
-        .body{height:65%;}
+        .body{height:65%; text-align:center;}
         .body>div{float:left;height:100%;}
         .body>.contents{width:70%;background-color:lightgreen;}
         .body>.info{width:30%;}
-        .body>.info>.loginbox{height:30%;background-color:pink;}
-        .body>.info>.email{height:70%;background-color:lightyellow;}
+        .body>.info>.loginbox{height:30%; background-color:lightcyan;}
+        .body>.info>.loginbox>.headtext{height:30%; text-align: center; line-height:34px;}
+        .body>.info>.loginbox>.inputbody{height:70%;}
+        .body>.info>.loginbox>.inputbody>div{float:left; height:100%}
+        .body>.info>.loginbox>.inputbody>.inputs{width:75%;}
+        .body>.info>.loginbox>.inputbody>.inputs input{width:100%; height:36px; background-color:lightcyan;}
+        .body>.info>.loginbox>.inputbody>.confirmbtn{width:25%;}
+        .body>.info>.loginbox>.inputbody>.confirmbtn>button{
+            width:70%;
+            height:50%;
+            margin-left:15%;
+            margin-top:33.5%;
+            margin-right:15%;
+            margin-bottom:33.5%;
+            text-indent:-4px;
+        }
+        .body>.info>.email{height:70%;background-color:lightyellow; color:black;}
+        .body>.info>.email>.headtext{height:10%; line-height:26px; background-color:bisque}
+        .body>.info>.email>.mailbody{height:90%; overflow-y:auto;}
 
-        .footer{height:10%; background-color:lightcyan;}
+        .footer{height:10%; background-color:lightcyan; text-align:center;}
     </style>
 </head>
 <body>
-    <div class="container" align="center">
+    <div class="container">
         <div class="header">
             <div class="logo">
-                <img src="logo.jpeg">;
+                <img src="logo.jpeg">
             </div>
             <div class="title">
-                <img src="title.jpeg">;
+                <img src="title.jpeg">
             </div>
             <div class="reserved">Reserved</div>
         </div>
-        <div class="navi">Navigator</div>
+        <div class="navi">
+            <ul>
+                <li>Home</li>
+                <li>AboutMe</li>
+                <li>Portfolio</li>
+                <li>Contact</li>
+            </ul>
+        </div>
         <div class="body">
             <div class="contents">Contents</div>
             <div class="info">
-                <div class="loginbox">LoginBox</div>
-                <div class="email">Email</div>
+                <div class="loginbox">
+                    <div class="headtext">LoginBox</div>
+                    <div class="inputbody">
+                        <div class="inputs">
+                            <div class="idinput">
+                                <input type="text" placeholder="ID를 입력하세요">
+                            </div>
+                            <div class="pwinput">
+                                <input type="text" placeholder="Password를 입력하세요">
+                            </div>
+                        </div>
+                        <div class="confirmbtn">
+                            <button>Login</button>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="email">
+                    <div class="headtext">Mail box</div>
+                    <div class="mailbody">
+                        <div>1번째 메일입니다.</div>
+                        <div>2번째 메일입니다.</div>
+                        <div>3번째 메일입니다.</div>
+                        <div>4번째 메일입니다.</div>
+                        <div>5번째 메일입니다.</div>
+                        <div>6번째 메일입니다.</div>
+                        <div>7번째 메일입니다.</div>
+                        <div>8번째 메일입니다.</div>
+                        <div>9번째 메일입니다.</div>
+                        <div>10번째 메일입니다.</div>
+                        <div>11번째 메일입니다.</div>
+                        <div>12번째 메일입니다.</div>
+                        <div>13번째 메일입니다.</div>
+                        <div>14번째 메일입니다.</div>
+                        <div>15번째 메일입니다.</div>
+                        <div>16번째 메일입니다.</div>
+                        <div>17번째 메일입니다.</div>
+                        <div>18번째 메일입니다.</div>
+                        <div>19번째 메일입니다.</div>
+                        <div>20번째 메일입니다.</div>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="footer">Footer</div>

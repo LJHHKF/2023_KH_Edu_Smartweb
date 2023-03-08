@@ -6,6 +6,6 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/wolfs/OneDrive/Documents/Workspace/2023_01_스마트웹/libs/jlayer-1.0.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/wolfs/OneDrive/Documents/Workspace/2023_KH_Edu_Smartweb/libs/jlayer-1.0.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
