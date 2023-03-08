@@ -1,0 +1,190 @@
+package manager;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.ArrayList;
+
+import dto.MoviesDTO;
+
+// 데이터와 관련된 모든 작업을 총괄하는 클래스
+// DAO : Data Access Object
+public class MoviesDAO {
+	private Connection con;
+	private Statement stat;
+	private String url = "jdbc:oracle:thin:@localhost:1521:xe";
+	private String dbID = "kh";
+	private String dbPW = "kh";
+	
+	private MoviesDAO() throws Exception {
+		super();
+		Class.forName("oracle.jdbc.driver.OracleDriver");
+	}
+	
+	public MoviesDAO(String url, String dbID, String dbPW) throws Exception {
+		super();
+		Class.forName("oracle.jdbc.driver.OracleDriver");
+		this.url = url;
+		this.dbID = dbID;
+		this.dbPW = dbPW;
+	}
+	
+	public int insert(String title, String genre) throws Exception {
+		String sql =
+				"insert into MOVIES"
+				+ " values(MOVIES_SEQ.nextval,"
+				+ "'" + title +"',"
+				+ "'" + genre + "')";
+		this.open();
+		int result = this.executeUpdate(sql);
+		this.commit();
+		this.close();
+		return result;
+	}
+	
+	public int insert(MoviesDTO dto) throws Exception {
+		String sql =
+				"insert into MOVIES"
+				+ " values(MOVIES_SEQ.nextval,"
+				+ "'" + dto.getTitle() +"',"
+				+ "'" + dto.getGenre() + "')";
+		this.open();
+		int result = this.executeUpdate(sql);
+		this.commit();
+		this.close();
+		return result;
+	}
+	
+	public boolean isIdExist(int id) throws Exception {
+		this.open();
+		String sql =
+				"select ID from MOVIES where ID = " + id;
+		ResultSet rs = this.executeQuery(sql);
+		boolean result = rs.next();
+		this.close();
+		return result;
+	}
+	
+	public int updateToID(int id, String title,String genre) throws Exception {
+		this.open();
+		String sql =
+				"update MOVIES "
+				+ "set TITLE = '" + title +"',GENRE = '" + genre + "'"
+				+ " where ID =" + id;
+		int result = this.executeUpdate(sql);
+		this.commit();
+		this.close();
+		return result;
+	}
+	
+	public int updateToID(MoviesDTO dto) throws Exception {
+		this.open();
+		String sql =
+				"update MOVIES "
+				+ "set TITLE = '" + dto.getTitle() +"',GENRE = '" + dto.getGenre() + "'"
+				+ " where ID =" + dto.getId();
+		int result = this.executeUpdate(sql);
+		this.commit();
+		this.close();
+		return result;
+	}
+	
+	public int deleteToID(int id) throws Exception {
+		this.open();
+		String sql =
+				"delete from MOVIES"
+				+ " where ID =" + id;
+		int result = this.executeUpdate(sql);
+		this.commit();
+		this.close();
+		return result;
+	}
+	
+	public ArrayList<MoviesDTO> selectAll() throws Exception {
+		this.open();
+		String sql =
+				"select * from MOVIES";
+		ResultSet rs = this.executeQuery(sql);
+		ArrayList<MoviesDTO> result = this.transResultSet(rs);
+		this.close();
+		return result;
+	}
+	
+	public ArrayList<MoviesDTO> searchByTitle(String title) throws Exception {
+		this.open();
+		String sql =
+				"select *"
+				+ " from MOVIES"
+				+ " where TITLE like '%"+title+"%'";
+		ResultSet rs = this.executeQuery(sql);
+		ArrayList<MoviesDTO> result = this.transResultSet(rs);
+		this.close();
+		return result;
+	}
+	
+	private void open() throws Exception {
+		con = DriverManager.getConnection(url, dbID, dbPW);
+		stat = con.createStatement();
+	}
+	
+	public void close() throws Exception {
+		if(con != null) {
+			con.close();
+			con = null;
+			stat = null;
+		}
+	}
+	
+	private void commit() throws Exception {
+		if(con != null) {
+			try {
+				con.commit();
+			}catch(Exception e) {
+				e.printStackTrace();
+				this.close();
+			}
+		}
+	}
+	
+	private int executeUpdate(String sql) throws Exception {
+		int result = 0;
+		if(con != null) {
+			try {
+				result = stat.executeUpdate(sql);
+			}catch(Exception e) {
+				e.printStackTrace();
+				this.close();
+			}
+		}
+		return result;
+	}
+	private ResultSet executeQuery(String sql) throws Exception {
+		ResultSet result = null;
+		if(con != null) {
+			try {
+				result = stat.executeQuery(sql);
+			}catch(Exception e) {
+				e.printStackTrace();
+				this.close();
+			}
+		}
+		return result;
+	}
+	
+	private ArrayList<MoviesDTO> transResultSet(ResultSet rs) throws Exception{
+		ArrayList<MoviesDTO> result = new ArrayList<>();
+		try {
+			while(rs.next()) {
+				int id = rs.getInt("id");
+				String title = rs.getString("title");
+				String genre = rs.getString("genre");
+				result.add(new MoviesDTO(id, title, genre));
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+			this.close();
+		}
+		return result;
+	}
+}

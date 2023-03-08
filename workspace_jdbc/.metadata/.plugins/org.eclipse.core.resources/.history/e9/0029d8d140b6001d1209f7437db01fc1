@@ -1,0 +1,75 @@
+package dao;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+
+public class StudentDAO {
+	
+	private Connection con;
+	private Statement stat;
+	private String url = "jdbc:oracle:thin:@localhost:1521:xe";
+	private String dbID = "kh";
+	private String dbPW = "kh";
+	
+	private StudentDAO() throws Exception {
+		Class.forName("oracle.jdbc.driver.OracleDriver");
+	}
+	public StudentDAO(String url, String dbID, String dbPW) throws Exception{
+		super();
+		this.url = url;
+		this.dbID = dbID;
+		this.dbPW = dbPW;
+	}
+	
+	private void open() throws Exception {
+		this.con = DriverManager.getConnection(url, dbPW, dbID);
+		this.stat = con.createStatement();
+	}
+	
+	public void close() throws Exception{
+		if(con != null) {
+			con.close();
+			con = null;
+			stat = null;
+		}
+	}
+	
+	private void commit() throws Exception {
+		if(con != null) {
+			try {
+				con.commit();
+			}catch(Exception e) {
+				e.printStackTrace();
+				this.close();
+			}
+		}
+	}
+	
+	private int executeUpdate(String sql) throws Exception {
+		int result = 0;
+		if(con != null) {
+			try {
+				result = stat.executeUpdate(sql);
+			}catch(Exception e) {
+				e.printStackTrace();
+				this.close();
+			}
+		}
+		return result;
+	}
+	
+	private ResultSet executeQuery(String sql) throws Exception{
+		ResultSet result = null;
+		if(con != null) {
+			try {
+				result = stat.executeQuery(sql);
+			}catch(Exception e) {
+				e.printStackTrace();
+				this.close();
+			}
+		}
+		return result;
+	}
+}

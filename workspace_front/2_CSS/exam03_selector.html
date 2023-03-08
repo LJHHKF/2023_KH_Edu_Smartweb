@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* 속성 선택자 : 요소가 가진 속성을 이용해 선택 */
+        /* ^ : StartWith */
+        /* $ : EndsWith */
+        /* * : Contatins */
+        p[class="c1"]{
+            background-color:dodgerblue;
+        }
+        p[class^="d"]{
+            background-color:aqua;
+        }
+        p[test]{
+            background-color:pink;
+        }
+        p[class$="1"]{
+            color:crimson;
+        }
+        p[id*="4"]{
+            border: 1px dotted navy;
+        }
+    </style>
+</head>
+<body>
+    <p id="id1" class="c1">1</p>
+    <p id="id2" class="d1">2</p>
+    <p id="id3" class="d2">3</p>
+    <p id="id4">4</p>
+    <p id="id5" test="1234">5</p>
+</body>
+</html>

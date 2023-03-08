@@ -1,0 +1,52 @@
+[찾은 문제점]
+1. '작성한 SQL문' 파트에서, 단순 오타일 수 있으나, 사용자 계정 생성 부분에서 'create test01'이라고 되어있습니다. 이래서는 무슨 객체를 만드려고 하는지 알 수가 없어 실행이 안 됩니다. 'create user test01'로 수정해줘야 합니다.
+
+2. grant를 해줄 때도 'resource'만 주고 'connect'권한을 주지 않아서 접속 자체를 생성하지 못하는 문제가 있습니다. 실제 문제 명세로도 '접속 및 객체 생성 권한 부여'이라고 되어 있으나, 현재는 객체 생성 권한만 주었습니다. 수정해줘야 합니다.
+
+3. 'MEMBERS_ID' 컬럼에 기본키 제약조건을 설정하라고 되어있으나 '작성한 SQL문'파트에선 설정이 안되어 있습니다. 추가해주어야 합니다.
+
+4. 3번과 마찬가지로 not null 제약 조건 추가가 명시되어 있으나 설정되어 있지 않습니다.
+
+5. 'BOARD_WRITER' 칼럼 설정 때, 외래 키 설정 부분에서 'foreign key MEMBERS(MEMBER_ID)'라고 만들어져 있는 부분을 찾았습니다. 이대로는 구문 오류 판정이 나며, 컬럼에 바로 외래키를 설정해주는 방법으로도, 별도로 키 설정을 하는 방법으로도 이와는 사용법이 다르다고 알고 있습니다. 수정해줘야 합니다.
+
+
+
+[문제엔 언급 되어 있으나, 문제가 아니라고 보고 넘어간 부분]
+a. 'BOARD_NO' 컬럼에 primary key 제약 조건 설정, 테이블 레벨 상으로 제약 조건을 설정해주라는 부분은 이미 primary key 제약 조건은 걸려있고, 테이블 레벨 상에서 걸어주란 말은 무슨 뜻인지 모르겠어서 넘겼습니다.
+
+b. 'BOARD_REG_DATE'에 기본값 sysdate를 설정해주라고 명시되어 있으며, 실제로 '작성한 SQL' 부분에서 이미 설정되어 있는 것을 확인하였습니다. 문제엔 별도 언급되어 있으나 수정할 부분이 보이지 않아 그냥 넘어감을 기록하여 남겨둡니다.
+
+[해결책]
+1. 해당 부분을 'create user test01'로 수정해주곤 실행하여 해결하였습니다.
+
+2. 'grant connect to test01'을 별도로 추가 후 실행하여 해결하였습니다.
+
+3. 해당 부분에 'primary key' 제약 조건 설정 부분을 추가해주어 해결하였습니다.
+
+4. 해당 부분에 'not null' 제약 조건 설정 부분을 추가해주어 해결하였습니다.
+
+5. 해당 'foreign key <테이블명>(컬럼명)' 부분을 'references <테이블명>(컬럼명)' 방식으로 수정하여 해결하였습니다.
+
+
+[이하 수정/작성한 SQL 구문]
+[[관리자 접속]]
+create user test01 identified by 1234;
+grant resource to test01;
+grant connect to test01;
+
+[[test01 접속]]
+create table MEMBERS(
+    MEMBER_ID varchar2(20) primary key,
+    MEMBER_PWD varchar2(20) not null,
+    MEMBER_NAME varchar2(30),
+    MEMBER_AGE number,
+    MEMBER_EMAIL varchar2(50)
+);
+
+create table BOARDS(
+    BOARD_NO number primary key,
+    BOARD_TITLE varchar2(100),
+    BOARD_CONTENT varchar2(4000),
+    BOARD_WRITER varchar2(20) references MEMBERS(MEMBER_ID),
+    BOARD_REG_DATE date default sysdate
+);

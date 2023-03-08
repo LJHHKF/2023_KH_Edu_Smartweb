@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            box-sizing:border-box;
+            text-align:center; /* 구글링 */
+        }
+        div{border: 1px solid black;}
+        .container{
+            width:800px;
+            height:600px;
+            margin:auto;
+        }
+        
+        .header>div,.body>div{
+            float:left;
+            height:100%;
+        }
+
+        .header{height:20%;}
+        .header>.title{width:60%; background-color:#B7A6AD;}
+        .header>.logo{width:20%; background-color:#BEBEBE;}
+        .header>.reserved{width:20%; background-color:#695D54;}
+
+        .navi{height:5%; background-color:#74A19E;}
+
+        .body{height:60%;}
+        .body>.contents{width:70%; background-color:#587992;}
+        .body>.info{width:30%;}
+        .body>.info>.loginbox{height:30%;background-color:#4F8D97;}
+        .body>.info>.email{height:70%;background-color:#91967E;}
+
+        .footer{height:15%;background-color:#846D74;}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">Logo</div>
+            <div class="title">Title</div>
+            <div class="reserved">Reserved</div>
+        </div>
+        <div class="navi"> Navigator </div>
+        <div class="body">
+            <div class="contents">Contents</div>
+            <div class="info">
+                <div class="loginbox">LoginBox</div>
+                <div class="email">Email</div>
+            </div>
+        </div>
+        <div class="footer">Footer</div>
+    </div>
+</body>
+</html>

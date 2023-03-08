@@ -1,0 +1,153 @@
+package dao;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.ArrayList;
+
+import dto.StudentDTO;
+
+public class StudentDAO {
+	
+	private Connection con;
+	private Statement stat;
+	private String url = "jdbc:oracle:thin:@localhost:1521:xe";
+	private String dbID = "kh";
+	private String dbPW = "kh";
+	
+	public StudentDAO() throws Exception {
+		super();
+		Class.forName("oracle.jdbc.driver.OracleDriver");
+	}
+	public StudentDAO(String url, String dbID, String dbPW) throws Exception{
+		super();
+		Class.forName("oracle.jdbc.driver.OracleDriver");
+		this.url = url;
+		this.dbID = dbID;
+		this.dbPW = dbPW;
+	}
+	
+	public int insert(StudentDTO dto) throws Exception {
+		int result = 0;
+		this.open();
+		String sql =
+				"insert into STUDENTS"
+				+" values(STUDENTS_SEQ.nextval,"
+				+"'"+dto.getName()+"',"
+				+dto.getKor()+","
+				+dto.getEng()+","
+				+dto.getMath()+")";
+		result = this.executeUpdate(sql);
+		this.commit();
+		this.close();
+		return result;
+	}
+	
+	public ArrayList<StudentDTO> selectAll() throws Exception{
+		ArrayList<StudentDTO> result = null;
+		this.open();
+		String sql = "select * from STUDENTS";
+		ResultSet rs = this.executeQuery(sql);
+		result = this.transRsToList(rs);
+		this.close();
+		return result;
+	}
+	
+	public boolean isIdExist(int id) throws Exception{
+		boolean result = false;
+		this.open();
+		String sql = "select ID from STUDENTS where ID = " + id;
+		result = this.executeQuery(sql).next();
+		this.close();
+		return result;
+	}
+	
+	public int updateByID(StudentDTO dto) throws Exception{
+		int result = 0;
+		this.open();
+		String sql =
+				"update STUDENTS"
+				+" set NAME = '" + dto.getName() +"',"
+						+ "KOR = "+dto.getKor()+","
+						+ "ENG = "+dto.getEng()+","
+						+ "MATH = "+dto.getMath()
+				+" where ID = " + dto.getId();
+		result = this.executeUpdate(sql);
+		this.commit();
+		this.close();
+		return result;
+	}
+	
+	public int deleteByID(int id) throws Exception{
+		int result = 0;
+		this.open();
+		String sql = "delete from STUDENTS where ID = "+ id;
+		this.commit();
+		this.close();
+		return result;
+	}
+	
+	private void open() throws Exception {
+		this.con = DriverManager.getConnection(url, dbPW, dbID);
+		this.stat = con.createStatement();
+	}
+	
+	public void close() throws Exception{
+		if(con != null) {
+			con.close();
+			con = null;
+			stat = null;
+		}
+	}
+	
+	private void commit() throws Exception {
+		if(con != null) {
+			try {
+				con.commit();
+			}catch(Exception e) {
+				e.printStackTrace();
+				this.close();
+			}
+		}
+	}
+	
+	private int executeUpdate(String sql) throws Exception {
+		int result = 0;
+		if(con != null) {
+			try {
+				result = stat.executeUpdate(sql);
+			}catch(Exception e) {
+				e.printStackTrace();
+				this.close();
+			}
+		}
+		return result;
+	}
+	
+	private ResultSet executeQuery(String sql) throws Exception{
+		ResultSet result = null;
+		if(con != null) {
+			try {
+				result = stat.executeQuery(sql);
+			}catch(Exception e) {
+				e.printStackTrace();
+				this.close();
+			}
+		}
+		return result;
+	}
+	
+	private ArrayList<StudentDTO> transRsToList(ResultSet rs) throws Exception{
+		ArrayList<StudentDTO> result = new ArrayList<>();
+		while(rs.next()) {
+			int id = rs.getInt("ID");
+			String name = rs.getString("NAME");
+			int kor = rs.getInt("KOR");
+			int eng = rs.getInt("ENG");
+			int math = rs.getInt("MATH");
+			result.add(new StudentDTO(id, name, kor, eng, math));
+		}
+		return result;
+	}
+}

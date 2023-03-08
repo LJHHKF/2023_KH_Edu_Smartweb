@@ -1,0 +1,127 @@
+테이블 정의서에 따라 테이블을 생성하고, 요구사항을 충족할 수 있도록 시퀀스를 생성하는 SQL작성 후 정상 결과와 같은 같은 형태로 데이터를 조회하기 위하여, 데이터 삽입, 조회를 수행하였으나 정상처리되지 않는 문제가 발생하였다. SQL구문을 분석하여 요구사항을 충족시키지 못하거나, 정상 결과가 조회되지 않은 원인과, 정상 결과가 조회될 수 있도록 하는 조치내용을 순서대로 작성하시오.
+(1. 단, 답안 작성 시 이미 생성된 테이블 또는 시퀀스 구조의 수정이 필요한 경우 ALTER 또는 DROP, 삽입된 데이터의 수정이 필요한 경우 UPDATE 사용해야함. 2. 필요한 조건 수정 후 데이터가 삽입될 수 있도록 쿼리문을 작성 해야함.)
+
+[찾은 문제점]
+1. PRODUCTS 테이블의 PRODUCT_NAME이 테이블 요구사항에서는 크기가 '20'이라고 되어 있으나, 실제 작성은 '50'으로 되어 있음을 확인하였습니다. 
+명세서에 맞게 고쳐줘야 할 것입니다.
+
+2. 테이블 요구사항에는 PRODUCTS 테이블에 SERIAL_NO 컬럼이 존재하는데, 테이블 작성 시에 추가해주지 않은 부분을 발견하였습니다. 이는 따로 추가해줘야 할 것입니다.
+
+3. SEQ_BRAND_ID 시퀀스서, 시퀀스 요구사항과 다른 점을 세가지 발견하였습니다.
+3-1. 최대 값이 1000인데 500으로 설정되었습니다. 수정해줘야 할 것입니다.
+3-2. '캐쉬 사용 안함'이라고 되어있으나 'nocache' 항목을 넣어주지 않았습니다. 추가해줘야 할 것입니다.
+3-3. nocycle 조건은 따로 요구되어 있지 않으나 설정되었습니다. 그러나 별도로 수정해 줄 필요는 없을 것으로 보아 별도로 수정하진 않겠습니다.
+
+4.SEQ_PRODUCT_NO 에서도 'nocache' 항목이 별도로 들어가지 않았으며, nocycle 항목이 요구되지 않았으나 추가되었습니다. 전자는 추가해 줘야 할 것이며, 후자는 3번과 마찬가지로 수정 없이 넘어가겠습니다.
+
+5. BRANDS 테이블에 데이터를 삽입해 줄 때, 두번째 '애플' 값을 넣을 떄 SEQ_BRAND_ID.currval을 사용하고 있습니다. 처음보는 기능이나, 이름으로 보아 값을 증가시키지 않고 넣으려는 것으로 추정해 봅니다.
+이 상태에서는 앞선 삼성의 BRAND_ID와 동일한 값이기 때문에 '유니크 제약 조건을 위배했다(기본키 값 설정이므로 유니크 제약조건도 걸려있는 것입니다.)'고 경고하며 실행되지 않으므로 별도의 INSERT 문을 작성하여 '애플'의 값을 넣어줘야 할 것입니다.
+
+[놓친것]
+6. BRAND_NO 가 select 문에서 출력되지 않음. 추가해줬어야 함.
+
+[모르는 기능. 문제점은 아니라고 보아 해결책은 별도 제시 X]
+[이 부분은 제출 X]
+a. PRODUCTS 테이블의 BRAND_CODE 를 작성할 때, references <테이블명>으로만 작성하였습니다. <테이블명>(연결할 컬럼명)이 아닌.
+같은 형식의 값이 하나밖에 없다보니 그 값과 자동으로 매칭되는 것으로 추정됩니다.
+(강사님 설명)
+외래키 설정 떄 테이블명만 쓰면 알아서 기본키(primary key)로 설정된 컬럼을 참조함.
+
+[해결책]
+
+1. PRODUCTS 테이블의 PRODUCT_NAME을 'alter table <테이블명> modify <컬럼명 및 설정 등> '기능을 통해 varchar2형은 유지한 채 크기를 50에서 20으로 수정해주었습니다.
+
+
+2. PRODUCTS 테이블에 SERIAL_NO 컬럼을 추가해주었습니다.('alter table <테이블명> add <컬럼명 및 설정 등>')
+그리고, 맨 마지막 위치 외의, 특정 위치에 컬럼을 추가하는 법을 모르므로 기존 PRODUCTS 테이블에 대한 insert into 구문은 무시하고, SERIAL_NO을 맨 마지막에 넣은 구문으로 수정하여 완성시켰습니다.
+
+
+3. SEQ_BRAND_ID 시퀀스에서 발견된 차이점(문제점) 중 3가지 중 2가지 항목을 수정해야 합니다.
+3-1. 최대값을 500에서 1000으로 수정해야 합니다. 'alter sequence <시퀀스명> <수정점>'를 통해 수정하였습니다.
+3-2 nocache 설정을 추가해줘야 합니다. 위의 3-1 변경에 'nocache'를 추가해주어 같이 설정하였습니다.
+
+
+4. SEQ_PRODUCT_NO 시퀀스에 nocache 설정을 추가해줘야 합니다. 3번과 마찬가지로 'alter sequence <시퀀스명> <수정점>'으로 수정하였습니다.
+
+
+5. BRANDS 테이블에 '애플'의 데이터 삽입 시 사용되던 'SEQ_BRAND_ID.currvale'의 값을 'nextval' 로 수정한 insert 문을 작성해주었습니다.
+
+
+--------------------------------------------------------
+[이하 완성 코드]
+----------------------------------------------------
+--작성된 테이블 및 시퀀스 코드는 수정하지 말고, alter나 drop 등을 사용해야 함.
+--기존 코드들
+--Brands Table 생성
+create table BRANDS(
+    BRAND_ID number primary key,
+    BRAND_NAME varchar2(100) NOT NULL
+);
+--Products 테이블 생성
+create table PRODUCTS(
+    PRODUCT_NO number primary key,
+    PRODUCT_NAME varchar2(50) NOT NULL,
+    PRODUCT_PRICE number NOT NULL,
+    BRAND_CODE number references BRANDS,
+    SOLD_OUT char(1) default 'N' check(SOLD_OUT IN('Y','N'))
+);
+
+--SEQ_BRAND_ID 시퀀스 생성
+create sequence SEQ_BRAND_ID
+    start with 100
+    increment by 100
+    maxvalue 500
+    nocycle;
+--SEQ_PRODUCT_NO 시퀀스 생성
+create sequence SEQ_PRODUCT_NO
+    start with 1
+    increment by 1
+    maxvalue 10000
+    nocycle;
+
+--BRANDS 테이블 데이터 삽입
+insert into BRANDS values (SEQ_BRAND_ID.nextval, '삼성');
+--이하 문제점 5. 현재는 동작 X.
+insert into BRANDS values (SEQ_BRAND_ID.currval, '애플');
+--PRODUCTS 테이블 데이터 삽입
+--문제점 2를 먼저 해결하지 않으면 아래 데이터 삽입 코드들은 동작하지 않음. (열 수 부족)
+insert into PRODUCTS values (SEQ_PRODUCT_NO.nextval, '갤럭시S8', 800000, 100, 'S8', 'Y');
+insert into PRODUCTS values (SEQ_PRODUCT_NO.nextval, '갤럭시S9', 900000, 100, 'S9', 'N');
+insert into PRODUCTS values (SEQ_PRODUCT_NO.nextval, '갤럭시S10', 1000000, 100, 'S10', 'N');
+--문제점 5를 먼저 해결 하지 않으면 아래 두 코드는 동작하지 않음. (참조키 부모 값 부재)
+insert into PRODUCTS values (SEQ_PRODUCT_NO.nextval, '아이폰9S', 900000, 200, '9S', 'N');
+insert into PRODUCTS values (SEQ_PRODUCT_NO.nextval, '아이폰10S', 1000000, 200, '10S', 'N');
+
+--결과 조회
+select PRODUCT_NAME, PRODUCT_PRICE, SOLD_OUT
+from PRODUCTS
+join BRANDS
+    on (BRAND_ID = BRAND_CODE);
+
+--------------------------------------------------
+--해결책 코드들
+--1. PRODUCTS.PRODUCT_NAME 크기 수정
+alter table PRODUCTS modify PRODUCT_NAME varchar(20);
+
+--2. PRODUCTS 테이블에 SERIAL_NO 컬럼을 추가
+alter table PRODUCTS add SERIAL_NO varchar(100) unique;
+----및 PRODUCTS 테이블에 대한 insert into 구문들을 수정. (특정 위치에 컬럼을 넣는 법을 모름)
+--[수정전](PRODUCT_NO, PRODUCT_NAME, PRODUCT_PRICE, BRAND_CODE, SERIAL_NO, SOLD_OUT)
+--[수정후](PRODUCT_NO, PRODUCT_NAME, PRODUCT_PRICE, BRAND_CODE, SOLD_OUT, SERIAL_NO)
+insert into PRODUCTS values (SEQ_PRODUCT_NO.nextval, '갤럭시S8', 800000, 100, 'Y', 'S8');
+insert into PRODUCTS values (SEQ_PRODUCT_NO.nextval, '갤럭시S9', 900000, 100, 'N', 'S9');
+insert into PRODUCTS values (SEQ_PRODUCT_NO.nextval, '갤럭시S10', 1000000, 100, 'N', 'S10');
+--문제점 5를 먼저 해결 하지 않으면 아래 두 코드는 동작하지 않음.
+insert into PRODUCTS values (SEQ_PRODUCT_NO.nextval, '아이폰9S', 900000, 200, 'N', '9S');
+insert into PRODUCTS values (SEQ_PRODUCT_NO.nextval, '아이폰10S', 1000000, 200, 'N', '10S');
+
+--3.  SEQ_BRAND_ID 시퀀스 수정
+--3-1. 최대값 수정
+--& 3-2. nocache 설정
+alter sequence SEQ_BRAND_ID maxvalue 1000 nocache;
+
+--4. SEQ_PRODUCT_NO 시퀀스 수정 (nocache 추가)
+alter sequence SEQ_PRODUCT_NO nocache;
+
+--5. Brands Table 삽입 오류 수정
+insert into BRANDS values (SEQ_BRAND_ID.nextval, '애플');

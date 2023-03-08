@@ -1,0 +1,26 @@
+package main;
+
+import java.security.MessageDigest;
+
+public class Test {
+	
+	public static String sha256(String msg) throws Exception{
+		MessageDigest md = MessageDigest.getInstance("SHA-256");
+		md.update(msg.getBytes());
+		StringBuilder builder = new StringBuilder();
+		for(byte b : md.digest()) {
+			builder.append(String.format("%02x", b));
+		}
+		return builder.toString();
+	}
+	
+	public static void main(String[] args) throws Exception{
+		//단방향 암호화 SHA 연습
+		//5줄짜리 메서드 하나.
+		String result = sha256("Test");
+		System.out.println(result);
+		System.out.println(result.length());
+		//어떤 글자를 넣던 간에 64개의 글자가 나오며, 하나의 값만 바뀌어도 값이 매우 변함.
+		//똑같은 값을 넣으면 똑같은 결과가 나옴. 난수는 아님.
+	}
+}

@@ -1,0 +1,62 @@
+package dao;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+
+import dto.MembersDTO;
+
+public class MembersDAO {
+//	private Connection con;
+//	private Statement stat;
+	private String url = "jdbc:oracle:thin:@localhost:1521:xe";
+	private String dbID = "kh";
+	private String dbPW = "kh";
+	
+	public MembersDAO() throws Exception {
+		super();
+		Class.forName("oracle.jdbc.driver.OracleDriver");
+	}
+	
+	public MembersDAO(String url, String dbID, String dbPW) throws Exception {
+		super();
+		Class.forName("oracle.jdbc.driver.OracleDriver");
+		this.url = url;
+		this.dbID = dbID;
+		this.dbPW = dbPW;
+	}
+	
+	private Connection createConnection() throws Exception {
+		return DriverManager.getConnection(url, dbPW, dbID);
+	}
+	
+	public int insert(MembersDTO dto) throws Exception{
+		String sql = 
+				"insert into MEMBERS(ID, PW, NAME, CONTACT)"
+				+" values('"+ dto.getId() +"',"
+				+"'"+dto.getPw()+"',"
+				+"'"+dto.getName()+"',"
+				+"'"+dto.getContact()+"')";
+		try( 	Connection con = this.createConnection();
+				Statement stat = con.createStatement(); ){
+			int result = stat.executeUpdate(sql);
+			con.commit();
+			return result;
+		}
+	}
+	
+	public boolean login(String id, String pw) throws Exception {
+		String sql = "select ID,PW from MEMBERS where ID = " + id;
+		try(	Connection con = this.createConnection();
+				Statement stat = con.createStatement();
+				ResultSet rs = stat.executeQuery(sql); ){
+			while(rs.next()) {
+				if(rs.getString("PW").equals(pw)) {
+					return true;
+				}
+			}
+			return false;
+		}
+	}
+}

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        /* ID 선택자 : #id이름{} */
+        /* 태그 선택자 : 태그이름{} */
+        /* 클래스 선택자 : .클래스이름{} */
+
+        /* 연산자 우선순위 : tag < class < id < inline < important */
+
+        #second{
+            color:dodgerblue; /* 글씨 색깔 */
+            border:1px solid black;
+            background-color:pink;
+        }
+
+        .target{
+            color : red;
+        }
+
+        p{
+            color:red;
+        }
+        p{
+            color:blue;
+        }
+
+        div{
+            color:pink;
+            border:1px dotted black;
+            background-color: dodgerblue;
+        }
+    </style>
+
+</head>
+<body>
+    <!-- selector : 선택자 -->
+    <!-- 나열된 HTML 요소들 중 어떤 대상을 스타일링 할 지 지정하는 문법 -->
+
+    그냥 텍스트1
+    그냥 텍스트2
+    그냥 텍스트3
+
+    <p>Paragraph 태그 1</p>
+    <p id="second" class="target" style="color:red">Paragraph 태그 2</p>
+    <p class="target">Paragraph 태그 3</p>
+    <p>Paragraph 태그 4</p>
+    <p class="target">Paragraph 태그 5</p>
+    <div class="target"> div 텍스트3</div>
+
+</body>
+</html>

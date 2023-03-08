@@ -1,0 +1,119 @@
+package dao;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+
+import dto.StudentDTO;
+
+public class StudentDAO {
+	private String url = "jdbc:oracle:thin:@localhost:1521:xe";
+	private String dbID = "kh";
+	private String dbPW = "kh";
+	
+	public StudentDAO() throws Exception {
+		super();
+		Class.forName("oracle.jdbc.driver.OracleDriver");
+	}
+	public StudentDAO(String url, String dbID, String dbPW) throws Exception{
+		super();
+		Class.forName("oracle.jdbc.driver.OracleDriver");
+		this.url = url;
+		this.dbID = dbID;
+		this.dbPW = dbPW;
+	}
+	
+	private Connection createConnection() throws Exception{
+		return DriverManager.getConnection(url,dbID,dbPW);
+	}
+	
+	public int insert(StudentDTO dto) throws Exception {
+		String sql = "insert into STUDENTS values(STUDENTS_SEQ.nextval, ?, ?, ?, ?)";
+		try(	Connection con = this.createConnection();
+				PreparedStatement pstat = con.prepareStatement(sql)){
+			pstat.setString(1, dto.getName());
+			pstat.setInt(2, dto.getKor());
+			pstat.setInt(3, dto.getEng());
+			pstat.setInt(4, dto.getMath());
+			int result = pstat.executeUpdate();
+			con.commit();
+			return result;
+		}
+		
+	}
+	
+	public ArrayList<StudentDTO> selectAll() throws Exception{
+		String sql = "select * from STUDENTS";
+		try(	Connection con = this.createConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);
+				ResultSet rs = pstat.executeQuery()){
+			return this.transRsToList(rs);
+		}
+	}
+	
+	public boolean isIdExist(int id) throws Exception{
+		String sql = "select ID from STUDENTS where ID = ?";
+		try(	Connection con = this.createConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);){
+			pstat.setInt(1, id);
+			try(ResultSet rs = pstat.executeQuery()){
+				return rs.next();
+			}
+		}
+	}
+	
+	public int updateByID(StudentDTO dto) throws Exception{
+		String sql = "update STUDENTS set "
+					+"NAME = ?, KOR = ?, ENG = ?, MATH = ?"
+					+" where ID = ?";
+		try(	Connection con = this.createConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);){
+			pstat.setString(1, dto.getName());
+			pstat.setInt(2, dto.getKor());
+			pstat.setInt(3, dto.getEng());
+			pstat.setInt(4, dto.getMath());
+			pstat.setInt(5, dto.getId());
+			int result = pstat.executeUpdate();
+			con.commit();
+			return result;
+		}
+		
+	}
+	
+	public int deleteByID(int id) throws Exception{
+		String sql = "delete from STUDENTS where ID = ?";
+		try(	Connection con = this.createConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);){
+			pstat.setInt(1, id);
+			int result = pstat.executeUpdate();
+			con.commit();
+			return result;
+		}
+	}
+	
+	public ArrayList<StudentDTO> searchByName(String name) throws Exception{
+		String sql = "select * from STUDENTS where NAME like ?";
+		try(	Connection con = this.createConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);){
+			pstat.setString(1, "%"+name+"%");
+			try(ResultSet rs = pstat.executeQuery()){
+				return this.transRsToList(rs);
+			}
+		}
+	}
+	
+	private ArrayList<StudentDTO> transRsToList(ResultSet rs) throws Exception{
+		ArrayList<StudentDTO> result = new ArrayList<>();
+		while(rs.next()) {
+			int id = rs.getInt("ID");
+			String name = rs.getString("NAME");
+			int kor = rs.getInt("KOR");
+			int eng = rs.getInt("ENG");
+			int math = rs.getInt("MATH");
+			result.add(new StudentDTO(id, name, kor, eng, math));
+		}
+		return result;
+	}
+}

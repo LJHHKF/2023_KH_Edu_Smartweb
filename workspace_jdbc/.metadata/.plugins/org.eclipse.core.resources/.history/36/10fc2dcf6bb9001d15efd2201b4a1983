@@ -1,0 +1,36 @@
+package dao;
+
+import org.apache.commons.dbcp2.BasicDataSource;
+
+public class MembersDAO {
+	private String url = "jdbc:oracle:thin:@localhost:1521:xe";
+	private String dbID = "board";
+	private String dbPW = "board";
+	private final BasicDataSource bds = new BasicDataSource();
+	private final int poolSize = 5;
+	
+	public MembersDAO(){
+		super();
+		this.init();
+	}
+	
+	
+	public MembersDAO(String url, String dbID, String dbPW){
+		super();
+		this.url = url;
+		this.dbID = dbID;
+		this.dbPW = dbPW;
+		this.init();
+	}
+
+	private void init() {
+		bds.setUrl(url);
+		bds.setUsername(dbID);
+		bds.setPassword(dbPW);
+		bds.setInitialSize(poolSize);
+	}
+	
+//	public int insert(MembersDTO dto) {
+//		
+//	}
+}

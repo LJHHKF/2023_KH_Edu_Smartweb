@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /*자손 선택자 : > 기호 사용 */
+        /*후손 선택자 : ' ' 띄어쓰기 사용 */
+        /*형제/동위 선택자 : + 또는 ~ 사용 */
+        /*              +는 바로 뒤에, ~는 범위[여럿] */
+       /* div>h4{
+            background-color:pink;
+        }*/
+
+        div h4{
+            background-color: pink;
+        }
+
+        /* p 태그 다음에 li가 올 경우, 그 녀석을 선택해서 적용하겠다. (모든 경우) */
+        /*p+li{
+            color:orange;
+        }*/
+        p~li{
+            color:orange;
+        }
+
+    </style>
+</head>
+<body>
+    <div>
+        <h4>자손1</h4>
+        <h5>자손2</h5>
+        <ul>
+            <li>
+                <h4>후손</h4>
+            </li>
+            <p>과일</p>
+            <li>Orange</li>
+            <div><li>Grape</li></div>
+            <li>Mango</li>
+        </ul>
+    </div>
+</body>
+</html>

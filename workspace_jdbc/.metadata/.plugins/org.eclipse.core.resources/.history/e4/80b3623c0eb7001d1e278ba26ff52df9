@@ -1,0 +1,187 @@
+package dao;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.ArrayList;
+
+import dto.StudentDTO;
+
+public class StudentDAO {
+	
+	private Connection con;
+	private Statement stat;
+	private String url = "jdbc:oracle:thin:@localhost:1521:xe";
+	private String dbID = "kh";
+	private String dbPW = "kh";
+	
+	public StudentDAO() throws Exception {
+		super();
+		Class.forName("oracle.jdbc.driver.OracleDriver");
+	}
+	public StudentDAO(String url, String dbID, String dbPW) throws Exception{
+		super();
+		Class.forName("oracle.jdbc.driver.OracleDriver");
+		this.url = url;
+		this.dbID = dbID;
+		this.dbPW = dbPW;
+	}
+	
+	public int insert(StudentDTO dto) throws Exception {
+		int result = 0;
+		try {
+			this.opens();
+			String sql =
+					"insert into STUDENTS"
+					+" values(STUDENTS_SEQ.nextval,"
+					+"'"+dto.getName()+"',"
+					+dto.getKor()+","
+					+dto.getEng()+","
+					+dto.getMath()+")";
+			result = this.executeUpdate(sql);
+			this.commit();
+		}finally {
+			this.closes();
+		}
+		return result;
+	}
+	
+	public ArrayList<StudentDTO> selectAll() throws Exception{
+		ArrayList<StudentDTO> result = null;
+		ResultSet rs = null;
+		try {
+			this.opens();
+			String sql = "select * from STUDENTS";
+			rs = this.executeQuery(sql);
+			result = this.transRsToList(rs);
+		}finally {
+			if(rs != null) rs.close();
+			this.closes();
+		}
+		return result;
+	}
+	
+	public boolean isIdExist(int id) throws Exception{
+		boolean result = false;
+		ResultSet rs = null;
+		try {
+			this.opens();
+			String sql = "select ID from STUDENTS where ID = " + id;
+			rs = this.executeQuery(sql);
+			result = rs.next();
+		}finally {
+			if(rs != null) rs.close();
+			this.closes();
+		}
+		return result;
+	}
+	
+	public int updateByID(StudentDTO dto) throws Exception{
+		int result = 0;
+		try {
+			this.opens();
+			String sql =
+					"update STUDENTS"
+					+" set NAME = '" + dto.getName() +"',"
+							+ "KOR = "+dto.getKor()+","
+							+ "ENG = "+dto.getEng()+","
+							+ "MATH = "+dto.getMath()
+					+" where ID = " + dto.getId();
+			result = this.executeUpdate(sql);
+			this.commit();
+		}finally {
+			this.closes();
+		}
+		return result;
+	}
+	
+	public int deleteByID(int id) throws Exception{
+		int result = 0;
+		try {
+			this.opens();
+			String sql = "delete from STUDENTS where ID = "+ id;
+			result = this.executeUpdate(sql);
+			this.commit();
+		}finally {
+			this.closes();
+		}
+		return result;
+	}
+	
+	public ArrayList<StudentDTO> searchByName(String name) throws Exception{
+		ArrayList<StudentDTO> result = null;
+		ResultSet rs = null;
+		try {
+			this.opens();
+			String sql = "select * from STUDENTS where NAME like '%" +name+ "%'";
+			rs = this.executeQuery(sql);
+			result = this.transRsToList(rs);
+		}finally {
+			rs.close();
+			this.closes();
+		}
+		return result;
+	}
+	
+	private void opens() throws Exception {
+		this.con = DriverManager.getConnection(url, dbPW, dbID);
+		this.stat = con.createStatement();
+	}
+	
+	public void closes() throws Exception{
+		if(stat != null) {
+			stat.close();
+			stat = null;
+		}
+		if(con != null) {
+			con.close();
+			con = null;
+		}
+	}
+	
+	private void commit() throws Exception {
+		if(con != null) {
+			con.commit();
+		}
+	}
+	
+	private int executeUpdate(String sql) throws Exception {
+		int result = 0;
+		if(con != null) {
+			try {
+				result = stat.executeUpdate(sql);
+			}catch(Exception e) {
+				e.printStackTrace();
+				this.closes();
+			}
+		}
+		return result;
+	}
+	
+	private ResultSet executeQuery(String sql) throws Exception{
+		ResultSet result = null;
+		if(con != null) {
+			try {
+				result = stat.executeQuery(sql);
+			}catch(Exception e) {
+				e.printStackTrace();
+				this.closes();
+			}
+		}
+		return result;
+	}
+	
+	private ArrayList<StudentDTO> transRsToList(ResultSet rs) throws Exception{
+		ArrayList<StudentDTO> result = new ArrayList<>();
+		while(rs.next()) {
+			int id = rs.getInt("ID");
+			String name = rs.getString("NAME");
+			int kor = rs.getInt("KOR");
+			int eng = rs.getInt("ENG");
+			int math = rs.getInt("MATH");
+			result.add(new StudentDTO(id, name, kor, eng, math));
+		}
+		return result;
+	}
+}

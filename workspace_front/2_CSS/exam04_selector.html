@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* 반응 선택자 */
+        p:hover{
+            background-color:blueviolet;
+            cursor:pointer;
+        }
+        p:active{
+            border:3px solid red;
+        }
+        div.c{
+            color:tomato;
+        }
+
+        p:not(.c){
+            border:1px solid black;
+        }
+
+        p:not(:last-of-type){
+            background-color:forestgreen;
+        }
+
+        [id]{} /* id 속성을 가진*/
+        .c.d{} /* 클래스 이름이 .c이면서 .d인. 즉 'class="c d"' 속성인 것*/
+        [class^=a][class$=d]{}/* class 속성이 a로 시작하고 d로 끝나는 */
+    </style>
+</head>
+<body>
+    <p class="c">Hover Test 1</p>
+    <p class="c">Hover Test 2</p>
+    <p class="c">Hover Test 3</p>
+    <p class="d">Hover Test 4</p>
+    <p class="d">Hover Test 5</p>
+
+    <div class="c">Hover div 1</div>
+    <div class="c">Hover div 2</div>
+    <div class="c">Hover div 3</div>
+    <div class="c">Hover div 4</div>
+    <div class="c">Hover div 5</div>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{box-sizing:border-box;}
+        div{border:1px solid black;}
+
+        .container{width:800px; height:600px; margin:auto;}
+        
+        
+        .header{height:20%;}
+        .header>div{float:left;height:100%;}
+        .header>.logo{width:20%; background-color:lightgreen;}
+        .header>.title{width:60%; background-color:pink;}
+        .header>.reserved{width:20%; background-color:lightyellow;}
+
+        .navi{height:5%; background-color:lightcyan;}
+
+        .body{height:65%;}
+        .body>div{float:left;height:100%;}
+        .body>.contents{width:70%;background-color:lightgreen;}
+        .body>.info{width:30%;}
+        .body>.info>.loginbox{height:30%;background-color:pink;}
+        .body>.info>.email{height:70%;background-color:lightyellow;}
+
+        .footer{height:10%; background-color:lightcyan;}
+    </style>
+</head>
+<body>
+    <div class="container" align="center">
+        <div class="header">
+            <div class="logo">Logo</div>
+            <div class="title">Title</div>
+            <div class="reserved">Reserved</div>
+        </div>
+        <div class="navi">Navigator</div>
+        <div class="body">
+            <div class="contents">Contents</div>
+            <div class="info">
+                <div class="loginbox">LoginBox</div>
+                <div class="email">Email</div>
+            </div>
+        </div>
+        <div class="footer">Footer</div>
+    </div>
+</body>
+</html>

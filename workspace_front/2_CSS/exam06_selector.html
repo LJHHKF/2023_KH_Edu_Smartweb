@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* 구조 선택자 */
+        /*
+        div p:first-child{
+            background-color: pink;
+        }
+        div p:last-child{
+            background-color: dodgerblue;
+        }
+        div p:nth-child(3){
+            background-color: yellowgreen;
+        }
+        */
+
+        /*
+        div p:first-of-type{
+            background-color: pink;
+        }
+        div p:last-of-type{
+            background-color:dodgerblue;
+        }
+        div p:nth-of-type(3){
+            background-color:yellowgreen;
+        }
+        */
+
+        /* odd, even, 2n, 3n, ...*/
+        div p:nth-of-type(3n-1){
+            background-color:pink;
+        }
+
+    </style>
+</head>
+<body>
+    <div>
+        <div>방해꾼 문자열</div>
+        <p>테스트 문자열 1 입니다.</p>
+        <div>방해꾼 문자열</div>
+        <p>테스트 문자열 2 입니다.</p>
+        <div>방해꾼 문자열</div>
+        <p>테스트 문자열 3 입니다.</p>
+        <div>방해꾼 문자열</div>
+        <p>테스트 문자열 4 입니다.</p>
+        <div>방해꾼 문자열</div>
+        <p>테스트 문자열 5 입니다.</p>
+        <div>방해꾼 문자열</div>
+        <p>테스트 문자열 6 입니다.</p>
+        <div>방해꾼 문자열</div>
+    </div>
+</body>
+</html>

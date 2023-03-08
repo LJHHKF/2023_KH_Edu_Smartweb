@@ -1,0 +1,73 @@
+[문제]
+회원 정보를 ArrayList에 저장한 후 전체회원 정보를 출력하는 코드
+
+[찾은 문제점]
+1. user에서는 아무 매개변수도 받지 않는 기본생성자만 명시적으로 생성해두었으나, exam에서 사용할 때는 (String id,String pw,String name,int age,String phone) 형식의 매개변수를 받는 생성자를 사용하려고 하는 문제점을 찾았습니다.
+
+2.Exam 클래스에서 단순 오타로 'ArrayList<User> (변수명)'을 해줘야 할 부분에서 'List<User> (변수명)' 방식으로 선언해주는 부분을 발견하였습니다.
+
+3.'userList.put(user1)' 방식으로, 'put(~)'이라는 ArrayList에 없는 함수를 사용하려는 문제점을 찾았습니다.
+
+4. for문 안에서 'userList.length' 라고, ArrayList를 일반 배열처럼 '.length' 프로퍼티를 찾아 사용하려는 문제점을 찾았습니다. ArrayList에서는 '.length'가 없으며, 대신하여 '.size()'가 존재합니다.
+
+5. ArrayList를 순회하며 결과 값을 출력하려고 하는데 각 멤버 변수에 대하여 get이 아닌 set을 사용하며, set또한 매개변수 값을 매칭 시키지 않은 채 사용하고 있는 문제점을 찾았습니다.
+
+[해결책]
+1. User 클래스에 해당 인자 방식으로 매개변수를 받는 생성자를 추가해주어 해결하였습니다.
+
+2. 'List<User>' 오타 부분을 'ArrayList<User>'로 수정해주어 해결하였습니다.
+
+3. '.put(user1)'의 이름과 매개변수를 통해 원래 하려던 것이 '.add(~)'임을 추론하고서 'userList.add(user1)'식으로 3쌍을 수정해주어 해결하였습니다.
+
+4. 해당 for문의 조건식 부분의 'userList.length'를 'userList.size()'로 수정하여 해결하였습니다.
+
+5. 해당 'set~()' 부분들을 'get~()'으로 수정하여 해결하였습니다.
+
+[이하 수정하여 완성한 코드]
+Start.java는 수정된 부분도 없고 단순 진입점이라 생략하였습니다.
+a. <user.java>
+public class User {
+	private String id;
+	private String pw;
+	private String name;
+	private int age;
+	private String phone;
+	
+	public User() {super();}
+	public User(String id, String pw, String name, int age, String phone) {
+		this.id = id;
+		this.pw = pw;
+		this.name = name;
+		this.age = age;
+		this.phone = phone;
+	}
+	
+	public String getId() {return id;}
+	public void setId(String id) {this.id = id;}
+	public String getPw() {return pw;}
+	public void setPw(String pw) {this.pw = pw;}
+	public String getName() {return name;}
+	public void setName(String name) {this.name = name;}
+	public int getAge() {return age;}
+	public void setAge(int age) {this.age = age;}
+	public String getPhone() {return phone;}
+	public void setPhone(String phone) {this.phone = phone;}
+}
+
+b. <exam.java>
+public class Exam {
+	public void exam1() {
+		ArrayList<User> userList = new ArrayList<User>();
+		User user1 = new User("user01", "1234", "유저1", 23, "01022478875");
+		User user2 = new User("user02", "1357", "유저2", 27, "01095887774");
+		User user3 = new User("user03", "2468", "유저3", 34, "01036425456");
+		userList.add(user1);
+		userList.add(user2);
+		userList.add(user3);
+		System.out.println("아이디\t비밀번호\t이름\t나이\t전화번호");
+		for(int i = 0; i < userList.size(); i++) {
+			User u = userList.get(i);
+			System.out.println(u.getId()+"\t"+u.getPw()+"\t"+u.getName()+"\t"+u.getAge()+"\t"+u.getPhone());
+		}
+	}
+}

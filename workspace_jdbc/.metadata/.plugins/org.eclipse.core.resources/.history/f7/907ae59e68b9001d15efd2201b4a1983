@@ -1,0 +1,23 @@
+package main;
+
+import dao.MembersDAO;
+import dao.MessagesDAO;
+
+public class Main {
+	public static void main(String[] args) {
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+		}catch(Exception e) {
+			System.out.println("라이브러리 탐색 실패");
+			e.printStackTrace();
+			System.exit(0);
+		}
+		
+		final Main self = new Main();
+		final String url = "jdbc:oracle:thin:@localhost:1521:xe";
+		final String dbID = "board";
+		final String dbPW = "board";
+		MembersDAO dao_member = null;
+		MessagesDAO dao_message = null;
+	}
+}

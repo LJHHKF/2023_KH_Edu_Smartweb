@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename method &apos;manager.Manager.getMembers()&apos; to &apos;getSilverMembers&apos;&#x0D;&#x0A;- Original project: &apos;Day_11_OOP3&apos;&#x0D;&#x0A;- Original element: &apos;manager.Manager.getMembers()&apos;&#x0D;&#x0A;- Renamed element: &apos;manager.Manager.getSilverMembers()&apos;&#x0D;&#x0A;- Update references to refactored element" delegate="false" deprecate="false" description="Rename method &apos;getMembers&apos;" flags="589830" id="org.eclipse.jdt.ui.rename.method" input="/src&lt;manager{Manager.java[Manager~getMembers" name="getSilverMembers" references="true" stamp="1675646891031" version="1.0"/>
+</session>
