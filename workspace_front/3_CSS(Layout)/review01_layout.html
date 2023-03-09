@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
     <style>
         *{box-sizing:border-box;}
         div{border:1px solid black;}
@@ -42,24 +43,30 @@
         .body>.contents{width:70%;background-color:lightgreen;}
         .body>.info{width:30%;}
         .body>.info>.loginbox{height:30%; background-color:lightcyan;}
-        .body>.info>.loginbox>.headtext{height:30%; text-align: center; line-height:34px;}
-        .body>.info>.loginbox>.inputbody{height:70%;}
-        .body>.info>.loginbox>.inputbody>div{float:left; height:100%}
-        .body>.info>.loginbox>.inputbody>.inputs{width:75%;}
-        .body>.info>.loginbox>.inputbody>.inputs input{width:100%; height:36px; background-color:lightcyan;}
-        .body>.info>.loginbox>.inputbody>.confirmbtn{width:25%;}
-        .body>.info>.loginbox>.inputbody>.confirmbtn>button{
+        .body>.info>.loginbox>.title{height:30%; text-align: center; line-height:34px;}
+        .body>.info>.loginbox>.contents{height:70%;}
+        .body>.info>.loginbox>.contents>div{float:left; height:100%}
+        .body>.info>.loginbox>.contents>.inputs{width:75%;}
+        .body>.ifno>.loginbox>.contents>.inputs>div{height:50%;}
+        .body>.info>.loginbox>.contents>.inputs input{width:100%; height:36px; background-color:lightcyan;}
+        .body>.info>.loginbox>.contents>.confirmbtn{width:25%;}
+        .body>.info>.loginbox>.contents>.confirmbtn>button{
             width:70%;
             height:50%;
-            margin-left:15%;
             margin-top:33.5%;
-            margin-right:15%;
             margin-bottom:33.5%;
             text-indent:-4px;
+            background-color:transparent;
+            border:1px solid dodgerblue;
+            color:dodgerblue;
+            transition-duration:1s;
         }
+        .body>.info>.loginbox>.contents>.confirmbtn>button:hover{cursor:pointer; background-color:dodgerblue; color:white;}
         .body>.info>.email{height:70%;background-color:lightyellow; color:black;}
-        .body>.info>.email>.headtext{height:10%; line-height:26px; background-color:bisque}
-        .body>.info>.email>.mailbody{height:90%; overflow-y:auto;}
+        .body>.info>.email>.title{height:10%; line-height:26px; background-color:bisque}
+        .body>.info>.email>.contents{height:90%; overflow-y:auto;}
+        .body>.info>.email>.contents>a{text-decoration:none;}
+        .body>.info>.email>.contents>a>.mail{height:35px; line-height:35px;}
 
         .footer{height:10%; background-color:lightcyan; text-align:center;}
     </style>
@@ -87,13 +94,13 @@
             <div class="contents">Contents</div>
             <div class="info">
                 <div class="loginbox">
-                    <div class="headtext">LoginBox</div>
-                    <div class="inputbody">
+                    <div class="title"><i class="fa-regular fa-user"></i>LoginBox</div>
+                    <div class="contents">
                         <div class="inputs">
-                            <div class="idinput">
+                            <div class="id">
                                 <input type="text" placeholder="ID를 입력하세요">
                             </div>
-                            <div class="pwinput">
+                            <div class="password">
                                 <input type="text" placeholder="Password를 입력하세요">
                             </div>
                         </div>
@@ -104,33 +111,54 @@
 
                 </div>
                 <div class="email">
-                    <div class="headtext">Mail box</div>
-                    <div class="mailbody">
-                        <div>1번째 메일입니다.</div>
-                        <div>2번째 메일입니다.</div>
-                        <div>3번째 메일입니다.</div>
-                        <div>4번째 메일입니다.</div>
-                        <div>5번째 메일입니다.</div>
-                        <div>6번째 메일입니다.</div>
-                        <div>7번째 메일입니다.</div>
-                        <div>8번째 메일입니다.</div>
-                        <div>9번째 메일입니다.</div>
-                        <div>10번째 메일입니다.</div>
-                        <div>11번째 메일입니다.</div>
-                        <div>12번째 메일입니다.</div>
-                        <div>13번째 메일입니다.</div>
-                        <div>14번째 메일입니다.</div>
-                        <div>15번째 메일입니다.</div>
-                        <div>16번째 메일입니다.</div>
-                        <div>17번째 메일입니다.</div>
-                        <div>18번째 메일입니다.</div>
-                        <div>19번째 메일입니다.</div>
-                        <div>20번째 메일입니다.</div>
+                    <div class="title"><i class="fa-regular fa-envelope"></i>Mail box</div>
+                    <div class="contents">
+                        <a href="">
+                            <div class="mail">1번째 메일입니다.</div>
+                        </a><a href="">
+                            <div class="mail">2번째 메일입니다.</div>
+                        </a><a href="">
+                            <div class="mail">3번째 메일입니다.</div>
+                        </a><a href="">
+                            <div class="mail">4번째 메일입니다.</div>
+                        </a><a href="">
+                            <div class="mail">5번째 메일입니다.</div>
+                        </a><a href="">
+                            <div class="mail">6번째 메일입니다.</div>
+                        </a><a href="">
+                            <div class="mail">7번째 메일입니다.</div>
+                        </a><a href="">
+                            <div class="mail">8번째 메일입니다.</div>
+                        </a><a href="">
+                            <div class="mail">9번째 메일입니다.</div>
+                        </a><a href="">
+                            <div class="mail">10번째 메일입니다.</div>
+                        </a><a href="">
+                            <div class="mail">11번째 메일입니다.</div>
+                        </a><a href="">
+                            <div class="mail">12번째 메일입니다.</div>
+                        </a><a href="">
+                            <div class="mail">13번째 메일입니다.</div>
+                        </a><a href="">
+                            <div class="mail">14번째 메일입니다.</div>
+                        </a><a href="">
+                            <div class="mail">15번째 메일입니다.</div>
+                        </a><a href="">
+                            <div class="mail">16번째 메일입니다.</div>
+                        </a><a href="">
+                            <div class="mail">17번째 메일입니다.</div>
+                        </a><a href="">
+                            <div class="mail">18번째 메일입니다.</div>
+                        </a><a href="">
+                            <div class="mail">19번째 메일입니다.</div>
+                        </a><a href="">
+                            <div class="mail">20번째 메일입니다.</div>
+                        </a>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="footer">Footer</div>
+        <div class="footer">Copyright by LJH since 2023.03.09</div>
     </div>
 </body>
 </html>

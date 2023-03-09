@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+    <style>
+        *{box-sizing:border-box;}
+        .container{width:800px; height:600px; margin:auto; font-family:"D2coding";}
+        /* div{border:1px solid black;} */
+
+        .header{height:20%; background-color:blueviolet; color:white}
+        .header>div{
+            float:left;
+            height:100%;
+            text-align:center;
+            line-height:120px;}
+        .header>.logo{width:20%; font-size:200%;}
+        .header>.title{
+            width:65%;
+            font-size:250%;
+            font-family:"NanumSquare";
+            font-weight:bold;
+        }
+        .header>.reserved{width:15%; font-size:200%;}
+
+        .navi{height:5%;}
+        .navi>ul{
+            height:100%;
+            padding:0px;
+            margin:0px;
+            overflow:hidden;
+            background-color:lightyellow;
+        }
+        .navi>ul>li{
+            float:left;
+            list-style-type:none;
+            text-align:center;
+            width:25%;
+            height:100%;
+            line-height:30px;
+            transition-duration:1s;
+            color:black;
+        }
+        .navi>ul>li:hover{
+            cursor:pointer;
+            background-color:yellowgreen;
+        }
+
+        .body{height:70%;}
+        .body>div{float:left; height:100%;}
+    
+        .body>.contents{width:65%;}
+        
+        .body>.contents>.main{width:520px; height:210px;} /* width 100%; height:50%;*/
+        .body>.contents>.sub{width:100%; height:50%;}
+        .body>.contents>.sub>.title{text-align:center; height:20%; line-height:42px; background-color:lightyellow; color:black;}
+        .body>.contents>.sub>.contents{height:80%;}
+        .body>.contents>.sub>.contents>div{float:left; width:25%; height:100%; padding:5px;}
+        .body>.contents>.sub>.contents>div img{vertical-align:center; width:120px; height:150px; object-fit:fill}
+
+        .body>.info{width:30%;}
+
+        .body>.info>.loginbox{height:30%;}
+        .body>.info>.loginbox>.title{height:30%; text-align:center; line-height:36px; font-size:150%; background-color:yellowgreen; color:white}
+        .body>.info>.loginbox>.contents{height:70%;}
+        .body>.info>.loginbox>.contents>div{float:left; height:100%;}
+        .body>.info>.loginbox>.contents>.inputs{width:70%;}
+        .body>.info>.loginbox>.contents>.inputs div{height:50%;}
+        .body>.info>.loginbox>.contents>.inputs input{width:100%; height:40px; border-radius:10px;}
+        .body>.info>.loginbox>.contents>.confirmbtn{width:30%;}
+        .body>.info>.loginbox>.contents>.confirmbtn button{
+            width:70%;
+            height:50%;
+            margin-top:33.5%;
+            margin-left:15%;
+            text-align:center;
+            background-color:transparent;
+            transition-duration:1s;
+        }
+        .body>.info>.loginbox>.contents>.confirmbtn button:hover{cursor:pointer; background-color:blueviolet; color:white;}
+
+        .body>.info>.mailbox{height:70%;}
+        .body>.info>.mailbox>.title{text-align:center; height:15%; line-height:43px; font-size:200%; background-color:yellowgreen; color:white;}
+        .body>.info>.mailbox>.contents{overflow-y:auto; height:85%;}
+        .body>.info>.mailbox>.contents>a{text-decoration:none;}
+        .body>.info>.mailbox>.contents>a>.mail{text-align:center; height:35px; line-height:35px;}
+
+
+        .footer{height:10%; text-align:center; line-height:60px; background-color:blueviolet; color:white;}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">
+                <i class="fa-solid fa-gamepad"></i>
+                <i class="fa-solid fa-book-open"></i>
+            </div>
+            <div class="title">
+                LJH's example web page
+            </div>
+            <div class="reserved">
+                <i class="fa-solid fa-indent"></i>
+            </div>
+        </div>
+        <div class="navi">
+            <ul>
+                <li>예시내비1</li>
+                <li>예시내비2</li>
+                <li>예시내비3</li>
+                <li>예시내비4</li>
+            </ul>
+        </div>
+        <div class="body">
+            <div class="contents">
+                <div class="main">
+                    <img src="contents_main.jpg" width="520" height="210">
+                </div>
+                <div class="sub">
+                    <div class="title">추천 도서 목록</div>
+                    <div class="contents">
+                        <div><img src="인생은_수리가_됩니다.jpeg"></div>
+                        <div><img src="최악을_극복하는_힘.jpeg"></div>
+                        <div><img src="초생산성.jpeg"></div>
+                        <div><img src="말의_시나리오.jpeg"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="info">
+                <div class="loginbox">
+                    <div class="title"><i class="fa-regular fa-user"></i></div>
+                    <div class="contents">
+                        <div class="inputs">
+                            <div><input type="text" placeholder="ID를 입력해주세요"></div>
+                            <div><input type="password" placeholder="Password를 입력해주세요"></div>
+                        </div>
+                        <div class="confirmbtn">
+                            <button>Login</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="mailbox">
+                    <div class="title"><i class="fa-regular fa-envelope"></i></div>
+                    <div class="contents">
+                        <a href="">
+                            <div class="mail">1번째 예시 메일입니다.</div>
+                        </a><a href="">
+                            <div class="mail">2번째 예시 메일입니다.</div>
+                        </a><a href="">
+                            <div class="mail">3번째 예시 메일입니다.</div>
+                        </a><a href="">
+                            <div class="mail">4번째 예시 메일입니다.</div>
+                        </a><a href="">
+                            <div class="mail">5번째 예시 메일입니다.</div>
+                        </a><a href="">
+                            <div class="mail">6번째 예시 메일입니다.</div>
+                        </a><a href="">
+                            <div class="mail">7번째 예시 메일입니다.</div>
+                        </a><a href="">
+                            <div class="mail">8번째 예시 메일입니다.</div>
+                        </a><a href="">
+                            <div class="mail">9번째 예시 메일입니다.</div>
+                        </a><a href="">
+                            <div class="mail">10번째 예시 메일입니다.</div>
+                        </a><a href="">
+                            <div class="mail">11번째 예시 메일입니다.</div>
+                        </a><a href="">
+                            <div class="mail">12번째 예시 메일입니다.</div>
+                        </a><a href="">
+                            <div class="mail">13번째 예시 메일입니다.</div>
+                        </a><a href="">
+                            <div class="mail">14번째 예시 메일입니다.</div>
+                        </a><a href="">
+                            <div class="mail">15번째 예시 메일입니다.</div>
+                        </a><a href="">
+                            <div class="mail">16번째 예시 메일입니다.</div>
+                        </a><a href="">
+                            <div class="mail">17번째 예시 메일입니다.</div>
+                        </a><a href="">
+                            <div class="mail">18번째 예시 메일입니다.</div>
+                        </a><a href="">
+                            <div class="mail">19번째 예시 메일입니다.</div>
+                        </a><a href="">
+                            <div class="mail">20번째 예시 메일입니다.</div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer">Copyright by LJH since 2023.03.09</div>
+    </div>
+</body>
+</html>
