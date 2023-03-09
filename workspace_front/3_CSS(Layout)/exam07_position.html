@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{box-sizing:border-box;}
+        div{border:1px solid black;}
+        .container{
+            position:relative;
+            width:300px;
+            height:300px;
+        }
+        .box{width:100px; height:100px;}
+        #box1{
+            position:absolute;
+            background-color:#b454eb50;
+        }
+        #box2{
+            position:absolute;
+            background-color:#7aeb5450;
+            top:50px;
+            left:50px;
+        }
+        .cover{
+            position:absolute;
+            /* opacity:0; */
+            width:100%;
+            height:100%;
+            background-color:#00000000;
+            transition-duration:0.5s;
+        }
+        .cover:hover{
+            background-color:#00000080;
+        }
+        img{
+            opacity:50%;
+            width:100%;
+            height:100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- <div class="box" id="box1">
+            <div class="cover"><img src="logo.jpeg"></div>
+        </div> -->
+        <!-- <div class="box" id="box2"></div> -->
+
+        <div class="box" id="box1"></div>
+        <div class="box" id="box2"><div class="box" id="box3"></div></div>
+        
+    </div>
+</body>
+</html>
