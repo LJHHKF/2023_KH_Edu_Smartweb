@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .topmenu{
+            position:fixed;
+            width:100%;
+            height:25px;
+            top:0%;
+        }
+        .topmenu>.contents{width:100%; height:100%;}
+        .topmenu>.contents>.content{
+            float:left;
+            position:absolute;
+            width:25%;
+            height:400%;
+            line-height:25px;
+            text-align:center;
+        }
+        #top1{left:0%;}
+        #top2{left:25%;}
+        #top3{left:50%;}
+        #top4{left:75%;}
+        .topmenu>.contents>.content>.top{
+            position:absolute;
+            width:100%;
+            height:25%;
+            transition-duration:1s;
+            background-color:gray;
+            z-index:5;
+        }
+        .topmenu>.contents>.content>.boxes{
+            position:absolute;
+            width:100%;
+            height:75%;
+            bottom:300%;
+            transition-duration:1s;
+            background-color:gray;
+            z-index:1;
+        }
+        .topmenu>.contents>.contentt>.boxes>div{
+            position:absolute;
+            width:100%;
+            height:33%;
+            background-color:gray;
+        }
+        .topmenu>.contents>.top>.boxes>.menu1{top:0%;}
+        .topmenu>.contents>.top>.boxes>.menu2{top:33%;}
+        .topmenu>.contents>.top>.boxes>.menu3{top:66%;}
+
+        .topmenu>.contents>.content>.top:hover{cursor:pointer; background-color:lightgray;}
+        .topmenu>.contents>.content:hover>.boxes{transform:translateY(400%);}
+        .topmenu>.contents>.content>.boxes>div:hover{cursor:pointer; background-color:lightgray;}
+    </style>
+</head>
+<body>
+    <div class="topmenu">
+        <div class="contents">
+            <div class="content" id="top1">
+                <div class="top">top1</div>
+                <div class="boxes">
+                    <div class="menu1">menu1</div>
+                    <div class="menu2">menu2</div>
+                    <div class="menu3">menu3</div>
+                </div>
+            </div>
+            <div class="content" id="top2">
+                <div class="top">top2
+                </div>
+                <div class="boxes" >
+                    <div class="menu1">menu1</div>
+                    <div class="menu2">menu2</div>
+                    <div class="menu3">menu3</div>
+                </div>
+            </div>
+            <div class="content" id="top3">
+                <div class="top">top3
+                </div>
+                <div class="boxes">
+                    <div class="menu1">menu1</div>
+                    <div class="menu2">menu2</div>
+                    <div class="menu3">menu3</div>
+                </div>
+            </div>
+            <div class="content" id="top4">
+                <div class="top">top4
+                </div>
+                <div class="boxes">
+                    <div class="menu1">menu1</div>
+                    <div class="menu2">menu2</div>
+                    <div class="menu3">menu3</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
