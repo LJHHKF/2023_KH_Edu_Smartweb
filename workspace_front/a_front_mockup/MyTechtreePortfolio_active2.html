@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+    <style>
+        @font-face {
+            font-family: 'D2Coding';
+            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_three@1.0/D2Coding.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        @import url('https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css');
+
+        * {
+            box-sizing: border-box;
+            font-family: D2Coding;
+            color: #464e69;
+        }
+
+        body {
+            background-color: #ccd5ae;
+        }
+
+        /* div{border:1px solid black;} */
+        a {
+            text-decoration: none;
+        }
+
+        .tolist {
+            position: fixed;
+            width: 75px;
+            height: 50px;
+            bottom: 0px;
+            right: 0px;
+            margin: 0px;
+            padding: 0px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 300%;
+        }
+
+        .header>title>h1 {
+            font-family: NanumSquare
+        }
+
+        .body .lineheader {
+            text-align: center;
+            background-color: #d4a373;
+        }
+
+        .body .division {
+            text-align: center;
+            background-color: #e9edc9;
+        }
+
+        .body .division>div>i {
+            font-size: 250%;
+        }
+
+        .body div {
+            margin: 0px;
+            padding: 0px;
+        }
+
+        .body p {
+            font-size: 125%
+        }
+
+        .background-1 {
+            background-color: #faedcd;
+        }
+
+        .background-2 {
+            background-color: #fefae0;
+        }
+
+        .background-3 {
+            background-color: #e9edc9;
+        }
+
+        .background-header {
+            background-color: #d4a373;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="tolist"><a href="#index"><button type="button"
+                class="btn btn-outline-secondary align-self-center h-100">목차</button></a></div>
+
+    <div class="container">
+        <div class="header row background-3">
+            <div class="logo col-12 col-lg-4 text-center">
+                <h1><i class="fa-solid fa-gamepad"></i>
+                    <i class="fa-regular fa-file-code"></i>
+                    <i class="fa-solid fa-book"></i>
+                </h1>
+            </div>
+            <div class="title col-12 col-lg-8 text-center">
+                <h1>이주화의 간이 테크트리 포트폴리오</h1>
+            </div>
+        </div>
+        <div class="body row">
+            <div class="full row" id="index">
+                <div class="lineheader col-12 d-block d-lg-none text-center">
+                    <h1 class="align-self-center">목차, 기술스택, 자격증</h1>
+                </div>
+                <div class="index col-12 col-lg-3 background-1">
+                    <div class="header row h-25 text-center text-center">
+                        <h5 class="align-self-center">목차</h5>
+                    </div>
+                    <div class="body background-1 row h-75 p-3">
+                        <ol>
+                            <li><a href="#index">목차, 기술스택, 자격증</a></li>
+                            <li><a href="#history">테크트리/학과 이력</a></li>
+                            <li><a href="#sg_introduce">서강 게임교육원 간이 소개</a></li>
+                            <li><a href="#sg_example">서강 게임, 상업화 성공한 선배 및 동기의 프로젝트 사례</a></li>
+                            <li><a href="#sg_project">서강 게임, 참여 프로젝트 목록</a></li>
+                        </ol>
+                    </div>
+                </div>
+                <div class="techstack_sg col-12 col-lg-2 background-2">
+                    <div class="header row h-25 text-center">
+                        <h5 class="align-self-center">기술스택(end)<br>서강게임교육원</h5>
+                    </div>
+                    <div class="body row h-75">
+                        <div class="col-12 h-33">
+                            <p>C#(Unity)
+                            <p>
+                        </div>
+                        <div class="col-12 h-33">
+                            <p>C,C++(DirectX 12)</p>
+                        </div>
+                        <div class="col-12 h-33">
+                            <p>Shader(HLSL, Unity Shader Lab/Graph)</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="techstack_kh col-12 col-lg-2 background-1">
+                    <div class="header row h-25 text-center">
+                        <h5 class="align-self-center">기술스택(cur)<br>KH정보교육원</h5>
+                    </div>
+                    <div class="body row h-75">
+                        <div class="col-12 h-25">
+                            <p>Java</p>
+                        </div>
+                        <div class="col-12 h-25">
+                            <p>Oracle DBMS</p>
+                        </div>
+                        <div class="col-12 h-25">
+                            <p>JDBC</p>
+                        </div>
+                        <div class="col-12 h-25">
+                            <p>HTML+CSS</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="licenses col-12 col-lg-3 background-2">
+                    <div class="header row h-auto text-center align-items-center">
+                        <h5>자격증</h5>
+                    </div>
+                    <div class="body row">
+                        <div class="col-12 h-25">
+                            <p>게임 프로그래밍 전문가</p>
+                        </div>
+                        <div class="col-12 h-25">
+                            <p>사무자동화 산업기사</p>
+                        </div>
+                        <div class="col-12 h-25">
+                            <p>정보처리기사 필기</p>
+                        </div>
+                        <div class="col-12 h-25">
+                            <p>컴퓨터 활용 능력 1급</p>
+                        </div>
+                        <div class="col-12 h-auto">
+                            <p>인터넷 정보 관리사 2급</p>
+                        </div>
+                        <div class="col-12 h-auto">
+                            <p>JLPT N1</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="lineheader col-lg-2 d-none d-lg-block text-center">
+                    <div class="row h-100 align-items-center">
+                        <div class="col-12">
+                            <h1>목차<br>기술스택<br>자격증</h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="division row align-items-center m-auto background-3 text-center" style="height:100px;">
+                <div class="col-12">
+                    <h1>테크트리/학과 이력</h1>
+                </div>
+            </div>
+
+            <div class="full row" id="history">
+                <div class="col-12">
+                    <div class="row align-items-center text-center h-100 background-1">
+                        <div class="header col-3 background-header">
+                            <h2>1995~<br>2013<h2>
+                        </div>
+                        <div class="body col-9 background-1">
+                            <h2>문과</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12" style="height:50px">
+                    <div class="division row align-items-center text-center h-100">
+                        <div class="col-12"><i class="fa-solid fa-shuffle"></i></div>
+                    </div>
+                </div>
+
+                <div class="col-12">
+                    <div class="row align-items-center text-center h-100 background-header">
+                        <div class="header col-3 background-header">
+                            <h2>2014<h2>
+                        </div>
+                        <div class="body col-9 background-1">
+                            <h2>게임 기획/스토리<br>(서강 게임교육원)</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12" style="height:50px">
+                    <div class="division row align-items-center text-center h-100">
+                        <div class="col-12"><i class="fa-solid fa-shuffle"></i></div>
+                    </div>
+                </div>
+
+                <div class="col-12">
+                    <div class="row align-items-center text-center h-100 background-header">
+                        <div class="header col-3 background-header">
+                            <h2>2019<h2>
+                        </div>
+                        <div class="body col-9 background-1">
+                            <h2>게임 프로그래밍<br>(서강 게임교육원)</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12" style="height:50px">
+                    <div class="division row align-items-center text-center h-100">
+                        <div class="col-12"><i class="fa-solid fa-shuffle"></i></div>
+                    </div>
+                </div>
+
+                <div class="col-12">
+                    <div class="row align-items-center text-center h-100 background-header">
+                        <div class="header col-3 background-header">
+                            <h2>2023<h2>
+                        </div>
+                        <div class="body col-9 background-1">
+                            <h2>웹 프로그래밍<br>(KH 정보교육원)</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="division row align-items-center m-auto background-3 text-center" style="height:50px;">
+            </div>
+
+            <div class="full row" id="sg_introduce">
+                <div class="lineheader col-12 d-block d-lg-none text-center">
+                    <h1 class="align-self-center">서강 게임교육원 소개</h1>
+                </div>
+
+                <div class="logo col-12 col-lg-3 background-1">
+                    <div class="header row h-auto text-center align-items-center">
+                        <h5 class="align-self-center">로고</h5>
+                    </div>
+                    <div class="body row h-auto text-center align-items-center">
+                        <div class="col-12 h-100"><img src="resources\\sogang_game_logo.png" alt="sg_game_logo"
+                                class="w-100 h-100 object-fit-contain"></div>
+                    </div>
+                </div>
+
+                <div class="text col-12 col-lg-6 background-2">
+                    <div class="body row">
+                        <div class="col-12">
+                            <p>서강대학교에서 운영하는 학점은행제 방식의 평생교육원 중 하나입니다. </p>
+                            <p>게임 개발에 대해 전문적으로 배우며 기획, 프로그래밍, 그래픽의 3과정으로 구분됩니다.</p>
+                            <p>약 3학기 동안 기초를 배우고, 3학기 동안은 교내에서 팀을 꾸려 프로젝트 실습을 진행하며, 마지막 2학기 동안 졸업 준비 및 정리를 하는 4년제 학사
+                                교육원입니다.</p>
+                            <p>프로젝트는 기본 1학기당 1개의, 3개월의 개발 기간을 가지고 초반부만 완성시키는 정도로만 진행되나, 가망성이 보인 팀의 경우에는 여러 학기를 거치며 진행할 수
+                                있으며, 이를 통해 퀄리티를 끌어올려 실제 상업화에 성공한 선배 및 동기들도 존재합니다.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="lineheader col-lg-3 d-none d-lg-block text-center">
+                    <div class="row h-100 align-items-center">
+                        <div class="col-12">
+                            <h1>서강<br>게임교육원<br>소개</h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="division row align-items-center m-auto background-3 text-center" style="height:50px;">
+            </div>
+
+            <div class="full row" id="sg_example">
+                <div class="lineheader col-12 col-lg-3 text-center">
+                    <div class="row h-100 align-items-center">
+                        <div class="col-12">
+                            <h2>서강 게임<br>상업화 성공한<br>선배 및 동기의<br>프로젝트 사례</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="content col-12 col-lg-3 text-center background-1">
+                    <div class="header row h-25 align-items-center">
+                        <div class="col-12">
+                            <h5>Ratropolis</h5>
+                        </div>
+                    </div>
+                    <div class="body row h-75 align-items-center">
+                        <div class="col-6"> <img src="resources\\Ratropolis_cover.png" alt="Ratropolis_cover"
+                                class="w-100 h-100 object-fit-contain"> </div>
+                        <div class="col-6"> <img src="resources\\Ratropolis_play.jpg" alt="Ratropolis_play"
+                                class="w-100 h-100 object-fit-contain"> </div>
+                    </div>
+                </div>
+
+                <div class="content col-12 col-lg-3 text-center background-2">
+                    <div class="header row h-25 align-items-center">
+                        <div class="col-12">
+                            <h5>Last Light</h5>
+                        </div>
+                    </div>
+                    <div class="body row h-75 align-items-center">
+                        <div class="col-6"> <img src="resources\\Last_Light_cover.png" alt="Last_Light_cover"
+                                class="w-100 h-100 object-fit-contain"> </div>
+                        <div class="col-6"> <img src="resources\\Last_Light_play.jpg" alt="Last_Light_play"
+                                class="w-100 h-100 object-fit-contain"> </div>
+                    </div>
+                </div>
+
+                <div class="content col-12 col-lg-3 text-center background-1">
+                    <div class="header row h-25 align-items-center">
+                        <div class="col-12">
+                            <h5>Riffle Effect</h5>
+                        </div>
+                    </div>
+                    <div class="body row h-75 align-items-center">
+                        <div class="col-6"> <img src="resources\\Riffle_Effect_cover.jpg" alt="Riffle_Effect_cover"
+                                class="w-100 h-100 object-fit-contain"> </div>
+                        <div class="col-6"> <img src="resources\\Riffle_Effect_play.jpg" alt="Riffle_Effect_play"
+                                class="w-100 h-100 object-fit-contain"> </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="division row align-items-center m-auto background-3 text-center" style="height:50px;">
+            </div>
+
+            <div id="sg_project" class="carousel slide">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <div class="full row w-100">
+                            <div class="lineheader col-12 col-lg-3 text-center">
+                                <div class="row h-100 align-items-center">
+                                    <div class="col-12">
+                                        <h1>Anti Defense</h1>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="content col-12 col-lg-9">
+                                <div class="row background-1">
+                                    <div class="header col-3 text-center background-1 align-self-center">
+                                        <h5>제작 기간</h5>
+                                    </div>
+                                    <div class="body col-9 background-2">
+                                        <p>2020년 09월 ~ 2020년 12월(3개월)</p>
+                                    </div>
+                                </div>
+
+                                <div class="row background-1">
+                                    <div class="header col-3 text-center background-1 align-self-center">
+                                        <h5>팀 구성</h5>
+                                    </div>
+                                    <div class="body col-9 background-2">
+                                        <p>메인 프로그래머로 참가. 총 인원 5명(기획2(1분은 그래픽겸), 그래픽2, 프로그래밍1)</p>
+                                    </div>
+                                </div>
+
+                                <div class="row background-1">
+                                    <div class="header col-3 text-center background-1 align-self-center">
+                                        <h5>제작 툴</h5>
+                                    </div>
+                                    <div class="body col-9 background-2">
+                                        <p>유니티</p>
+                                    </div>
+                                </div>
+
+                                <div class="row background-1">
+                                    <div class="header col-3 text-center background-1 align-self-center">
+                                        <h5>게임 소개</h5>
+                                    </div>
+                                    <div class="body col-9 background-2">
+                                        <p>중앙의 캐릭터를 향해 다가오는 몬스터들을 캐릭터를 중심으로 공전하는 2개의 타워를 회전 조작해가며 조준, 조작이 끝났고 범위 내 몬스터가
+                                            있으면 발사하는 방식으로 하여서 캐릭터의 체력이 0이 되기 전에 스테이지의 모든 몬스터를 사냥하면 성공하는 로직의 모바일 디펜스
+                                            게임입니다.</p>
+                                    </div>
+                                </div>
+
+                                <div class="row background-1">
+                                    <div class="header col-3 text-center background-1 align-self-center">
+                                        <h5>기타</h5>
+                                    </div>
+                                    <div class="body col-9 background-2">
+                                        <p>환경은 3D, 리소스는 2D로 하여서 리소스 절감을 노렸었습니다. 당시 본인이 빌보드 및 쉐이더 언어에 대해서 잘 모르던 상태였기에 유니티
+                                            스크립트 상에서 만질 수 있는 값들을 통해서 어설프게 만든 빌보드 방식으로 구동되고 있어서 일부 타이밍(스폰 직후, 상하 기준에서 화면
+                                            중앙쯤의 위치)에서 엉뚱하게 적용되곤 합니다. 다시 만든다면 제대로 된 빌보드 시스템을 적용해보고 싶은 부분입니다.</p>
+                                    </div>
+                                </div>
+
+                                <div class="row background-1">
+                                    <div class="header col-3 text-center background-1 align-self-center">
+                                        <h5>깃허브</h5>
+                                    </div>
+                                    <div class="body col-9 background-2">
+                                        <p><a href="https://github.com/LJHHKF/Project_AntiDefence">링크</a></p>
+                                    </div>
+                                </div>
+
+                                <div class="imgs row background-2 align-items-center">
+                                    <div class="body col-3 text-center">
+                                        <img src="resources\\myproject_ad_cover.jpg" alt="Anti_Defense_Cover"
+                                            class="w-100 h-100 object-fit-contain">
+                                    </div>
+                                    <div class="body col-3 text-center">
+                                        <img src="resources\\myproject_ad_play.jpg" alt="Anti_Defense_Play1"
+                                            class="w-100 h-100 object-fit-contain">
+                                    </div>
+                                    <div class="body col-3 text-center">
+                                        <img src="resources\\myproject_ad_play2.jpg" alt="Anti_Defense_Play2"
+                                            class="w-100 h-100 object-fit-contain">
+                                    </div>
+                                    <div class="body col-3 text-center">
+                                        <img src="resources\\myproject_ad_play3.jpg" alt="Anti_Defense_Play3"
+                                            class="w-100 h-100 object-fit-contain">
+                                    </div>
+                                </div>
+
+                                <div class="videos row background-1">
+                                    <div class="body col-12 text-center">
+                                        <video controls class="w-100 h-100 object-fit-contain">
+                                            <source src="resources\\Anti_Defense_플레이영상_540p.mp4" type="video/mp4">
+                                        </video>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="full row w-100">
+                            <div class="lineheader col-12 col-lg-3 text-center">
+                                <div class="row h-100 align-items-center">
+                                    <div class="col-12">
+                                        <h1>Ergo</h1>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="content col-12 col-lg-9">
+                                <div class="row background-1">
+                                    <div class="header col-3 text-center background-1 align-self-center">
+                                        <h5>제작 기간</h5>
+                                    </div>
+                                    <div class="body col-9 background-2">
+                                        <p>2021 03월~2021년 06월(3개월)</p>
+                                    </div>
+                                </div>
+
+                                <div class="row background-1">
+                                    <div class="header col-3 text-center background-1 align-self-center">
+                                        <h5>팀 구성</h5>
+                                    </div>
+                                    <div class="body col-9 background-2">
+                                        <p>메인 프로그래머로 참가. 총 인원 6명(기획2 그래픽3 프로그래밍1)</p>
+                                    </div>
+                                </div>
+
+                                <div class="row background-1">
+                                    <div class="header col-3 text-center background-1 align-self-center">
+                                        <h5>제작 툴</h5>
+                                    </div>
+                                    <div class="body col-9 background-2">
+                                        <p>유니티</p>
+                                    </div>
+                                </div>
+
+                                <div class="row background-1">
+                                    <div class="header col-3 text-center background-1 align-self-center">
+                                        <h5>게임 소개</h5>
+                                    </div>
+                                    <div class="body col-9 background-2">
+                                        <p>Slay the Spire의 게임방식에서 전투 방식에서는 카드 발동 시 주사위를 굴리는 파트가 추가되어 행동의 파워 수치를 (고정치 +
+                                            주사위 값 영향치)로 계산하여 적용하는 방식으로 수정하였으며, 스테이지 진행은 단순하게 자동으로 랜덤 스테이지가 설정되어 진행되는
+                                            방식으로 수정하였던 모바일 카드 수집형 로그 라이크 게임입니다.</p>
+                                    </div>
+                                </div>
+
+                                <div class="row background-1">
+                                    <div class="header col-3 text-center background-1 align-self-center">
+                                        <h5>기타</h5>
+                                    </div>
+                                    <div class="body col-9 background-2">
+                                        <p>일부 자료구조 및 객체, 추상, 델리게이트 기법 등에 대해서 이 프로젝트에 접할 즘에서야 이해도가 좀 생기기 시작했었고, 이 프로젝트를
+                                            통해 실습으로 더욱 이해도를 높일 수 있었습니다.</p>
+                                    </div>
+                                </div>
+
+                                <div class="row background-1">
+                                    <div class="header col-3 text-center background-1 align-self-center">
+                                        <h5>깃허브</h5>
+                                    </div>
+                                    <div class="body col-9 background-2">
+                                        <p><a href="https://github.com/LJHHKF/Project_Ergo">링크</a></p>
+                                    </div>
+                                </div>
+
+                                <div class="imgs row background-2">
+                                    <div class="body col-3 text-center">
+                                        <img src="resources\\myproject_ergo_cover.jpg" alt="Ergo_cover"
+                                            class="w-100 h-100 object-fit-contain">
+                                    </div>
+                                    <div class="body col-3 text-center">
+                                        <img src="resources\\myproject_ergo_play.jpg" alt="Ergo_play1"
+                                            class="w-100 h-100 object-fit-contain">
+                                    </div>
+                                    <div class="body col-3 text-center">
+                                        <img src="resources\\myproject_ergo_play2.jpg" alt="Ergo_play2"
+                                            class="w-100 h-100 object-fit-contain">
+                                    </div>
+                                    <div class="body col-3 text-center">
+                                        <img src="resources\\myproject_ergo_play3.jpg" alt="Ergo_play3"
+                                            class="w-100 h-100 object-fit-contain">
+                                    </div>
+                                </div>
+
+                                <div class="videos row background-1">
+                                    <div class="body col-12 text-center">
+                                        <video controls class="w-100 h-100 object-fit-contain">
+                                            <source src="resources\\Ergo_플레이영상_편집_540p.mp4" type="video/mp4">
+                                        </video>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="full row w-100">
+                            <div class="lineheader col-12 col-lg-3 text-center">
+                                <div class="row h-100 align-items-center">
+                                    <div class="col-12">
+                                        <h1>DNOTB<br>(Do not open this box)</h1>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="content col-12 col-lg-9">
+                                <div class="row background-1">
+                                    <div class="header col-3 text-center background-1 align-self-center">
+                                        <h5>제작 기간</h5>
+                                    </div>
+                                    <div class="body col-9 background-2">
+                                        <p>2021년 09월 ~ 2021년 12월(3개월)</p>
+                                    </div>
+                                </div>
+
+                                <div class="row background-1">
+                                    <div class="header col-3 text-center background-1 align-self-center">
+                                        <h5>팀 구성</h5>
+                                    </div>
+                                    <div class="body col-9 background-2">
+                                        <p>메인 프로그래머로 참가. 총 인원 5명(기획1, 그래픽3, 프로그래밍1)</p>
+                                    </div>
+                                </div>
+
+                                <div class="row background-1">
+                                    <div class="header col-3 text-center background-1 align-self-center">
+                                        <h5>제작 툴</h5>
+                                    </div>
+                                    <div class="body col-9 background-2">
+                                        <p>유니티</p>
+                                    </div>
+                                </div>
+
+                                <div class="row background-1">
+                                    <div class="header col-3 text-center background-1 align-self-center">
+                                        <h5>게임 소개</h5>
+                                    </div>
+                                    <div class="body col-9 background-2">
+                                        <p>단순한 PC 플랫폼의 포인트 클릭 퍼즐 게임입니다. 클릭만으로 작동하기에 모바일로 빌드 가능합니다. 잘못 배송되었거나 송장 정보가 불명확한
+                                            택배 안에 어떤 물건이 들어있을까 하는 불안감과 호기심을 기반으로 하여 기획된 게임이었습니다.</p>
+                                    </div>
+                                </div>
+
+                                <div class="row background-1">
+                                    <div class="header col-3 text-center background-1 align-self-center">
+                                        <h5>기타</h5>
+                                    </div>
+                                    <div class="body col-9 background-2">
+                                        <p>종합 퀄리티는 안 좋았으나 배움은 없지 않았습니다. 컴포넌트 기법에 대해서 추가 정리하며 나름 활용해보았고, 연출을 위해서 유니티 쉐이더
+                                            및 카메라 기법, 2D Light 등을 만져보면서 그래픽 개념과 유니티 ui 및 스크린 기법에 대해서도 수업에서 배운 것을 이런 식으로
+                                            활용할 수 있을까 고민해보며 좀 더 자신의 것으로 소화시킬 수 있도록 도와준 프로젝트였습니다.</p>
+                                    </div>
+                                </div>
+
+                                <div class="row background-1">
+                                    <div class="header col-3 text-center background-1 align-self-center">
+                                        <h5>깃허브</h5>
+                                    </div>
+                                    <div class="body col-9 background-2">
+                                        <p>비공개</p>
+                                    </div>
+                                </div>
+
+                                <div class="imgs row background-2">
+                                    <div class="body col-3 text-center">
+                                        <img src="resources\\myproject_DNOTB_cover.jpg" alt="DNOTB_cover"
+                                            class="w-100 h-100 object-fit-contain">
+                                    </div>
+                                    <div class="body col-3 text-center">
+                                        <img src="resources\\myproject_DNOTB_play.jpg" alt="DNOTB_play1"
+                                            class="w-100 h-100 object-fit-contain">
+                                    </div>
+                                    <div class="body col-3 text-center">
+                                        <img src="resources\\myproject_DNOTB_play2.jpg" alt="DNOTB_play2"
+                                            class="w-100 h-100 object-fit-contain">
+                                    </div>
+                                    <div class="body col-3 text-center">
+                                        <img src="resources\\myproject_DNOTB_play3.jpg" alt="DNOTB_play3"
+                                            class="w-100 h-100 object-fit-contain">
+                                    </div>
+                                </div>
+
+                                <div class="videos row background-1">
+                                    <div class="body col-12 text-center">
+                                        <h1>플레이 영상 없음</h1>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#sg_project" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#sg_project" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+
+        </div>
+        <div class="footer row text-center background-3">
+            <div class="col-12">
+                <h1>made by Lee JuHwa since 2023.03.13~14</h1>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
