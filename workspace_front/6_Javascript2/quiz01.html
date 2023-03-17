@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- 앞에서 추가할 값, 뒤에서 추가할 값을 입력받고, array에 추가 -->
+    <!-- fieldset에 array 값 출력 -->
+    <fieldset>
+        <legend>Fruits</legend>
+        <div id="results"></div>
+    </fieldset>
+    <input type="text" id="input_text" placeholder="추가할 값">
+    <br>
+    <button id="btn_add_front">앞쪽에 추가</button>
+    <button id="btn_add_back">뒷쪽에 추가</button>
+    <br>
+    <button id="btn_delete_front">앞에서 삭제</button>
+    <button id="btn_delete_back">뒤에서 삭제</button>
+
+
+    <script>
+        let arr = [];
+        function updateResult() {
+            if (arr.length > 0) {
+                let str = "";
+                for (let i = 0; i < arr.length - 1; i++) {
+                    str += arr[i] + ",";
+                }
+                str += arr[arr.length-1];
+                document.getElementById("results").innerHTML = "<p>" + str + "</p>";
+            }else{
+                document.getElementById("results").innerHTML = "<p></p>";
+            }
+        }
+
+        let input_text = document.getElementById("input_text");
+        document.getElementById("btn_add_front").addEventListener("click", function(){
+            if(input_text.value.trim().length > 0){
+                arr.unshift(input_text.value.trim());
+                updateResult();
+                input_text.value = "";
+            }
+        });
+        document.getElementById("btn_add_back").addEventListener("click", function(){
+            if(input_text.value.trim().length > 0){
+                arr.push(input_text.value.trim());
+                updateResult();
+                input_text.value = "";
+            }
+        });
+        document.getElementById("btn_delete_front").addEventListener("click", function(){
+            arr.shift();
+            updateResult();
+        });
+        document.getElementById("btn_delete_back").addEventListener("click", function(){
+            arr.pop();
+            updateResult();
+        })
+    </script>
+</body>
+
+</html>

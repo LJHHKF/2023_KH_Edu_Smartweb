@@ -1,37 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+
 <body>
     <!-- 덧셈 계산기. -->
     <!-- 숫자와 숫자는 연산. 문자열과 문자열은 더하면 덧셈. 숫자+문자열은 숫자화 후 계산 -->
     <!-- input 창에서 나오는 값은 기본적으로 문자열임. parseInt 기능이 JS도 있으니 이용할 것. -->
-
-    <input type="text" id="input_t1"><br>
-    <input type="text" id="input_t2"><br>
-    <button id="btn_plus">+</button>
+    <fieldset>
+        <legend>덧셈기</legend>
+        <input type="text" id="input_t1" placeholder="첫 번째 수"><br>
+        <input type="text" id="input_t2" placeholder="두 번째 수"><br>
+        <button id="btn_plus">+</button>
+        <div id="result"></div>
+    </fieldset>
+    
 
     <script>
         let input_t1 = document.getElementById("input_t1");
         let input_t2 = document.getElementById("input_t2");
-        
-        document.getElementById("btn_plus").onclick = function(){
-            if(input_t1.value.length == 0 || !input_t2.lenght == 0){
-                alert("값을 채워넣어주셔야 합니다.");
+        let btn_plus = document.getElementById("btn_plus");
+
+        btn_plus.onclick = function () {
+            let result = document.getElementById("result");
+
+            if (input_t1.value.length == 0 || !input_t2.lenght == 0) {
+                //alert("값을 채워넣어주셔야 합니다.");
+                result.innerHTML = "값을 채워넣어주셔야 합니다.";
             }
-            else if(isNaN(input_t1.value) || isNaN(input_t2.value)){
-                alert("두 수 모두 숫자로 입력해주셔야 합니다.");
-                return null;
-            }else{
-                let num1 = parseInt(input_t1.value);
-                let num2 = parseInt(input_t2.value);
-                alert(num1 + num2);
+            else if (isNaN(input_t1.value) || isNaN(input_t2.value)) {
+                //alert("두 수 모두 숫자로 입력해주셔야 합니다.");
+                result.innerHTML = "두 수 모두 숫자로 입력해주셔야 합니다.";
+            } else {
+                //alert(num1 + num2);
+                result.innerHTML = parseInt(input_t1.value) + parseInt(input_t2.value);
+            }
+            input_t1.value = "";
+            input_t2.value = "";
+            input_t1.focus();
+        }
+
+        input_t1.onkeyup = function(e){
+            if(e.keyCode == 13){
+                input_t2.focus();
+            }
+        }
+        input_t2.onkeyup = function(e){
+            if(e.keyCode == 13){
+                btn_plus.onclick.call();
             }
         }
     </script>
 </body>
+
 </html>

@@ -12,15 +12,18 @@
     
     <script>
         let input_t1 = document.getElementById("input_t1");
-        document.getElementById("btn1").onclick = function(){
+        let btn1 = document.getElementById("btn1");
+        btn1.onclick = function(){
             alert(input_t1.value);
             input_t1.value = "";
         }
         input_t1.onkeyup = function(e){
             if(e.keyCode == 13){
                 //enter키가 keyup 된것이라면
-                alert(input_t1.value);
-                input_t1.value = "";
+                // alert(input_t1.value);
+                // input_t1.value = "";
+
+                btn1.onclick.call();
             }
         }
     </script>

@@ -206,7 +206,7 @@ public class Main {
 		while(true) {
 			 year = self.inputNumber(sc, "¿¬µµ(ex - 2020) : ");
 			if(year == -1) {return System.currentTimeMillis();}
-			else if(year > 0) {break;}
+			else if(year > 0 && year <= 9999) {break;}
 			else {System.out.println("¿¬µµ ¹üÀ§¸¦ ¹ş¾î³µ½À´Ï´Ù.");}
 		}
 

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div{border:1px solid black;}
+        .bg-red{background-color:red;}
+        .bg-blue{background-color:blue;}
+        .bg-green{background-color:green;}
+        .bg-clear{background-color: transparent;}
+        .box{border-radius: 0%;}
+        .circle{border-radius: 100%;}
+    </style>
+</head>
+<body>
+    <!-- 박스 만들고, 아래 버튼 3개 RGB 만들어서 버튼 누르면 R, G, B로 박스 색상 변경 -->
+    <!-- 임의: Box랑 Circle까지 변환 추가-->
+    <div id="box1" class="box bg-clear" style="width:250px; height:250px;"></div>
+    <div style="width:250px; text-align: center;">
+        <button id="btn_red">RED</button>
+        <button id="btn_green">GREEN</button>
+        <button id="btn_blue">BLUE</button>
+        <button id="btn_clear">Clear</button>
+    </div>
+    <div style="width:250px; text-align:center;">
+        <button id="btn_box">BOX</button>
+        <button id="btn_circle">CIRCLE</button>
+    </div>
+    <script>
+        let box1 = document.getElementById("box1");
+
+        document.getElementById("btn_box").onclick = function(){
+            if(box1.classList.contains("box")){
+                return;
+            }
+            if(box1.classList.contains("circle")){
+                box1.classList.replace("circle", "box");
+            }
+        }
+
+        document.getElementById("btn_circle").onclick = function(){
+            if(box1.classList.contains("circle")){
+                return;
+            }
+            if(box1.classList.contains("box")){
+                box1.classList.replace("box","circle");
+            }
+        }
+
+        document.getElementById("btn_red").onclick = function(){
+            if(box1.classList.contains("bg-red")){
+                return;
+            }
+
+            if(box1.classList.contains("bg-green")){
+                box1.classList.replace("bg-green", "bg-red");
+            }else if(box1.classList.contains("bg-blue")){
+                box1.classList.replace("bg-blue", "bg-red");
+            }else if(box1.classList.contains("bg-clear")){
+                box1.classList.replace("bg-clear", "bg-red");
+            }else{
+                box1.classList.add("bg-red");
+            }
+        }
+        document.getElementById("btn_green").onclick = function(){
+            if(box1.classList.contains("bg-green")){
+                return;
+            }
+            if(box1.classList.contains("bg-red")){
+                box1.classList.replace("bg-red", "bg-green");
+            }else if(box1.classList.contains("bg-blue")){
+                box1.classList.replace("bg-blue", "bg-green");
+            }else if(box1.classList.contains("bg-clear")){
+                box1.classList.replace("bg-clear", "bg-green");
+            }else{
+                box1.classList.add("bg-green");
+            }
+        }
+        document.getElementById("btn_blue").onclick = function(){
+            if(box1.classList.contains("bg-blue")){
+                return;
+            }
+            if(box1.classList.contains("bg-red")){
+                box1.classList.replace("bg-red", "bg-blue");
+            }else if(box1.classList.contains("bg-green")){
+                box1.classList.replace("bg-green", "bg-blue");
+            }else if(box1.classList.contains("bg-clear")){
+                box1.classList.replace("bg-clear", "bg-blue");
+            }else{
+                box1.classList.add("bg-blue");
+            }
+        }
+        document.getElementById("btn_clear").onclick = function(){
+            if(box1.classList.contains("bg-clear")){
+                return;
+            }
+            if(box1.classList.contains("bg-red")){
+                box1.classList.replace("bg-red", "bg-clear");
+            }else if(box1.classList.contains("bg-green")){
+                box1.classList.replace("bg-green", "bg-clear");
+            }else if(box1.classList.contains("bg-blue")){
+                box1.classList.replace("bg-blue", "bg-clear");
+            }else{
+                box1.classList.add("bg-clear");
+            }
+        }
+
+        // document.getElementById("btn_box_red").onclick = function(){
+        //     box1.setAttribute("class", "box bg-red");
+        // }
+        // document.getElementById("btn_box_green").onclick = function(){
+        //     box1.setAttribute("class", "box bg-green")
+        // }
+        // document.getElementById("btn_box_blue").onclick = function(){
+        //     box1.setAttribute("class", "box bg-blue");
+        // }
+        // document.getElementById("btn_circle_red").onclick = function(){
+        //     box1.setAttribute("class", "circle bg-red");
+        // }
+        // document.getElementById("btn_circle_green").onclick = function(){
+        //     box1.setAttribute("class", "circle bg-green");
+        // }
+        // document.getElementById("btn_circle_blue").onclick = function(){
+        //     box1.setAttribute("class", "circle bg-blue");
+        // }
+    </script>
+</body>
+</html>

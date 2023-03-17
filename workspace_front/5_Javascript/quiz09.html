@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- <style>
+        .c-red{color:red;}
+        .c-blue{color:blue;}
+    </style> -->
+</head>
+
+<body>
+    <!-- 패스워드 창 2개를 만들어서 동일한 패스워드인지 체크. -->
+    <input type="password" id="input_pw1" placeholder="input your pw"><br>
+    <input type="password" id="input_repw1" placeholder="input your pw again">
+    <div id="div_result_pw"></div>
+
+    <script>
+        let input_pw1 = document.getElementById("input_pw1");
+        let input_repw1 = document.getElementById("input_repw1");
+        let div_result_pw = document.getElementById("div_result_pw");
+
+        input_pw1.addEventListener("keyup", function(e){
+            if(e.key == "Enter"){
+                input_repw1.focus();
+            }
+        });
+
+        input_repw1.addEventListener("keyup", function(e){
+            if(e.key == "Enter"){
+                if(input_pw1.value == input_repw1.value){
+                    div_result_pw.innerHTML = "<p>비밀번호가 일치합니다.</p>";
+                    div_result_pw.style.color = "rgb(0,0,255)";
+                }else{
+                    div_result_pw.innerHTML = "<p>비밀번호가 일치하지 않습니다.</p>";
+                    div_result_pw.style.color = "rgb(255,0,0)";
+                }
+            }
+        });
+
+        // input_pw1.onkeyup = function (e) {
+        //     if (e.keyCode == 13) {
+        //         input_repw1.focus();
+        //     }
+        // }
+        // input_repw1.onkeyup = function (e) {
+        //     if (e.keyCode == 13) {
+        //         if (input_pw1.value == input_repw1.value) {
+        //             div_result_pw.innerHTML = "<p>비밀번호가 일치합니다.</p>";
+        //             div_result_pw.style.color = "rgb(0,0,255)"; //"blue"
+        //         } else {
+        //             div_result_pw.innerHTML = "<p>비밀번호가 일치하지 않습니다.</p>";
+        //             div_result_pw.style.color = "rgb(255,0,0)"; //"red"
+        //         }
+        //     }
+        // }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div{border:1px solid black;}
+        #box1{margin:auto; width:250px; height:250px; line-height: 250px; text-align:center;}
+        #btn1{position:absolute; width:100px; height:50px;}
+    </style>
+</head>
+<body>
+    <!-- Box를 하나 만들고. 마우스를 올리면 텍스트 변경, 마우스를 바깥으로 옮기면 또 다시 변경. -->
+    <!-- 임의: over 및 enter 이벤트가 너무 예민해서[컴 성능?], m_enter 및 m_out 클래스를 통한 체크 추가 -->
+    <!-- 반대로 나가는건 너무 안 예민함. leave 및 out -->
+    <div id="box1"><p>I'm Box</p></div>
+    <button id="btn1">버튼</button>
+    <script>
+        let box1 = document.getElementById("box1");
+        let btn1 = document.getElementById("btn1");
+        box1.onmouseenter = function(){
+            if(box1.classList.contains("m_enter")){
+               return; 
+            }
+            if(box1.classList.contains("m_out")){
+                box1.classList.replace("m_out", "m_enter");
+            }else{
+                box1.classList.add("m_enter");
+            }
+            box1.innerHTML = "<p>박스 마우스 올림 중</p>";
+        }
+        box1.onmouseleave = function(){
+            if(box1.classList.contains("m_out")){
+                return;
+            }
+            if(box1.classList.contains("m_enter")){
+                box1.classList.replace("m_enter", "m_out");
+            }else{
+                box1.classList.add("m_out");
+            }
+            box1.innerHTML = "<p>박스 마우스 떠남</p>";
+        }
+        document.onmousemove = function(e){
+            // console.log("마우스 움직임");
+            // console.log(e.x + " : " + e.y);
+            btn1.style.top = (e.y + 20) +"px";
+            btn1.style.left = (e.x + 20) +"px";
+        }
+    </script>
+</body>
+</html>
