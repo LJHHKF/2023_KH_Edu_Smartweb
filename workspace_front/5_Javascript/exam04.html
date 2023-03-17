@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 이벤트 -->
+    <!-- 이벤트 소스 (Event Source) : 이벤트 발생시 이벤트의 근원(출발)지 -->
+    <!-- 이벤트 리스너(Event Listener) : HTML 요소가 내장하고 있는 이벤트 감지 포인트 -->
+    <!-- 이벤트 핸들러(Event Handler) : 이벤트가 감지되었을 때 취할 행동을 지침하는 함수 -->
+    <button id="btn">버튼</button>
+    <script>
+        let mbtn = document.getElementById("btn");
+        // mbtn.onclick = function(){
+        //     alert("이벤트 발생!");
+        // }
+
+        function evtHandler(){
+            alert("이벤트 감지");
+        }
+        mbtn.onclick = evtHandler;
+        //mbtn.onclick = evthandler();
+        
+    </script>
+</body>
+</html>

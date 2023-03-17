@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 인풋창에 텍스트를 입력하고 Event 버튼을 누르면 alart창으로 입력한 텍스트가 등장하도록 만들 것. -->
+    <input type="text" id="input_t1"><button id="btn1">Event!</button>
+    
+    <script>
+        let input_t1 = document.getElementById("input_t1");
+        document.getElementById("btn1").onclick = function(){
+            alert(input_t1.value);
+            input_t1.value = "";
+        }
+        input_t1.onkeyup = function(e){
+            if(e.keyCode == 13){
+                //enter키가 keyup 된것이라면
+                alert(input_t1.value);
+                input_t1.value = "";
+            }
+        }
+    </script>
+</body>
+</html>

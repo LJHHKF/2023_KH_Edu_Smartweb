@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <input type="text" id="msg" value="Default">
+    <div id="box">
+        <ul>
+            <li>test1</li>
+            <li>test2</li>
+            <li>test3</li>
+        </ul>
+    </div>
+
+    <script>
+        //DOM 함수들
+        //document.write("<p>Hello JS</p>");
+
+        // var inputMsg = document.getElementById("msg");
+        // inputMsg.value = "이 문구는 자바스크립트로 저장되었음.";
+
+        var inputMsg = document.getElementById("msg");
+        console.log(inputMsg.value);
+
+        var divBox = document.getElementById("box");
+        //divBox.value = "TEST"; //동작 안함.
+        // divBox.innerHTML = "이곳이 innerHTML";
+        console.log(divBox.innerHTML);
+    </script>
+</body>
+</html>

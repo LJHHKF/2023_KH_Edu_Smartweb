@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- function -->
+    <script>
+        function plus(num1, num2){
+            if(isNaN(num1) || isNaN(num2)){
+                return null;
+            }else{
+                return num1 + num2;
+            }
+        }
+
+        let result = plus(10,5);
+        console.log(result);
+
+        let func = plus;
+    </script>
+
+    <script>
+        function minus(num1, num2){
+            return num1 - num2;
+        }
+        function test(func, num1, num2){
+            return func(num1, num2);
+        }
+        let mply = function(num1, num2){return num1 * num2;}
+
+        let result2 = test(function(num1, num2){
+            return num1/num2
+        }, 10, 5);
+        console.log(result2);
+
+        
+    </script>
+</body>
+</html>

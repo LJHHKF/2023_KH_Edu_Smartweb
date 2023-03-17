@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* table {
+            border: 1px solid black;
+        }
+
+        table td {
+            border: 1px solid black;
+            text-align: center;
+        } */
+    </style>
+</head>
+
+<body>
+    <script>
+        //행, 열 입력 받아 표 만들기
+        let row = prompt("행 값을 입력해주세요.");
+        let col = prompt("열 값을 입력해주세요.");
+        let count = 1;
+        if (isNaN(row) || isNaN(col)) {
+            document.write("<p>두 값은 모두 숫자여야 합니다. 하나 이상의 값이 숫자가 아닙니다.</p>");
+        } else {
+            document.write("<table border=1>");
+            for (let r = 0; r < row; r++) {
+                document.write("<tr>");
+                for (let c = 0; c < col; c++) {
+                    document.write("<td>" + count++ + "</td>");
+                }
+                document.write("</tr>");
+            }
+            document.write("</table>");
+        }
+    </script>
+</body>
+
+</html>

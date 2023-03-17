@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let input = prompt("n 단 입력");
+        if(isNaN(input)){
+            document.write("<p>숫자를 입력해주세요.</p>");
+        }else{
+            for(let i = 1; i <= 9; i++){
+                document.write("<p>"+input+" * "+i+" = "+(input * i)+"</p>");
+            }
+        }
+    </script>
+</body>
+</html>
