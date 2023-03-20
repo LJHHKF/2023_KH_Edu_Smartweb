@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- Javascript 객체 -->
+    <!-- 자바스크립트 배열 : [] (대괄호)-->
+    <!-- 자바스크립트 객체 : {} (중괄호). (function 연관이 아닐 경우).-->
+    <!-- JSON (JavaScript Object Notation) : (직역)자바스크립트에서 객체를 표현하는 표기법 -->
+    <!-- JSON은 Cross Language Data Type 으로도 부름. -->
+    <!-- 직렬화의 대명사로 크로스 랭귀지, 크로스 플랫폼간 데이터 전송방식으로 많이 사용됨. -->
+
+    <script>
+        //자바스크립트에서 객체를 사용하는 3가지 문법
+        //1. 객체 Literal 방식
+        var obj1 = {
+            num : 123,
+            str : "Hello"
+        };
+        console.log(obj1.num);
+        console.log(obj1["str"]);
+
+        //2. 기본 객체 사용
+        var obj2 = new Object();
+        obj2.id = 1000;
+        obj2.name = "TOM";
+
+        //3. 생성자를 사용
+        function Student(){
+
+        }
+        var std = new Student();
+    </script>
+</body>
+</html>

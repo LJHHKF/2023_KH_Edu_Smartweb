@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        var arr = ["Java", "C++", "Python", "Ruby"];
+        //indexOf : 배열의 요소를 검색하여 해당하는 index 번호를 반환
+        console.log("Python의 index: " + arr.indexOf("Python"));
+        //join : 배열의 모든 요소를 연결하여 하나의 문자열로 반환
+        console.log("배열 요소를 하나의 문자열로 : " + arr.join(":"));
+
+        //reverse : 배열의 모든 요소를 반대로 뒤집는 함수
+        console.log("Reverse 전 : " + arr);
+        arr.reverse();
+        console.log("Reverse 후 : " + arr);
+        arr.reverse();
+
+        //slice : 배열 안에서 특정 범위에 해당하는 요소들을 뽑아내서 배열로 반환
+        //start 값은 (Inclusive : 포함) , end 값은 (Exclusive : 불포함);
+        //원본 배열에는 영향주지 않음.
+        var arr2 = [1,2,3,4,5,6,7,8];
+        console.log("Slice 결과 : " + arr2.slice(3,6));
+        console.log("원본 배열 : " + arr2);
+
+        //splice : 배열 내에서 데이터를 삭제하거나 끼워넣거나 수정하는 등 복합적 기능을 가진 함수.
+        //시작 인덱스부터 (inclusive), 2개. 
+        // arr2.splice(1,2); //1번 인덱스부터 (inclusive) 2개, 1번과 2번 두개 인덱스 삭제
+        // arr2.splice(4); // 4번 인덱스부터 뒷쪽으로 전부 삭제
+        // arr2.splice(1,2,"Hi"); // 1번 인덱스에서 두개(2번인덱스까지..) 를 삭제하고 Hi를 삽입
+        // arr2.splice(1,1,"Hi"); // 1번 인덱스에 있는 요소를 삭제 후 Hi를 삽입(1번 자리를 Hi로 변경)
+        // arr2.splice(1,0,"Hi"); // 1번 인덱스 자리에 'Hi'를 끼워넣고 전부 뒤로 밀기
+        console.log(arr2.splice(1,2,"Hi", "Hi2"));
+        console.log(arr2);
+    </script>
+</body>
+</html>

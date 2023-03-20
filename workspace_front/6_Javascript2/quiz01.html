@@ -22,46 +22,43 @@
     <br>
     <button id="btn_delete_front">앞에서 삭제</button>
     <button id="btn_delete_back">뒤에서 삭제</button>
+    <br>
+    <button id="btn_clear">모두 삭제</button>
 
 
     <script>
-        let arr = [];
-        function updateResult() {
-            if (arr.length > 0) {
-                let str = "";
-                for (let i = 0; i < arr.length - 1; i++) {
-                    str += arr[i] + ",";
-                }
-                str += arr[arr.length-1];
-                document.getElementById("results").innerHTML = "<p>" + str + "</p>";
-            }else{
-                document.getElementById("results").innerHTML = "<p></p>";
-            }
+        function updateResults(){
+            document.getElementById("results").innerHTML = "<p>"+arr+"</p>";
         }
 
+        let arr = [];
         let input_text = document.getElementById("input_text");
         document.getElementById("btn_add_front").addEventListener("click", function(){
             if(input_text.value.trim().length > 0){
                 arr.unshift(input_text.value.trim());
-                updateResult();
+                updateResults();
                 input_text.value = "";
             }
         });
         document.getElementById("btn_add_back").addEventListener("click", function(){
             if(input_text.value.trim().length > 0){
                 arr.push(input_text.value.trim());
-                updateResult();
+                updateResults();
                 input_text.value = "";
             }
         });
         document.getElementById("btn_delete_front").addEventListener("click", function(){
             arr.shift();
-            updateResult();
+            updateResults();
         });
         document.getElementById("btn_delete_back").addEventListener("click", function(){
             arr.pop();
-            updateResult();
-        })
+            updateResults();
+        });
+        document.getElementById("btn_clear").addEventListener("click", function(){
+            arr.length=0;
+            updateResults();
+        });
     </script>
 </body>
 
