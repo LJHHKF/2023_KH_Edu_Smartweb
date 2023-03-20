@@ -1,0 +1,104 @@
+[문제1]
+<문제점>
+1. 가로로, flaoting 된 결과를 원하는 것 같으나 현재는 각 div가 한줄을 꽉 차지하는 기본 block 방식으로 배치되어 있습니다. 수정해 주어야 합니다.
+
+<기타사항>
+a. 예시서 중간 생략한 부분은 작성하지 않고 넘겼습니다.
+
+<해결책>
+1.<style>의 '.popular_building{}' 에서 'float:left'를 추가해주어 해결하였습니다.
+
+<해결 후 코드>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .popular_building{
+            border: 1px solid gray;
+            margin: 15px;
+            padding : 15px;
+            text-align: center;
+            float:left;
+        }
+    </style>
+</head>
+<body>
+    <p><b>인기 매물 ▶</b></p>
+    <div class="popular_building">
+        <img src="건물1.png" alt="건물1"><br>
+        건물1 / 오피스텔 <br>
+        총 222세대
+    </div>
+    <div class="popular_building">
+        <img src="건물2.png" alt="건물2"><br>
+        건물2 / 아파트 <br>
+        총 1540세대
+    </div>
+    <div class="popular_building">
+        <img src="건물3.png" alt="건물3"><br>
+        건물3 / 아파트 <br>
+        총 1120세대
+    </div>
+    <div class="popular_building">
+        <img src="건물4.png" alt="건물4"><br>
+        건물4 / 오피스텔 <br>
+        총 312세대
+    </div>
+</body>
+</html>
+
+[문제2]
+<문제점>
+1. sizeToMeter() 및 meterToSize() 양쪽 모두에서, 0.3025를 나누거나 곱하면서 변환해줄 때에, 기존 값을 '(요소값변수).(원하는 속성)'가 아닌 '(요소값변수)'로 쓰고 있어서, 요소 주소 값을 가지고 계산하려고 하는 꼴인 상태입니다. 수정해줘야 합니다.
+
+<기타사항>
+a. 두번째 변환 버튼에서 'btn'이라는 id를 쓰지도 않는데 할당해둔 것을 보았습니다. 별도로 큰 문제는 없는 부분이지만 일관성이 없다고 보아 수정하였습니다.
+
+b. 스크립트의 두 함수가 변수 선언 해 줄 필요 없이, 한 줄로 처리가 가능할 것으로 보아서 해당 방식으로 수정하였습니다.
+
+<해결책>
+1. 두 부분에서 모두 '(요소값변수).value'로 수정하여 해결하였습니다.
+
+<기타사항 적용>
+a. 해당 부분의 id='btn' 부분을 삭제하였습니다.
+
+b. 두 함수의 변수 선언부를 없애고 한 줄로 처리해보았습니다.
+
+<해결 후 코드>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        function sizeToMeter(){
+            var size = document.getElementById("size1");
+            var meter = size.value / 0.3025;
+            document.getElementById("meter1").value = meter.toFixed(2);
+            // toFixed(n) : n번째 소수까지 표시하는 함수 (소수점 아래 n+1번째 자리에서 반올림) 
+        }
+
+        function meterToSize(){
+            var meter = document.getElementById("meter2");
+            var size = meter.value * 0.3025;
+            document.getElementById("size2").value = size.toFixed(2);
+        }
+    </script>
+        
+</head>
+<body>
+    평 : <input type="text" id="size1" size="10"> → m² : <input type="text" id="meter1" size="10" readonly>
+    <button onclick="sizeToMeter();">변환</button>
+
+    <br>
+
+    m² : <input type="text" id="meter2" size="10"> → 평 : <input type="text" id="size2" size="10" readonly>
+    <button onclick="meterToSize();">변환</button>
+</body>
+</html>
