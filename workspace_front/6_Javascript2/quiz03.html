@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS2_Quiz03</title>
+    <script type="text/javascript"
+        src="//dapi.kakao.com/v2/maps/sdk.js?appkey=2730bce8454ea87487f98b0772c16829"></script>
+</head>
+
+<body>
+    <div id="map" style="width:100%;height:350px;"></div>
+    <div>
+        <p>markers :</p> <span id="spanCount"></span>
+        <button id="btn_clear">전체삭제제</button>
+    </div>
+    <script>
+        var mapContainer = document.getElementById('map'),
+            mapOption = {
+                center: new kakao.maps.LatLng(33.450701, 126.570667),
+                level: 3 // 지도의 확대 레벨
+            };
+        var spanCount = document.getElementById("spanCount");
+        var map = new kakao.maps.Map(mapContainer, mapOption);
+
+
+        // var geocoder = new kakao.maps.services.Geocoder();
+
+        var markers = [];
+
+        kakao.maps.event.addListener(map, "click", function (e) {
+            var pos = e.latLng;
+            var marker = new kakao.maps.Marker({
+                position: pos
+            });
+
+            kakao.maps.event.addListener(marker, "rightclick", function () {
+                markers.splice(markers.indexOf(marker), 1);
+                marker.setMap(null);
+                spanCount.innerHTML = markers.length;
+            });
+            marker.setMap(map);
+            markers.push(marker);
+            spanCount.innerHTML = markers.length;
+        });
+
+        document.getElementById("btn_clear").addEventListener("click", function () {
+            while(markers.length > 0){
+                markers.pop().setMap(null);
+            }
+            //또는 for(let i = 0; i < markers.length;) ~
+            spanCount.innerHTML = markers.length;
+        });
+
+        // kakao.maps.event.addListener(map, "click", function(mouseEvent){
+        //     searchAddFromCoords(mouseEvent.latLng, function(result, status){
+        //         if(status == kakao.maps.services.Status.OK){
+        //             var n_marker = new kakao.maps.Marker();
+        //             n_marker.setPosition(mouseEvent.latLng);
+        //             n_marker.setMap(map);
+        //             markers.push(n_marker);
+        //             spanCount.innerHTML = markers.length;
+
+        //             kakao.maps.event.addListener(n_marker, "rightclick", function(){
+        //                 markers.splice(markers.indexOf(n_marker),1);
+        //                 n_marker.setMap(null);
+        //                 spanCount.innerHTML = markers.length;
+        //             })
+        //         }
+        //     });
+        // });
+
+        // function searchAddFromCoords(coords, callback){
+        //     geocoder.coord2RegionCode(coords.getLng(), coords.getLat(), callback);
+
+        // }
+    </script>
+</body>
+
+</html>

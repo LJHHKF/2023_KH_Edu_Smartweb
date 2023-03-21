@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 객체 리터럴 사용법 -->
+    <script>
+        //Q&A 중 기본 개념 보충용
+        var arr = [];
+        //1. arr이라는 이름의 변수를 만들고
+        //2 비어있는 배열을 만든 다음 그 주소를 반환 받아
+        //3. arr 변수에 배열 주소를 저장하라.
+
+        var person = {
+            name:"Jack",
+            contact:"01012344321",
+            hello:function(){
+                return "Hello everyone. I'm " + this.name;
+            },
+            hobby:["Java", "Game", "Book"],
+            score:{
+                kor:80, eng:90, math:70
+            },
+            favoriteFruits:function(){
+                return ["Apple", "Orange", "Mango"];
+            },
+            ability:function(){
+                return {
+                    java:function(){return 100;},
+                    css:function(){return 90;},
+                    js:function(){return 70;},  
+                };
+            },
+            helloTo:function(friend){
+                console.log("Hello " + friend.name);
+            },
+            Robot:function(){
+                this.name = "Mazinga";
+                this.price = 500000;
+            },
+        };
+        function Student(name){
+            this.name = name;
+        }
+        console.log(person.name);
+        console.log(person["contact"]);
+        console.log(person.hello());
+        console.log(person.hobby[2]);
+        console.log(person.score.math);
+        console.log(person.favoriteFruits()[2]);
+        console.log(person.ability().css());
+        person.helloTo({name:"Jon"}); //객체 리터럴을 통한 객체 전달
+        person.helloTo(new Student("Tom")); //생성자를 통한 객체 생성 전달 방식
+        console.log(new person.Robot()); 
+    </script>
+</body>
+</html>

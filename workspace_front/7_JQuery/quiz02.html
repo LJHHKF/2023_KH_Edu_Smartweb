@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JQ_Quiz02</title>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+</head>
+<body>
+    <input type="text" id="input_num1" placeholder="첫번째 수 입력"><br>
+    <input type="text" id="input_num2" placeholder="두번째 수 입력"><br>
+    <button id="btn_plus">+</button><br>
+    <div id="result"></div>
+
+    <script>
+        $("#btn_plus").on("click", function(){
+            if(isNaN($("#input_num1").val()) || isNaN($("#input_num2").val())){
+                $("#result").html("<p>두 수 모두 숫자 형식으로 입력해주셔야 합니다.</p>");
+            }else{
+                $("#result").html("<p>" + (Number.parseInt($("#input_num1").val()) + Number.parseInt($("#input_num2").val())) + "</p>");
+            }
+            $("#input_num1").val("");
+            $("#input_num2").val("");
+            $("#input_num1").focus();
+        });
+        $("#input_num1").on("keyup", function(e){
+            if(e.key == "Enter"){
+                $("#input_num2").focus();
+            }
+        });
+        $("#input_num2").on("keyup", function(e){
+            if(e.key == "Enter"){
+                $("#btn_plus").click();
+            }
+        })
+    </script>
+</body>
+</html>

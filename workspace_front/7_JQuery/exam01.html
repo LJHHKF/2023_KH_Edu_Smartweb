@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JQ_exam01</title>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+</head>
+<body>
+    <!-- JQuery -->
+    <!-- 1. 더 편리한 Javascript -->
+    <!-- 2. 크로스 브라우저 호환성을 위한 라이브러리 -->
+    <input type="text" id="target" value="JQuery">
+    <div id="box">여기에 메세지</div>
+    <script>
+        //document.getElementById("target")
+        alert($("#target").val());
+        $("#target").val("값 변경");
+
+        console.log($("#box").html());
+        $("#box").text("변경된 메시지");
+
+        $("#box").css({
+            "background-color":"pink",
+            "color":"dodgerblue",
+        });
+    </script>
+</body>
+</html>
