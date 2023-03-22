@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <style>
+        div {
+            border: 1px solid black;
+        }
+
+        .box {
+            width: 100px;
+            height: 100px;
+            margin-top: 10px;
+        }
+
+        #circle {
+            width: 80px;
+            height: 80px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 선생님 한 개의 노드를 여러 군데에 사용하면 
+    마지막으로 사용한(코드에서 맨 밑)장소에 노드가 있고 
+    다른곳은 비어있게 되는데 노드는 끌어다가 사용하는것이 
+    아니라 배치하는 느낌인건가요 ? -->
+
+    <div class="box" id="box1">
+
+    </div>
+    <div class="box" id="box2">
+
+    </div>
+
+    <script>
+        var circle = $("<div>");
+        circle.attr("id", "circle");
+        circle.css({ "border-radius": "50px" });
+
+        var circle2 = circle.clone();
+
+        $("#box1").append(circle);
+        $("#box2").append(circle2);
+    </script>
+
+
+</body>
+
+</html>

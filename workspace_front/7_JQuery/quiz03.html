@@ -8,10 +8,12 @@
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 </head>
 <body>
-    <div id="row1"><p>P1</p></div>
-    <div id="row2"><p>P2</p></div>
-    <div id="row3"><p>P3</p></div>
-    <div id="row4"><p>P4</p></div>
+    <div id="content">
+        <p>P1</p>
+        <p>P2</p>
+        <p>P3</p>
+        <p>P4</p>
+    </div>
     <input type="text" id="input_row1" placeholder="행번호">
     <input type="text" id="input_background1" placeholder="배경색">
     <button id="btn_confirm">적용</button>
@@ -20,11 +22,9 @@
         $("#btn_confirm").on("click", function(){
             if(!isNaN($("#input_row1").val())){
                 var row = Number.parseInt($("#input_row1").val());
-                if(row > 0 && row <= 4){
-                    $("#row"+row).css({
-                        "background-color":$("#input_background1").val()
-                    });
-                }
+                $("#content>p:nth-child("+row+")").css({
+                    "background-color":$("#input_background1").val()
+                });
             }
             $("#input_row1").val("");
             $("#input_background1").val("");

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JQ_exam03</title>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <style>
+        #box{border:1px solid black;}
+    </style>
+</head>
+<body>
+    <!-- before, prepend, append, after -->
+    <div id="box">
+        내용<br>
+    </div>
+
+    <script>
+
+        var p = $("<p>");
+        p.append("여기가 Prepend");
+        p.css({"background-color":"pink"});
+        var button = $("<button>");
+        button.html("여기가 Append");
+        button.attr("id", "btn");
+
+        $("#box").before("여기가 Before");
+        $("#box").after("<p style='color:dodgerblue'>여기가 After</p>");
+        $("#box").prepend(p);
+        $("#box").append(button);
+        
+    </script>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JQ_Quiz05</title>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <style>
+        #container{
+            border: 1px solid black;
+            width:600px;
+            height:400px;
+            overflow-y:auto;
+            margin:auto;
+        }
+    </style>
+</head>
+<body>
+    <div id="container"></div>
+    <div style="text-align:center;">
+        <button id="btn_add_prepend">위로 추가하기</button>
+        <button id="btn_add_append">아래로 추가하기</button>
+    </div>
+
+    <script>
+        let count = 1;
+        let text = "content : ";
+
+        function updateScroll_down(){
+            var element = document.getElementById("container");
+            element.scrollTop = element.scrollHeight;
+        }
+        function updateScroll_up(){
+            var element = document.getElementById("container");
+            element.scrollTop = 0;
+        }
+        
+        $("#btn_add_prepend").on("click", ()=>{
+            let lineDiv = $("<div>");
+            lineDiv.append(text + count++);
+            $("#container").prepend(lineDiv);
+            updateScroll_up();
+        });
+        $("#btn_add_append").on("click", ()=>{
+            let lineDiv = $("<div>");
+            lineDiv.append(text + count++);
+            $("#container").append(lineDiv);
+            updateScroll_down();
+        });
+    </script>
+    
+</body>
+</html>

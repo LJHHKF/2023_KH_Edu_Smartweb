@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JQ_Quiz07</title>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <style>
+        table{
+            width:800px;
+            table-layout: fixed;
+            height: auto;
+            word-wrap: break-word;
+        }
+        tr{
+            width:100%;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Input Controls에서 제목, 내용, 작성자 입력 받고 '추가하기'버튼 누르면, 아래 테이블에 컬럼이 붙도록 만들어볼 것.  -->
+    <fieldset>
+        <legend>Input Controls</legend>
+        <input type="text" id="input_title"><br>
+        <textarea id="input_content" cols="30" rows="10"></textarea><br>
+        <input type="text" id="input_creator">
+        <button id="btn_add">추가하기</button>
+    </fieldset>
+    <table id="table" border="1" width="800px">
+        <tr>
+            <th style="width:15%;">제목</th>
+            <th style="width:80%">내용</th>
+            <th style="width:5%">작성자</th>
+        </tr>
+    </table>
+
+    <script>
+        function myReplaceTextSet(text) {
+            if (typeof (text) == "string") {
+                text = text.replaceAll(/(\n|\r\n)/g, "<br>");
+                text = text.replaceAll(" ", "&nbsp;");
+                return text;
+            }else{
+                return null;
+            }
+        }
+
+        $("#btn_add").on("click", () => {
+            let text_title = $("#input_title").val();
+            let text_content = $("#input_content").val();
+            let text_creator = $("#input_creator").val();
+            if ((text_content.length > 0 && text_content != "\n")
+                && text_title.length > 0
+                && text_creator.length > 0) {
+                text_content = myReplaceTextSet(text_content);
+                text_title = myReplaceTextSet(text_title);
+                text_creator = myReplaceTextSet(text_creator);
+
+                $("#table").append("<tr>"
+                    + "<td>" + text_title
+                    + "<td>" + text_content
+                    + "<td>" + text_creator);
+            }
+            $("#input_title").val("");
+            $("#input_content").val("");
+            $("#input_creator").val("");
+            $("#input_title").focus();
+        });
+
+        $("#input_title").on("keyup", (e) => {
+            if (e.key == "Enter") {
+                $("#input_content").focus();
+            }
+        });
+        $("#input_content").on("keyup", (e) => {
+            if (e.key == "Enter" && !e.shiftKey) {
+                $("#input_creator").focus();
+            }
+        });
+        $("#input_creator").on("keyup", (e) => {
+            if (e.key == "Enter") {
+                $("#btn_add").click();
+            }
+        });
+    </script>
+</body>
+
+</html>
