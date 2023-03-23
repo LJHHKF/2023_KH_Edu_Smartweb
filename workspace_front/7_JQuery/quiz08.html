@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JQ_Quiz08</title>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <style>
+        .btn_cancel{
+            border:none;
+            background-color: transparent;
+        }
+    </style>
+</head>
+
+<body>
+    파일첨부<button id="btn_add">+</button>
+    <fieldset>
+        <legend>File List</legend>
+        <div id="file_field"></div>
+    </fieldset>
+    <script>
+        let files = [];
+        $("#btn_add").on("click", function () {
+            if (files.length < 5) {
+                let div = $("<div>"),
+                    fileInput = $("<input type='file'>"),
+                    btn_cancel = $("<button>");
+                btn_cancel.addClass("btn_cancel");
+                btn_cancel.append("x");
+                div.append(fileInput, btn_cancel);
+                $("#file_field").append(div);
+                files.push(div);
+
+                btn_cancel.on("click", function(){
+                    files.splice(files.indexOf(div),1);
+                    div.remove();
+                });
+            }
+        });
+
+        // $("#file_field").on("click", ".btn_cancel", function(){
+        //     files.splice(files.indexOf($(this).parent()),1);
+        //     $(this).parent().remove();
+        // });
+
+    </script>
+</body>
+
+</html>

@@ -8,14 +8,22 @@
     <title>JQ_Quiz07</title>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <style>
-        table{
-            width:800px;
+        table {
+            width: 800px;
             table-layout: fixed;
             height: auto;
             word-wrap: break-word;
         }
-        tr{
-            width:100%;
+
+        tr {
+            width: 100%;
+        }
+
+        table button {
+            width: 100%;
+            height: 100%;
+            margin: 0px;
+            padding: 0px;
         }
     </style>
 </head>
@@ -27,13 +35,16 @@
         <input type="text" id="input_title"><br>
         <textarea id="input_content" cols="30" rows="10"></textarea><br>
         <input type="text" id="input_creator">
-        <button id="btn_add">추가하기</button>
+        <button id="btn_add">추가하기</button><br>
+        <input type="text" placeholder="삭제 할 대상 제목" id="input_delete_title">
+        <button id="btn_delete">삭제하기</button>
     </fieldset>
     <table id="table" border="1">
         <tr>
             <th style="width:15%;">제목</th>
-            <th style="width:80%">내용</th>
-            <th style="width:5%">작성자</th>
+            <th style="width:75%">내용</th>
+            <th style="width:10%">작성자</th>
+            <!-- <th style="width:5%;">삭제</th> -->
         </tr>
     </table>
 
@@ -43,26 +54,47 @@
                 text = text.replaceAll(/(\n|\r\n)/g, "<br>");
                 text = text.replaceAll(" ", "&nbsp;");
                 return text;
-            }else{
+            } else {
                 return null;
             }
         }
+
+        //동적 바인딩
+        // $("#table").on("click", ".delete", function(){
+        //     //(this).(td).(tr)
+        //     // $(this).parent().parent().remove();
+        //     $(this).closest("tr").remove();
+        // });
 
         $("#btn_add").on("click", () => {
             let text_title = $("#input_title").val();
             let text_content = $("#input_content").val();
             let text_creator = $("#input_creator").val();
-            if ((text_content.length > 0 && text_content != "\n")
-                && text_title.length > 0
-                && text_creator.length > 0) {
+            if ((text_content.trim().length > 0 && text_content != "\n")
+                && text_title.trim().length > 0
+                && text_creator.trim().length > 0) {
                 text_content = myReplaceTextSet(text_content);
-                text_title = myReplaceTextSet(text_title);
-                text_creator = myReplaceTextSet(text_creator);
+                text_title = text_title.trim();
+                text_creator = text_creator.trim();
 
-                $("#table").append("<tr>"
-                    + "<td>" + text_title
-                    + "<td>" + text_content
-                    + "<td>" + text_creator);
+                let tr = $("<tr>"),
+                    // btndelete = $("<button class='delete'>").append("X"),
+                    tds = [
+                        $("<td>").append(text_title),
+                        $("<td>").append(text_content),
+                        $("<td>").append(text_creator),
+                        // $("<td>").append(btndelete)
+                    ];
+                for (let i = 0; i < tds.length; i++) {
+                    tr.append(tds[i]);
+                }
+                $("#table").append(tr);
+
+                // btndelete.on("click", function(){
+                //     tr.remove();
+                // });
+            } else {
+                alert("모든 내용을 다 입력하시고 추가 해주셔야 합니다.");
             }
             $("#input_title").val("");
             $("#input_content").val("");
@@ -85,6 +117,32 @@
                 $("#btn_add").click();
             }
         });
+
+
+        $("#btn_delete").on("click", ()=>{
+            let text_title = $("#input_delete_title").val();
+            if(text_title.trim().length > 0){
+                text_title = text_title.trim();
+                //(table).(tbody).(tr)
+                let tr = $("#table").children().children();
+                for(let i = 1; i < tr.length; i++){
+                    //.(td배열)[0].html()
+                    if($($(tr[i]).children()[0]).html() == text_title){
+                        $(tr[i]).remove();
+                        break;
+                    }
+                }
+            }
+            $("#input_delete_title").val("");
+        });
+
+        $("#input_delete_title").on("keyup", (e)=>{
+            if(e.key == "Enter"){
+                $("#btn_delete").click();
+            }
+        });
+
+
     </script>
 </body>
 

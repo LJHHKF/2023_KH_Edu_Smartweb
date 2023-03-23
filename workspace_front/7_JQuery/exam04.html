@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JQ_Exam04</title>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <style>
+        div{border:1px solid black;}
+    </style>
+</head>
+
+<body>
+    <div id="home">
+        Home
+        <div id="grand_parent">
+            GrandParent
+            <div id="parent01">
+                Parent01
+                <div id="brother01">
+                    Brother01
+                </div>
+                <div id="me">
+                    Me
+                    <div id="sister01">
+                        Sister01
+                        <div id="baby">
+                            Baby01
+                        </div>
+                    </div>
+                    <div id="sister02">
+                        Sister02
+                    </div>
+                </div>
+                <div id="brother02">
+                    Brother02
+                </div>
+            </div>
+            <div id="parent02">
+                Parent02
+            </div>
+        </div>
+    </div>
+
+    <script>
+        //부모 방향 검색 : closets(), parent()
+        //자식 방향 검색 : children(), find()
+        //형제 요소 검색 : prev(), next(), siblings()
+        // console.log($("#me").parent());
+        // console.log($("#me").parent().parent());
+        // console.log($("#me").parent().parent().parent());
+        // console.log($("#me").closest("#grand_parent"));
+
+        // console.log($("#me").children());
+        // console.log($("#me").find("#baby"));
+
+        // console.log($("#me").prev());
+        // console.log($("#me").next());
+        // console.log($("#me").siblings());
+
+        //Quiz01. me를 기준으로 baby 요소를 찾아 background 컬러를 pink 적용
+        $("#me").find("#baby").css({
+            "background-color" : "pink"
+        });
+        //Quiz02. me를 기준으로 parent02 요소를 찾아 background 컬러를 goldenrod 적용
+        $("#me").parent().next().css({
+            "background-color":"goldenrod"
+        })
+        //Quiz03. sister02를 기준으로 brother02를 찾아 background 컬러를 forestgreen 적용
+        $($("#sister02").parent().siblings()[1]).css({
+            "background-color":"forestgreen"
+        });
+        //Quiz04. home 을 기준으로 sister01을 찾아 background 컬러 violet을 적용
+        $("#me").find("#sister01").css({
+            "background-color":"violet"
+        });
+        //Quiz05. sister02를 기준으로 babay를 찾아 border을 1px dotted dodgerblue 적용
+        $("#sister02").parent().find("#baby").css({
+            "border" : "1px dotted dodgerblue"
+        });
+    </script>
+</body>
+
+</html>
