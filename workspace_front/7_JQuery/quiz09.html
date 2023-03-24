@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        /* div {border: 1px solid black;} */
+
+        .container {
+            margin: auto;
+            width: 80%;
+        }
+
+        .header {
+            background-color: lightgray;
+        }
+
+        #newComment>.body {
+            width: 100%;
+            height: 100px;
+            overflow: hidden;
+        }
+
+        #input_comment {
+            width: 80%;
+            height: 100%;
+            float: left;
+        }
+
+        #btn_input_confirm {
+            width: 20%;
+            height: 100%;
+            margin: 0px;
+            padding: 0px;
+            float: left;
+        }
+
+        .comment_full{
+            overflow: hidden;
+            height:100px;
+            word-wrap: break-word;
+            border: 1px solid black;
+        }
+        .comment_full div{
+            border: 1px solid black;
+        }
+        .comment_body{
+            float:left;
+            width:80%;
+            height:100%;
+        }
+        .comment_body>.header{
+            height:25%;
+        }
+        .comment_body>.body{
+            overflow-y:auto;
+            border: none;
+            height: 75%;
+        }
+        .comment_button{
+            float:left;
+            width: 20%;
+            height: 100%;
+            line-height:100px;
+            text-align: center;
+        }
+    </style>
+    <script>
+        function myReplaceTextSet(text) {
+            if (typeof (text) == "string") {
+                text = text.replaceAll(/(\n|\r\n)/g, "<br>");
+                text = text.replaceAll(" ", "&nbsp;");
+                return text;
+            } else {
+                return null;
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <div class="container">
+        <div id="newComment">
+            <div class="header">
+                <input type="text" id="input_creator" placeholder="작성자명을 입력해주세요" maxlength="50">
+            </div>
+            <div class="body">
+                <textarea id="input_comment" cols="30" rows="10"></textarea>
+                <button id="btn_input_confirm">Reply</button>
+            </div>
+        </div>
+        <hr>
+        <div id="comments">
+
+        </div>
+    </div>
+
+    <script>
+        $("#btn_input_confirm").click(function () {
+            let text_creator = $("#input_creator").val().trim();
+            let text_comment = $("#input_comment").val();
+
+            if (text_creator.length > 0
+                && text_comment.length > 0) {
+                //변수 생성
+                let comment_full = $("<div>").addClass("comment_full");
+                let comment_body = $("<div>").addClass("comment_body");
+                let button_body = $("<div>").addClass("comment_button");
+                let header = $("<div>").addClass("header");
+                let body = $("<div>").addClass("body");
+                let delButton = $("<button>").addClass("delButton");
+                
+                //텍스트 다듬기
+                text_comment = myReplaceTextSet(text_comment);
+
+                //내용 채우기
+                header.append(text_creator + " 님의 글");
+                body.append(text_comment);
+                delButton.append("삭제");
+
+                //구조 만들기
+                comment_body.append(header, body);
+                button_body.append(delButton);
+                comment_full.append(comment_body, button_body);
+                $("#comments").append(comment_full);
+
+                //삭제 버튼에 기능 추가하기. (클로저판)
+                delButton.click(function(){
+                    comment_full.remove();
+                });
+            }
+
+            $("#input_creator").focus();
+            $("#input_creator").val("");
+            $("#input_comment").val("");
+        });
+        //삭제 버튼에 기능 추가하기 (동적 바인딩판)
+        // $("#comments").on("click", ".delButton", function(){
+        //     $(this).parent().parent().remove();
+        // });
+        $("#input_creator").keyup(function (e) {
+            if (e.key == "Enter") {
+                $("#input_comment").focus();
+            }
+        });
+        $("#input_comment").keyup(function (e) {
+            if (e.key == "Enter" && !e.shiftKey) {
+                $("#btn_input_confirm").click();
+            }
+        });
+
+
+    </script>
+</body>
+
+</html>

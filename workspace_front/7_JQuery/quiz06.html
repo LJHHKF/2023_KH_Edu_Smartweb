@@ -22,17 +22,47 @@
             margin:auto;
         }
 
-        .container>#chatBody {
+        .container #chatBody {
             height: 80%;
             width: 100%;
             overflow-y: auto;
             word-wrap: break-word;
+            padding:10px;
+        }
+        .container>.floatWrapper{
+            width:100%;
+            overflow:hidden;
         }
 
-        .container>#input_chat {
-            height: 20%;
-            width: 100%;
+        .floatWrapper>#input_chat {
+            height: 100%;
+            width: 80%;
+            float: left;
             overflow-y: auto;
+            word-wrap: break-word;
+        }
+        .floatWrapper>#input_icon{
+            height: 100%;
+            width: 20%;
+            float: left;
+        }
+        .floatWrapper>#input_icon>button{
+            width: 100%;
+            height: 100%;
+        }
+        .container>#emoticons{
+            overflow: hidden;
+        }
+        .container>#emoticons>.imgLine{
+            width:100%;
+            overflow: hidden;
+        }
+        .container>#emoticons>.imgLine>img{
+            width:25%;
+            float: left;
+        }
+        .container>#emoticons>.imgLine>img:hover{
+            background-color: bisque;
         }
 
         .row {
@@ -60,19 +90,36 @@
 <body>
     <div class="container">
         <div id="chatBody"></div>
-        <textarea id="input_chat"></textarea>
+        <div class="floatWrapper" style="height:20%">
+            <div id="input_chat" contenteditable="true"></div>
+            <div id="input_icon"><button>Icon</button></div>
+        </div>
+        <div id="emoticons">
+            <div class="imgLine">
+                <img src="kakao_emoticon1.png" alt="kakao_emoticon1">
+                <img src="kakao_emoticon2.png" alt="kakao_emoticon2">
+                <img src="kakao_emoticon3.png" alt="kakao_emoticon3">
+                <img src="kakao_emoticon4.png" alt="kakao_emoticon4">
+            </div>
+            
+        </div>
     </div>
     <script>
         function updateScroll_down() {
             let element = document.getElementById("chatBody");
             element.scrollTop = element.scrollHeight;
         }
-
         $("#input_chat").focus();
-        $("#input_chat").on("keyup", (e) => {
-            if (e.key == "Enter") {
-                if (!e.shiftKey) {
-                    let text = $("#input_chat").val();
+        $("#emoticons").slideToggle();
+
+        $("#input_chat").on("keydown", (e)=>{
+            if(e.key == "Enter"){
+                if(e.shiftKey){
+                    document.execCommand('insertLineBreak');
+                    e.preventDefault();
+                }else{
+                    e.preventDefault();
+                    let text = $("#input_chat").html();
                     if (text.length > 0 && text != "\n") {
                         let line = $("<div>");
                         let row = $("<div>");
@@ -84,19 +131,28 @@
                         let date = new Date();
 
                         dateBox.append(date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds());
-                        text = text.replaceAll(/(\n|\r\n)/g, "<br>");
-                        text = text.replaceAll(" ", "&nbsp;");
-                        text = text.slice(0, text.length - 2);
                         line.append(text);
                         row.append(line);
                         row.append(dateBox);
 
                         $("#chatBody").append(row);
                         updateScroll_down();
+                        e.preventDefault();
+                        $("#emoticons").slideUp();
                     }
-                    $("#input_chat").val("");
+                    $("#input_chat").html("");
                 }
             }
+        });
+
+        $("#input_icon>button").click(function(){
+            $("#emoticons").slideToggle();
+        });
+
+        $("#emoticons>.imgLine>img").on("click", function(){
+             let img = $("<img>").attr("src", $(this).attr("src"));
+             img.attr("alt", $(this).attr("alt"));
+             $("#input_chat").append(img);
         });
     </script>
 </body>
