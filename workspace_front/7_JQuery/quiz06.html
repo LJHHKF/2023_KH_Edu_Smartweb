@@ -101,7 +101,6 @@
                 <img src="kakao_emoticon3.png" alt="kakao_emoticon3">
                 <img src="kakao_emoticon4.png" alt="kakao_emoticon4">
             </div>
-            
         </div>
     </div>
     <script>
@@ -110,16 +109,19 @@
             element.scrollTop = element.scrollHeight;
         }
         $("#input_chat").focus();
-        $("#emoticons").slideToggle();
+        $("#emoticons").slideUp();
 
         $("#input_chat").on("keydown", (e)=>{
             if(e.key == "Enter"){
+                e.preventDefault(); // 또는 'return false'
                 if(e.shiftKey){
                     document.execCommand('insertLineBreak');
-                    e.preventDefault();
-                }else{
-                    e.preventDefault();
-                    let text = $("#input_chat").html();
+                }
+            }
+        });
+        $("#input_chat").on("keyup", (e)=>{
+            if(e.key == "Enter" && !e.shiftKey){
+                let text = $("#input_chat").html();
                     if (text.length > 0 && text != "\n") {
                         let line = $("<div>");
                         let row = $("<div>");
@@ -141,7 +143,6 @@
                         $("#emoticons").slideUp();
                     }
                     $("#input_chat").html("");
-                }
             }
         });
 

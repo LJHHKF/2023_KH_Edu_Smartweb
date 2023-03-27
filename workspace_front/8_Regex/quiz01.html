@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Regex_Quiz01</title>
+</head>
+<body>
+    <input type="text" id="phone" placeholder="핸드폰 번호를 입력하세요.">
+    <button id="check">검사</button>
+    <fieldset>
+        <legend>검사 결과</legend>
+        <div id="result"></div>
+    </fieldset>
+
+    <script>
+        document.getElementById("check").addEventListener("click", function(){
+            let phone_regex = /^01[0-9]-?[0-9]{4,4}-?[0-9]{4,4}$/;
+            let phone = document.getElementById("phone");
+            let result = document.getElementById("result");
+            if(phone_regex.test(phone.value)){
+                result.innerHTML = "핸드폰 번호입니다.";
+            }else{
+                result.innerHTML = "핸드폰 번호가 아닙니다.";
+            }
+            phone.value = "";
+        });
+
+        document.getElementById("phone").addEventListener("keyup", function(e){
+            if(e.key == "Enter"){
+                document.getElementById("check").click();
+            }
+        });
+        
+    </script>
+</body>
+</html>

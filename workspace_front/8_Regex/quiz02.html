@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Regex_Quiz02</title>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+</head>
+<body>
+    <input type="text" id="input_id" placeholder="ID를 입력해주세요">
+    <button id="btn_id_confirm">검증</button>
+    <div>
+        <p>ID 조건</p>
+        <ol>
+            <li style="color:red">첫 글자는 알파벳 대문자만 가능</li>
+            <li style="color:red">나머지는 알파벳 소문자, 숫자 또는 _만 가능</li>
+            <li style="color:red">최소 7자리에서 13자리까지만 허용</li>
+        </ol>
+    </div>
+    <fieldset>
+        <legend>검증 결과</legend>
+        <div id="text_result"><p></p></div>
+    </fieldset>
+    <script>
+        $("#input_id").focus();
+        $("#btn_id_confirm").click(function(){
+            let id_regex = /^[A-Z][a-zA-Z0-9_]{6,12}$/;
+            if(id_regex.test($("#input_id").val())){
+                $("#text_result>p").html("사용 가능한 ID입니다.");
+            }else{
+                $("#text_result>p").html("사용 불가한 ID입니다.");
+            }
+            $("#input_id").val("");
+            $("#input_id").focus();
+        });
+        $("#input_id").on("keyup", function(e){
+            if(e.key == "Enter"){
+                $("#btn_id_confirm").click();
+            }
+        });
+    </script>
+</body>
+</html>
