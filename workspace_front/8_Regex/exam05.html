@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Regex_Exam05</title>
+</head>
+
+<body>
+    <form action="result.html" id="phoneForm">
+        <input type="text" placeholder="핸드폰 번호 입력 ( - 생략)" id="phone"><br>
+        <button>전송</button>
+    </form>
+
+    <script>
+        let frm = document.getElementById("phoneForm");
+        frm.onsubmit = function(){
+            let phone = document.getElementById("phone");
+            let regex = /^01\d\d{4}\d{4}$/;
+            if(!regex.test(phone.value)){
+                alert("핸드폰 번호의 형식이 잘못되었습니다.");
+                phone.value = "";
+                return false;
+            }
+        }
+    </script>
+</body>
+
+</html>

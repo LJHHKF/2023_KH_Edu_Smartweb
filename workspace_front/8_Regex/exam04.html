@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Regex_Quiz04</title>
+</head>
+<body>
+    <!-- 페이지 이동 관련 기법 -->
+    <!-- 1. Hyperlink : anker 태그 -->
+    <a href="exam03.html">Exam03으로 이동</a>
+    <hr>
+    <!-- 2. Javascript를 활용하여 주소창 조작 -->
+    <button id="btn_toExam03">버튼으로 Exam03으로 이동</button>
+    <script>
+        document.getElementById("btn_toExam03").addEventListener("click", function(){
+            location.href="exam03.html";
+        });
+    </script>
+    <!-- 3. Form 태그를 활용한 submit -->
+    <form action="exam03.html">
+        <input type="text" placeholder="exam03으로 보낼 메시지">
+        <input type="submit">
+    </form>
+</body>
+</html>

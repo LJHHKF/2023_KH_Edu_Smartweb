@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Regex_Quiz05</title>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+</head>
+<body>
+    <p>아이디 조건</p>
+    <ol>
+        <li style="color:red">첫 글자는 알파벳 소문자만 가능</li>
+        <li style="color:red">나머지는 알파벳 소문자, 숫자 또는 _만 가능</li>
+        <li style="color:red">최소 7자리에서 13자리까지만 허용</li>
+    </ol>
+    <form action="result.html" id="loginForm">
+        <fieldset>
+            <legend>계정 정보 입력칸</legend>
+            <input type="text" id="input_id"><br>
+            <input type="text" id="input_phone"><br>
+            <button type="submit" class="btn_submit">제출</button>
+        </fieldset>
+    </form>
+
+    <script>
+        $("#input_id").focus();
+
+        function inputReset(){
+            $("#input_id").val("");
+            $("#input_phone").val("");
+            $("#input_id").focus();
+        }
+
+        $("#loginForm").submit(function(){
+            let regex_id = /^[a-z][a-z0-9_]{6,12}$/;
+            let regex_phone = /^01\d-?\d{4}-?\d{4}$/;
+            if(!regex_id.test($("#input_id").val())){
+                swal.fire({
+                    icon:'error',
+                    title:'아이디 오류',
+                    text:'입력 아이디 및 규칙을 다시 확인해주세요.',
+                }).then(inputReset);
+                return false;
+            }else if(!regex_phone.test($("#input_phone").val())){
+                swal.fire({
+                    icon:'error',
+                    title:'핸드폰 번호 오류',
+                    text:'핸드폰 번호 양식에 맞게 입력해주세요.',
+                }).then(inputReset);
+                return false;
+            }
+            inputReset();
+            //후 Submit 기능 정상 동작
+        });
+        $("#input_id").keydown(function(e){
+            if(e.key == "Enter"){
+                //기본 기능 방지하지 않으면 섭밋부터 일어남.
+                e.preventDefault();
+                $("#input_phone").focus();
+            }
+        });
+
+    </script>
+</body>
+</html>
