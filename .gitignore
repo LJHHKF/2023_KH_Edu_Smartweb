@@ -68,3 +68,4 @@ local.properties
 .sts4-cache/
 
 # End of https://www.toptal.com/developers/gitignore/api/eclipse
+workspace_webtest/WebTest_01/src/main/Statics.java
