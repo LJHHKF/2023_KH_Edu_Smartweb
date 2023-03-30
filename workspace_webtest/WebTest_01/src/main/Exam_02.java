@@ -8,12 +8,16 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class Exam_02 {
 	public static void main(String[] args) {
-		WebDriver driver = new ChromeDriver();
+		ChromeOptions options = new ChromeOptions();
+		options.addArguments("--headless");
+		options.addArguments("--blink-settings=imagesEnabled=false");
+		WebDriver driver = new ChromeDriver(options);
 		//2번째 인자는 '10초 기다리다가 넘으면 에러내라'는 의미
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10)); 
 		JavascriptExecutor js = (JavascriptExecutor)driver;

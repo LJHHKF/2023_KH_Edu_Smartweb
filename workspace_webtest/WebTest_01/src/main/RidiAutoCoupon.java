@@ -9,6 +9,7 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -42,28 +43,36 @@ public class RidiAutoCoupon {
 		}
 		
 		RidiAutoCoupon self = new RidiAutoCoupon();
-		WebDriver driver = new ChromeDriver();
+		
+		//옵션에서 블링크 세팅(이미지 안 불러오기 세팅) 쓰면 안 됨.
+		//버튼이 아닌 '이미지 위 좌표값'으로 동작하다보니, 이미지가 나와야 동작함.
+		ChromeOptions options = new ChromeOptions();
+		options.addArguments("--headless");
+		WebDriver driver = new ChromeDriver(options);
+//		WebDriver driver = new ChromeDriver();
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10)); 
 		JavascriptExecutor js = (JavascriptExecutor)driver;
 		
 		if(menu == 1) {
 			self.coupon_15night(driver);
 			self.login(driver, wait);
+			self.touchAlert(driver, wait);
 		}else if(menu == 2) {
 			self.coupon_weeklyTusday(driver);
 			self.login(driver, wait);
+			self.touchAlert(driver, wait);
 		}else if(menu == 3) {
 			self.coupon_15night(driver);
-			self.coupon_weeklyTusday(driver);
 			self.login(driver, wait);
+			self.touchAlert(driver, wait);
+			self.coupon_weeklyTusday(driver);
+			self.touchAlert(driver, wait);
 		}
 	}
 	private void login(WebDriver driver, WebDriverWait wait) {
-		//로그인 입력. js 방식은 만들긴 했고, 들어가긴 하나, 정작 돌려보면 인식 못함. 막아둔 듯.
+		//로그인 입력. js 방식은 만들어 보긴 했고, 값이 들어가긴 하나, 정작 돌려보면 인식 못함. 막아둔 듯.
 		wait.until(ExpectedConditions.presenceOfElementLocated(By.className("fig-w58liu")));
-//		js.executeScript("document.getElementsByClassName('fig-w58liu')[0].value = arguments[0]", Statics.NAVER_ID);
-//		js.executeScript("document.getElementsByClassName('fig-7he7ta')[0].value = arguments[0]", Statics.RIDI_PW);
-		driver.findElement(By.className("fig-w58liu")).sendKeys(Statics.NAVER_ID);
+		driver.findElement(By.className("fig-w58liu")).sendKeys(Statics.RIDI_ID);
 		driver.findElement(By.className("fig-7he7ta")).sendKeys(Statics.RIDI_PW);
 		List<WebElement> buttons = driver.findElements(By.tagName("button"));
 		for(WebElement curBtn : buttons) {
@@ -72,6 +81,12 @@ public class RidiAutoCoupon {
 				break;
 			}
 		}
+	}
+	private void touchAlert(WebDriver driver, WebDriverWait wait) {
+		//쿠폰 발급 성공 또는 실패(이미 발급 등) 모두 alert 창 방식으로 안내가 나옴.
+		//성공시에도 나왔는지는 테스트는 못 해봤고 기억 기반.
+		wait.until(ExpectedConditions.alertIsPresent());
+		driver.switchTo().alert().accept();
 	}
 	private void coupon_15night(WebDriver driver) {
 		//십오야 페이지 접속
