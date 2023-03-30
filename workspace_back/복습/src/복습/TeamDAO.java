@@ -1,8 +1,10 @@
 package º¹½À;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 
@@ -36,13 +38,13 @@ public class TeamDAO {
 	}
 	
 	public int insert(TeamDTO dto) throws Exception {
-		String sql = "insert into TEAM_CONTACT values(TEAM_CONTACT_SEQ.nextval,?,?,?,sysdate)";
+		String sql = "insert into TEAM_CONTACT values(TEAM_CONTACT_SEQ.nextval,?,?,?,?)";
 		try(	Connection con = this.bds.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);){
 			pstat.setString(1, dto.getName());
 			pstat.setInt(2, dto.getAge());
 			pstat.setString(3, dto.getContact());
-			//pstat.setString(4, "sysdate");
+			pstat.setTimestamp(4, dto.getBirthday());
 			int result = pstat.executeUpdate();
 			con.commit();
 			return result;
@@ -66,7 +68,7 @@ public class TeamDAO {
 			String name = rs.getString("NAME");
 			int age = rs.getInt("AGE");
 			String contact = rs.getString("CONTACT");
-			Timestamp update_date = rs.getTimestamp("UPDATE_DATE");
+			Timestamp update_date = rs.getTimestamp("BIRTHDAY");
 			result.add(new TeamDTO(id, name, age, contact, update_date));
 		}
 		return result;

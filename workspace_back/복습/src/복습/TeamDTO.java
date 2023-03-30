@@ -27,7 +27,8 @@ public class TeamDTO {
 	public void setAge(int age) {this.age = age;}
 	public String getContact() {return contact;}
 	public void setContact(String contact) {this.contact = contact;}
-	
+	public Timestamp getBirthday() {return birthday;}
+	public void setBirthday(Timestamp birthday) {this.birthday = birthday;}
 	public String getFormedDate() {
 		SimpleDateFormat sdf = new SimpleDateFormat("yy³â mm¿ù ddÀÏ");
 		return sdf.format(this.birthday);

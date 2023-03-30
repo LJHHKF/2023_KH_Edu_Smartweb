@@ -1,5 +1,7 @@
 package 복습;
 
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.Scanner;
 
 public class Main {
@@ -43,8 +45,9 @@ public class Main {
 			System.out.println("Driver 탐색 또는 DAO 생성 중 오류");
 		}
 
+		try(Scanner sc = new Scanner(System.in)) {
 		while(true) {
-			try(Scanner sc = new Scanner(System.in)) {
+			
 				System.out.println("이하 메뉴 중 원하는 기능을 선택해주세요.");
 				System.out.println("1. 팀 멤버 연락처 입력");
 				System.out.println("2. 팀 연락처 테이블 전체 출력");
@@ -59,22 +62,23 @@ public class Main {
 						System.out.println("입력 값은 숫자 형식이어야 합니다.");
 					}
 				}
-				
 				if(menu == 0) {
 					System.out.println("프로그램을 종료합니다.");
 					System.exit(0);
 				}else if(menu == 1){
 					System.out.println("멤버를 입력합니다.");
-					System.out.println("입력한 멤버 수 : " + insert.insertTeamContacts(dao_team));
+					System.out.println("입력한 멤버 수 : " + insert.insertsContatacts(dao_team));
 				}else if(menu == 2){
-					
+					System.out.println("멤버를 출력합니다.");
+					select.printSelectAll(dao_team);
 				}else {
 					System.out.println("메뉴를 확인하고 메뉴 범위 내의 값을 입력해주세요.");
 				}
-			}catch(Exception e) {
-				System.out.println("DB 사용 중 오류가 났습니다.");
-				System.exit(0);
 			}
+		}catch(Exception e) {
+			System.out.println("DB 사용 중 오류가 났습니다.");
+			e.printStackTrace();
+			System.exit(0);
 		}
 	}
 }
