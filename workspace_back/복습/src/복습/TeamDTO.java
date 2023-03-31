@@ -1,10 +1,10 @@
-package º¹½À;
+package ë³µìŠµ;
 
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 
 public class TeamDTO {
-	//id ´Â ½ÃÄö½º »ç¿ë
+	//id ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 	private int id;
 	private String name;
 	private int age;
@@ -30,7 +30,7 @@ public class TeamDTO {
 	public Timestamp getBirthday() {return birthday;}
 	public void setBirthday(Timestamp birthday) {this.birthday = birthday;}
 	public String getFormedDate() {
-		SimpleDateFormat sdf = new SimpleDateFormat("yy³â mm¿ù ddÀÏ");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyë…„ mmì›” ddì¼");
 		return sdf.format(this.birthday);
 	}
 }

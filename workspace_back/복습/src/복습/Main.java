@@ -1,36 +1,34 @@
-package º¹½À;
+package ë³µìŠµ;
 
-import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
 import java.util.Scanner;
 
 public class Main {
 	public static void main(String[] args) {
-		// 0. ¿À¶óÅ¬ ½Å±Ô °èÁ¤ »ı¼ºÇÏ±â
-		// °èÁ¤¸í : team
-		// ÆĞ½º¿öµå : team
-		// ±ÇÇÑ : resource, connect
+		// 0. ï¿½ï¿½ï¿½ï¿½Å¬ ï¿½Å±ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ : team
+		// ï¿½Ğ½ï¿½ï¿½ï¿½ï¿½ï¿½ : team
+		// ï¿½ï¿½ï¿½ï¿½ : resource, connect
 
-		//1. ¿À¶óÅ¬¿¡ Å×ÀÌºí »ı¼ºÇÏ±â
-		// Å×ÀÌºí ¸í : team_contact
-		// id ÁÖÅ° ¼ıÀÚ 1001~¹«ÇÑ
-		// name ¹®ÀÚ¿­(30) not null
-		// age ¼ıÀÚ not null
-		// contact ¹®ÀÚ¿­(11) not null
+		//1. ï¿½ï¿½ï¿½ï¿½Å¬ï¿½ï¿½ ï¿½ï¿½ï¿½Ìºï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½
+		// ï¿½ï¿½ï¿½Ìºï¿½ ï¿½ï¿½ : team_contact
+		// id ï¿½ï¿½Å° ï¿½ï¿½ï¿½ï¿½ 1001~ï¿½ï¿½ï¿½ï¿½
+		// name ï¿½ï¿½ï¿½Ú¿ï¿½(30) not null
+		// age ï¿½ï¿½ï¿½ï¿½ not null
+		// contact ï¿½ï¿½ï¿½Ú¿ï¿½(11) not null
 		// birthday timestamp default sysdate not null
 
-		// ½ÃÄö½º ¸í : team_contact_seq
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ : team_contact_seq
 
-		// 2. TeamDTO »ı¼º
+		// 2. TeamDTO ï¿½ï¿½ï¿½ï¿½
 
-		// 3. TeamDAO »ı¼º
-		// > DB ¿¬°áÀº DBCP¸¦ »ç¿ëÇÒ °Í
-		// > ÀÚ¿ø°ü¸®´Â try~resource ¸¦ »ç¿ëÇÒ °Í
+		// 3. TeamDAO ï¿½ï¿½ï¿½ï¿½
+		// > DB ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ DBCPï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
+		// > ï¿½Ú¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ try~resource ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 
-		// 4. InsertExam¿¡¼­ ÆÀ¿ø Àü¿øÀÇ Á¤º¸¸¦ ÀÔ·ÂÇÏ´Â ÄÚµå ÀÛ¼ºÇÒ °Í
-		// (¸Ş´º ¶ç¿ì°Å³ª scanner·Î ÀÔ·ÂÇÒ ÇÊ¿ä ¾øÀ½.)
+		// 4. InsertExamï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ô·ï¿½ï¿½Ï´ï¿½ ï¿½Úµï¿½ ï¿½Û¼ï¿½ï¿½ï¿½ ï¿½ï¿½
+		// (ï¿½Ş´ï¿½ ï¿½ï¿½ï¿½Å³ï¿½ scannerï¿½ï¿½ ï¿½Ô·ï¿½ï¿½ï¿½ ï¿½Ê¿ï¿½ ï¿½ï¿½ï¿½ï¿½.)
 
-		// 5. SelectExam ¿¡¼­ ÀÔ·ÂµÈ ¸ğµç ÆÀ¿ø Á¤º¸¸¦ Ãâ·ÂÇÒ °Í.
+		// 5. SelectExam ï¿½ï¿½ï¿½ï¿½ ï¿½Ô·Âµï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½.
 
 		final String url = "jdbc:oracle:thin:@localhost:1521:xe";
 		final String dbId = "team";
@@ -42,16 +40,16 @@ public class Main {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 			dao_team = new TeamDAO(url, dbId, dbPw);
 		}catch(Exception e) {
-			System.out.println("Driver Å½»ö ¶Ç´Â DAO »ı¼º Áß ¿À·ù");
+			System.out.println("Driver íƒìƒ‰ ë˜ëŠ” dao ìƒì„± ì¤‘ ì˜¤ë¥˜ê°€ ë‚¬ìŠµë‹ˆë‹¤.");
 		}
 
 		try(Scanner sc = new Scanner(System.in)) {
 		while(true) {
 			
-				System.out.println("ÀÌÇÏ ¸Ş´º Áß ¿øÇÏ´Â ±â´ÉÀ» ¼±ÅÃÇØÁÖ¼¼¿ä.");
-				System.out.println("1. ÆÀ ¸â¹ö ¿¬¶ôÃ³ ÀÔ·Â");
-				System.out.println("2. ÆÀ ¿¬¶ôÃ³ Å×ÀÌºí ÀüÃ¼ Ãâ·Â");
-				System.out.println("0. ÇÁ·Î±×·¥ Á¾·á");
+				System.out.println("ì´í•˜ ë©”ë‰´ë¥¼ í™•ì¸í•˜ê³  ì›í•˜ëŠ” ê¸°ëŠ¥ ë©”ë‰´ ê°’ì„ ì„ íƒí•´ì£¼ì„¸ìš”.");
+				System.out.println("1.ë©¤ë²„ ë“±ë¡");
+				System.out.println("2.ë“±ë¡ëœ ë©¤ë²„ í™•ì¸");
+				System.out.println("0.í”„ë¡œê·¸ë¨ ì¢…ë£Œ");
 				int menu = 0;
 				while(true) {
 					try {
@@ -59,24 +57,24 @@ public class Main {
 						break;
 					}catch(Exception e) {
 						e.printStackTrace();
-						System.out.println("ÀÔ·Â °ªÀº ¼ıÀÚ Çü½ÄÀÌ¾î¾ß ÇÕ´Ï´Ù.");
+						System.out.println("ìˆ«ì í˜•ì‹ìœ¼ë¡œ ì…ë ¥í•´ì£¼ì…”ì•¼ í•©ë‹ˆë‹¤.");
 					}
 				}
 				if(menu == 0) {
-					System.out.println("ÇÁ·Î±×·¥À» Á¾·áÇÕ´Ï´Ù.");
+					System.out.println("í”„ë¡œê·¸ë¨ ì¢…ë£Œ");
 					System.exit(0);
 				}else if(menu == 1){
-					System.out.println("¸â¹ö¸¦ ÀÔ·ÂÇÕ´Ï´Ù.");
-					System.out.println("ÀÔ·ÂÇÑ ¸â¹ö ¼ö : " + insert.insertsContatacts(dao_team));
+					System.out.println("ë©¤ë²„ë¥¼ ì…ë ¥í•©ë‹ˆë‹¤.");
+					System.out.println("ì…ë ¥ëœ ë©¤ë²„ ìˆ˜ : " + insert.insertsContatacts(dao_team));
 				}else if(menu == 2){
-					System.out.println("¸â¹ö¸¦ Ãâ·ÂÇÕ´Ï´Ù.");
+					System.out.println("ë©¤ë²„ë¥¼ ì¶œë ¥í•©ë‹ˆë‹¤.");
 					select.printSelectAll(dao_team);
 				}else {
-					System.out.println("¸Ş´º¸¦ È®ÀÎÇÏ°í ¸Ş´º ¹üÀ§ ³»ÀÇ °ªÀ» ÀÔ·ÂÇØÁÖ¼¼¿ä.");
+					System.out.println("ë©”ë‰´ë¥¼ í™•ì¸í•˜ê³  ë‹¤ì‹œ ì…ë ¥í•´ì£¼ì„¸ìš”.");
 				}
 			}
 		}catch(Exception e) {
-			System.out.println("DB »ç¿ë Áß ¿À·ù°¡ ³µ½À´Ï´Ù.");
+			System.out.println("DB ì‚¬ìš© ì¤‘ ì˜¤ë¥˜ê°€ ë‚¬ìŠµë‹ˆë‹¤.");
 			e.printStackTrace();
 			System.exit(0);
 		}

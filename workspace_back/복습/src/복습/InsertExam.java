@@ -1,4 +1,4 @@
-package º¹½À;
+package ë³µìŠµ;
 
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
@@ -8,42 +8,42 @@ public class InsertExam{
 		int result = 0;
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyymmdd");
 		
-		String name = "ÀÌÁÖÈ­";
+		String name = "ì´ì£¼í™”";
 		int age = 28;
 		String contact = "01041228264";
 		Timestamp birthday = new Timestamp(sdf.parse("19950331").getTime());
 		TeamDTO dto = new TeamDTO(0, name, age, contact, birthday);
 		result += dao_team.insert(dto);
 		
-		name = "È«¼ºÁØ";
+		name = "í™ì„±ì¤€";
 		age = 27;
 		contact = "01048475825";
 		birthday = new Timestamp(sdf.parse("19961015").getTime());
 		dto = new TeamDTO(0, name, age, contact, birthday);
 		result += dao_team.insert(dto);
 		
-		name = "±è¼ºÇÏ";
+		name = "ê¹€ì„±í•˜";
 		age = 23;
 		contact = "01062079268";
 		birthday = new Timestamp(sdf.parse("20000607").getTime());
 		dto = new TeamDTO(0, name, age, contact, birthday );
 		result += dao_team.insert(dto);
 		
-		name = "Áö¼¼¿µ";
+		name = "ì§€ì„¸ì˜";
 		age = 29;
 		contact = "01071503677";
 		birthday = new Timestamp(sdf.parse("19940325").getTime());
 		dto = new TeamDTO(0, name, age, contact,birthday);
 		result += dao_team.insert(dto);
 		
-		name = "ÀÌ°ÇÈñ";
+		name = "ì´ê±´í¬";
 		age = 33;
 		contact = "01024849975";
 		birthday = new Timestamp(sdf.parse("19900101").getTime());
 		dto = new TeamDTO(0, name, age, contact, birthday);
 		result += dao_team.insert(dto);
 		
-		name = "ÀÌ»ó¿ì";
+		name = "ì´ìƒìš°";
 		age = 26;
 		contact = "01021706624";
 		birthday = new Timestamp(sdf.parse("19970408").getTime());
