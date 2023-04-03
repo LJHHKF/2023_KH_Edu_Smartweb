@@ -1,0 +1,10 @@
+create table messages(
+    id number primary key,
+    writer varchar(30) not null,
+    message varchar(300) not null
+);
+
+create sequence msg_seq
+start with 1
+increment by 1
+nomaxvalue nocache;

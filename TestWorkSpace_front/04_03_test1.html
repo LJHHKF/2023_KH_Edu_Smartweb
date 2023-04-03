@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>04_03_test01</title>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <style>
+        .wrapper {
+            margin: 0 auto;
+            width: 400px;
+            height: 200px;
+            border: 1px solid black;
+        }
+
+        .titles {
+            text-align: center;
+        }
+
+        .title {
+            display: inline-block;
+            width: 200px;
+            text-align: center;
+        }
+
+        .chk {
+            width: 50px;
+        }
+
+        .pp {
+            display: inline-block;
+            width: 100px;
+            text-align: center;
+        }
+    </style>
+    <script>
+        $(function () {
+            $("#all").on("change", function () {
+                var all = $("#all").prop("checked");
+                if (all == true) {
+                    $(".chk").prop("checked", true);
+                    $(".batch").prop("checked", true);
+                } else {
+                    $(".chk").prop("checked", false);
+                    $(".batch").prop("checked", false);
+                }
+            });
+            $("#pro").on("change", function () {
+                var pro = $("#pro").prop("checked");
+                if (pro == true) {
+                    $(".pro").prop("checked", true);
+                    if($("#pub").prop("checked") == true){
+                        $("#all").prop("checked", true);
+                    }
+                } else {
+                    $(".pro").prop("checked", false);
+                    if($("#all").prop("checked") == true){
+                        $("#all").prop("checked", false);
+                    }
+                }
+            });
+            $("#pub").on("change", function () {
+                var pub = $("#pub").prop("checked");
+                if (pub == true) {
+                    $(".pub").prop("checked", true);
+                    if($("#pro").prop("checked") == true){
+                        $("#all").prop("checked", true);
+                    }
+                } else {
+                    $(".pub").prop("checked", false);
+                    if($("#all").prop("checked") == true){
+                        $("#all").prop("checked", false);
+                    }
+                }
+            });
+            $(".chk").on("change", function(){
+                let all = $(".chk");
+                let pass_all = true;
+                let pro = $(".pro");
+                let pass_pro = true;
+                let pub = $(".pub");
+                let pass_pub = true;
+                for(let i = 0; i < all.length; i++){
+                    if($(all[i]).prop("checked") == false){
+                        $("#all").prop("checked", false);
+                        pass_all = false;
+                        break;
+                    }
+                }
+                if(pass_all == true){
+                    $("#all").prop("checked", true);
+                }
+                for(let i = 0; i < pro.length; i++){
+                    if($(pro[i]).prop("checked") == false){
+                        $("#pro").prop("checked", false);
+                        pass_pro = false;
+                        break;
+                    }
+                }
+                if(pass_pro == true){
+                    $("#pro").prop("checked", true);
+                }
+                for(let i = 0; i < pub.length; i++){
+                    if($(pub[i]).prop("checked") == false){
+                        $("#pub").prop("checked", false);
+                        pass_pub = false;
+                        break;
+                    }
+                }
+                if(pass_pub == true){
+                    $("#pub").prop("checked", true);
+                }
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="titles">
+            <input type="checkbox" id="all" class="batch"><label>전체</label>
+            <input type="checkbox" id="pro" class="batch"><label>전문가</label>
+            <input type="checkbox" id="pub" class="batch"><label>일반사용자</label>
+        </div>
+        <hr>
+        <div class="list">
+            <div><input class="pro chk" type="checkbox"><label class="pp">전문가</label>
+                <div class=title>애완견에게 좋은 꿀팁 2</div>
+            </div>
+            <div><input class="pro chk" type="checkbox"><label class="pp">전문가</label>
+                <div class=title>애완견에게 좋은 꿀팁 1</div>
+            </div>
+            <div><input class="pub chk" type="checkbox"><label class="pp">일반 사용자</label>
+                <div class=title>우리 집 멍멍이는..</div>
+            </div>
+            <div><input class="pro chk" type="checkbox"><label class="pp">전문가</label>
+                <div class=title>집사로서 명심해야 할 사항</div>
+            </div>
+            <div><input class="pub chk" type="checkbox"><label class="pp">일반 사용자</label>
+                <div class=title>새우 키우고 있는데요.</div>
+            </div>
+            <div><input class="pub chk" type="checkbox"><label class="pp">일반 사용자</label>
+                <div class=title>애용이가 벽을 자꾸 긁어요..</div>
+            </div>
+            <div><input class="pub chk" type="checkbox"><label class="pp">일반 사용자</label>
+                <div class=title>허스키 하울링이요.</div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

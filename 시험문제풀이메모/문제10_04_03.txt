@@ -1,0 +1,78 @@
+<문제1>
+
+[문제점]
+1. "전혀 동작하지 않았다.".
+애초에 헤더 -> 바디 순으로 읽힐건데, 바디 영역에 요소들이 만들어지기도 전에 탐색해서 이벤트를 등록하려 해서 아무 요소에도 이벤트 연결이 되지 않은 것입니다. 바디 영역으로 내리던가, window.onload를 활용하여 다 읽힌 후 실행되도록 해야 합니다.
+
+2. "전체를 선택한 상태에서 전문가나 일반 사용자를 체크 해제하면 전체도 체크해제 되고,
+전문가와 일반사용자를 모두 체크하면 전체도 체크되도록 하고 싶다."
+이 부분은 애초에 코드가 미완성된 상태입니다. 마저 완성시켜줘야 합니다.
+2-1. '전체 체크된 상태에서 다른 것이 체크 해제되면 전체도 체크 해제되야 한다.'
+2-2. '다른 것들이 모두 체크되면 전체도 자동으로 체크되어야 한다.'
+
+3. 문제로서는 제시되지 않은 부분입니다. 윗부분 조작은 완성되었으나, 아랫부분 조작으로 인한 변화는 진행되지 않았습니다. 추가적으로 작성해보겠습니다.
+
+
+[해결책]
+1.'$(function(){ (원래 header 에 있던 본문) })' 방식으로 하여 JQuery식 window.onload를 사용하여 해결하였습니다. 정상 동작하게 되었습니다.
+
+2-1. #pro와 #pub의 체크 해제문에
+'                    if($("#all").prop("checked") == true){           	$("#all").prop("checked", false);
+}'
+를 추가하여 해결하였습니다.
+
+2-2. #pro의 true 조건일 떄 동작에 'if($("#pub").prop("checked") == true) {~}',
+역으로 #pub의 true 조건일 때 동작에 'if($("#pro").prop("checked") == true) {~}' 를 추가해주어 해결하였습니다.
+{~}에는 공통적으로 '$("#all").prop("checked", true)'가 들어갔습니다.
+
+3. 이하 코드를 추가하여 해결하였습니다.
+'$(".chk").on("change", function(){
+                let all = $(".chk");
+                let pass_all = true;
+                let pro = $(".pro");
+                let pass_pro = true;
+                let pub = $(".pub");
+                let pass_pub = true;
+                for(let i = 0; i < all.length; i++){
+                    if($(all[i]).prop("checked") == false){
+                        $("#all").prop("checked", false);
+                        pass_all = false;
+                        break;
+                    }
+                }
+                if(pass_all == true){
+                    $("#all").prop("checked", true);
+                }
+                for(let i = 0; i < pro.length; i++){
+                    if($(pro[i]).prop("checked") == false){
+                        $("#pro").prop("checked", false);
+                        pass_pro = false;
+                        break;
+                    }
+                }
+                if(pass_pro == true){
+                    $("#pro").prop("checked", true);
+                }
+                for(let i = 0; i < pub.length; i++){
+                    if($(pub[i]).prop("checked") == false){
+                        $("#pub").prop("checked", false);
+                        pass_pub = false;
+                        break;
+                    }
+                }
+                if(pass_pub == true){
+                    $("#pub").prop("checked", true);
+                }
+            });
+'
+
+
+[해결 후 코드]
+
+
+
+
+
+
+
+
