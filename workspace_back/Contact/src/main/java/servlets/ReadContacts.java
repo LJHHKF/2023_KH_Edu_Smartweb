@@ -69,7 +69,7 @@ public class ReadContacts extends HttpServlet {
 		pw.append("<input type='text' name='updateContact' placeholder='수정할 연락처 값을 입력해주세요.'>");
 		pw.append("</td>");
 		pw.append("<td>");
-		pw.append("<input type='date' name='updateBirthday'>");
+		pw.append("<input type='date' name='updateBirthday' required>");
 		pw.append("</td>");
 		//1열은 넣을 값 없어서 생략
 		pw.append("</tr>");
@@ -104,6 +104,16 @@ public class ReadContacts extends HttpServlet {
 		pw.append("else{return true;}");
 		pw.append("}");
 		
+		pw.append("function dateCheck(date){");
+		pw.append("if(!date){alert('날짜값은 빈 값일 수 없습니다.');return false;}");
+		pw.append("else{return true;}");
+		pw.append("}");		
+		
+		pw.append("function curDate(){");
+		pw.append("return new Date().toISOString().substring(0, 10);");
+		pw.append("}");
+		pw.append("document.getElementsByName('updateBirthday')[0].value = curDate();");
+		
 		pw.append("document.getElementById('btn_delete').onclick = function(){");
 		pw.append("let deleteID = document.getElementById('deleteID');");
 		pw.append("if(idCheck(deleteID.value)){");
@@ -116,12 +126,12 @@ public class ReadContacts extends HttpServlet {
 		
 		pw.append("document.getElementById('btn_update').onclick = function(){");
 		pw.append("let updateID = document.getElementById('updateID');");
-		pw.append("if(idCheck(updateID.value)){");
+		pw.append("if(idCheck(updateID.value) && dateCheck(document.getElementsByName('updateBirthday')[0].value)){");
 		pw.append("let updateForm = document.getElementById('updateForm');");
 		pw.append("updateForm.method = 'get';");
 		pw.append("updateForm.action = 'UpdateContacts';");
 		pw.append("updateForm.submit();");
-		pw.append("}else{updateID.value='';}");
+		pw.append("}else{updateID.value='';document.getElementsByName('updateBirthday')[0].value=curDate();}");
 		pw.append("};");
 		
 		pw.append("</script>");
