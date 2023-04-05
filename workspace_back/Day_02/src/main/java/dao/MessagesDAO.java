@@ -1,31 +1,33 @@
 package dao;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
+
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.sql.DataSource;
 
 import dto.MessagesDTO;
 
 public class MessagesDAO {
-	private String dbUrl = "jdbc:oracle:thin:@localhost:1521:xe";
-	private String dbId = "kh";
-	private String dbPw = "kh";
+	private static MessagesDAO instance = null;
 	
-	public MessagesDAO() {
-		super();
+	public synchronized static MessagesDAO getInstance() {
+		if(instance == null) {
+			instance = new MessagesDAO();
+		}
+		return instance;
 	}
 	
-	public MessagesDAO(String dbUrl, String dbId, String dbPw) {
-		super();
-		this.dbUrl = dbUrl;
-		this.dbId = dbId;
-		this.dbPw = dbPw;
+	private Connection getConnection() throws Exception {
+		Context iContext = new InitialContext();
+		DataSource ds = (DataSource)iContext.lookup("java:/comp/env/jdbc/ora");
+		return ds.getConnection();
 	}
-
-	public int insert(MessagesDTO dto) throws SQLException {
+	
+	public int insert(MessagesDTO dto) throws Exception {
 		String sql = "Insert into messages values (msg_seq.nextval, ?, ?)";
 		try(	Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);){
@@ -37,7 +39,7 @@ public class MessagesDAO {
 		}
 	}
 	
-	public ArrayList<MessagesDTO> select() throws SQLException{
+	public ArrayList<MessagesDTO> select() throws Exception{
 		String sql = "select * from messages order by id";
 		try(	Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);){
@@ -47,7 +49,7 @@ public class MessagesDAO {
 		}
 	}
 	
-	public int delete(int id) throws SQLException{
+	public int delete(int id) throws Exception{
 		String sql = "delete from messages where id=?";
 		try(	Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);){
@@ -58,7 +60,7 @@ public class MessagesDAO {
 		}
 	}
 	
-	public int update(MessagesDTO dto) throws SQLException {
+	public int update(MessagesDTO dto) throws Exception {
 		String sql = "update messages set writer=?,message=? where id=?";
 		try(	Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);){
@@ -71,17 +73,7 @@ public class MessagesDAO {
 		}
 	}
 	
-	private Connection getConnection() throws SQLException {
-		try {
-			Class.forName("oracle.jdbc.driver.OracleDriver");
-		}catch(ClassNotFoundException e) {
-			e.printStackTrace();
-			System.out.println("ojdbc를 못 찾았습니다.");
-		}
-		return DriverManager.getConnection(dbUrl, dbId, dbPw);
-	}
-	
-	private ArrayList<MessagesDTO> transAllRsToList(ResultSet rs) throws SQLException{
+	private ArrayList<MessagesDTO> transAllRsToList(ResultSet rs) throws Exception{
 		ArrayList<MessagesDTO> result = new ArrayList<>();
 		while(rs.next()) {
 			int id = rs.getInt("id");

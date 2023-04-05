@@ -1,41 +1,38 @@
 package dao;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.sql.DataSource;
 
 import dto.ContactsDTO;
 
 public class ContactsDAO {
-	private String url = "jdbc:oracle:thin:@localhost:1521:xe";
-	private String dbId = "kh";
-	private String dbPw = "kh";
+	private static ContactsDAO instance = null;
 	
-	public ContactsDAO() {
-		super();
+	public synchronized static ContactsDAO getInstance() {
+		if(instance == null) {
+			instance = new ContactsDAO();
+		}
+		return instance;
 	}
-	public ContactsDAO(String url, String dbId, String dbPw) {
+	
+	private ContactsDAO() {
 		super();
-		this.url = url;
-		this.dbId = dbId;
-		this.dbPw = dbPw;
 	}
 
-	private Connection getConnection() throws SQLException {
-		try {
-			Class.forName("oracle.jdbc.driver.OracleDriver");
-		}catch(Exception e) {
-			e.printStackTrace();
-			System.out.println("ojdbc 로드 중 오류가 났습니다.");
-		}
-		return DriverManager.getConnection(url, dbId, dbPw);
+	private Connection getConnection() throws Exception {
+		Context iContext = new InitialContext();
+		DataSource ds = (DataSource)iContext.lookup("java:/comp/env/jdbc/ora");
+		return ds.getConnection();
 	}
 	
-	public int insert(ContactsDTO dto) throws SQLException{
+	public int insert(ContactsDTO dto) throws Exception{
 		String sql = "insert into contacts values (contacts_seq.nextval, ?, ?, ?)";
 		try(	Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);){
@@ -48,7 +45,7 @@ public class ContactsDAO {
 		}
 	}
 	
-	public ArrayList<ContactsDTO> selectAll() throws SQLException{
+	public ArrayList<ContactsDTO> selectAll() throws Exception{
 		String sql = "select * from contacts order by id";
 		try(	Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);){
@@ -58,7 +55,7 @@ public class ContactsDAO {
 		}
 	}
 	
-	public int delete(int id) throws SQLException {
+	public int delete(int id) throws Exception {
 		String sql = "delete from contacts where id=?";
 		try(	Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);){
@@ -69,7 +66,7 @@ public class ContactsDAO {
 		}
 	}
 	
-	public int update(ContactsDTO dto) throws SQLException {
+	public int update(ContactsDTO dto) throws Exception {
 		String sql = "update contacts set name=?,contact=?,birthday=? where id=?";
 		try(	Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);){
@@ -83,7 +80,7 @@ public class ContactsDAO {
 		}
 	}
 	
-	private ArrayList<ContactsDTO> transAllRsToList(ResultSet rs) throws SQLException{
+	private ArrayList<ContactsDTO> transAllRsToList(ResultSet rs) throws Exception{
 		ArrayList<ContactsDTO> result = new ArrayList<>();
 		while(rs.next()) {
 			int id = rs.getInt("id");

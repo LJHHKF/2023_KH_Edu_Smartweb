@@ -20,6 +20,16 @@
     <!-- web application will be reloaded.                                   -->
     <WatchedResource>WEB-INF/web.xml</WatchedResource>
     <WatchedResource>${catalina.base}/conf/web.xml</WatchedResource>
+    
+    <Resource
+    	name="jdbc/ora"
+    	type="javax.sql.DataSource"
+    	driverClassName="oracle.jdbc.driver.OracleDriver"
+    	url="jdbc:oracle:thin:@localhost:1521:xe"
+    	username="kh"
+    	password="kh"
+    	initialSize="7"
+    />
 
     <!-- Uncomment this to disable session persistence across Tomcat restarts -->
     <!--

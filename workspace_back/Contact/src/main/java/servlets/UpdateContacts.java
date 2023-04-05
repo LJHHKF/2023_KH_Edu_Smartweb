@@ -28,10 +28,10 @@ public class UpdateContacts extends HttpServlet {
 		}catch(Exception e) {
 			e.printStackTrace();
 			System.out.println("날짜 문자 변환 중 오류");
+			response.sendRedirect("error.html");
 		}
 		try {
-			ContactsDAO dao = new ContactsDAO();
-			if(dao.update(new ContactsDTO(id, name, contact, birthday)) > 0) {
+			if(ContactsDAO.getInstance().update(new ContactsDTO(id, name, contact, birthday)) > 0) {
 				System.out.println("수정 성공");
 			}else {
 				System.out.println("수정 실패");

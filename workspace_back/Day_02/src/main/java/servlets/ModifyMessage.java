@@ -13,15 +13,6 @@ import dto.MessagesDTO;
 
 @WebServlet("/ModifyMessage")
 public class ModifyMessage extends HttpServlet {
-//	@Override
-//	public void init() {
-//		try {
-//			Class.forName("oracle.jdbc.driver.OracleDriver");
-//		}catch(Exception e) {
-//			e.printStackTrace();
-//			System.out.println("ojdbc를 못 찾았습니다.");
-//		}
-//	}
     
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -31,8 +22,7 @@ public class ModifyMessage extends HttpServlet {
 		String writer = request.getParameter("modifyWriter");
 		String message = request.getParameter("modifyMessage");
 		try {
-			MessagesDAO dao = new MessagesDAO();
-			if(dao.update(new MessagesDTO(id, writer, message)) > 0) {
+			if(MessagesDAO.getInstance().update(new MessagesDTO(id, writer, message)) > 0) {
 				System.out.println("수정에 성공했습니다.");
 			}else {
 				System.out.println("수정에 실패했습니다.");

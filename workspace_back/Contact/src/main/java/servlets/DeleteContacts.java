@@ -16,8 +16,7 @@ public class DeleteContacts extends HttpServlet {
 		//공백 및 NaN형 포함한 유효성 검사를 JS에서 처리하고 옴.
 		int id = Integer.parseInt(request.getParameter("deleteID"));
 		try {
-			ContactsDAO dao = new ContactsDAO();
-			if(dao.delete(id) > 0) {
+			if(ContactsDAO.getInstance().delete(id) > 0) {
 				System.out.println("삭제 성공");
 			}else {
 				System.out.println("삭제 실패");

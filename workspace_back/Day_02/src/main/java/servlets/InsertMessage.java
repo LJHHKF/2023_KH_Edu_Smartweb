@@ -14,16 +14,7 @@ import dto.MessagesDTO;
 
 @WebServlet("/InsertMessage")
 public class InsertMessage extends HttpServlet {
-	
-//	@Override
-//	public void init() {
-//		try {
-//			Class.forName("oracle.jdbc.driver.OracleDriver");
-//		}catch(Exception e) {
-//			e.printStackTrace();
-//			System.out.println("ojdbc를 못 찾았습니다.");
-//		}
-//	}
+
 	
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
@@ -34,14 +25,14 @@ public class InsertMessage extends HttpServlet {
 		System.out.println("msg : " + msg);
 		
 		try {
-			MessagesDAO dao = new MessagesDAO();
-			if(dao.insert(new MessagesDTO(0, writer, msg)) > 0) {
-				System.out.println("DB 입력 성공");
-			}
+			int result = MessagesDAO.getInstance().insert(new MessagesDTO(0, writer, msg));
+//			request.getRequestDispatcher("insertView.jsp").forward(request, response);
 		}catch(Exception e) {
 			e.printStackTrace();
 			System.out.println("DB 삽입 사용 중 오류가 났습니다.");
+			response.sendRedirect("error.html");
 		}
+		
 		PrintWriter pw = response.getWriter();
 		pw.append("<html>");
 		pw.append("<head>");
@@ -59,7 +50,6 @@ public class InsertMessage extends HttpServlet {
 		pw.append("</script>");
 		pw.append("</body>");
 		pw.append("</html>");
-		
 	}
 
 	

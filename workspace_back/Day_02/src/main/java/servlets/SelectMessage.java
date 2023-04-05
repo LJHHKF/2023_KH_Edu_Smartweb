@@ -15,20 +15,19 @@ import dto.MessagesDTO;
 
 @WebServlet("/SelectMessage")
 public class SelectMessage extends HttpServlet {
-	
-//	@Override
-//	public void init() {
-//		try {
-//			Class.forName("oracle.jdbc.driver.OracleDriver");
-//		}catch(Exception e) {
-//			e.printStackTrace();
-//			System.out.println("ojdbc를 못 찾았습니다.");
-//		}
-//	}
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/html; charset=utf8");
+		ArrayList<MessagesDTO> result = null;
+		try {
+			result = MessagesDAO.getInstance().select();
+		}catch(Exception e) {
+			e.printStackTrace();
+			System.out.println("DB 조회 사용 중 오류가 났습니다.");
+			response.sendRedirect("error.html");
+		}
+
 		PrintWriter pw = response.getWriter();
 		pw.append("<html>");
 		pw.append("<head>");
@@ -40,20 +39,12 @@ public class SelectMessage extends HttpServlet {
 		pw.append("<th>writer</th>");
 		pw.append("<th>message</th>");
 		pw.append("</tr>");
-		try {
-			MessagesDAO dao = new MessagesDAO();
-			ArrayList<MessagesDTO> list = dao.select();
-			for(MessagesDTO curDto : list) {
-				pw.append("<tr>");
-				pw.append("<td>"+ curDto.getId() +"</td>");
-				pw.append("<td>"+ curDto.getWriter() +"</td>");
-				pw.append("<td>"+ curDto.getMessage() +"</td>");
-				pw.append("</tr>");
-			}
-		}catch(Exception e) {
-			e.printStackTrace();
-			System.out.println("DB 조회 사용 중 오류가 났습니다.");
-			response.sendRedirect("error.html");
+		for(MessagesDTO curDto : result) {
+			pw.append("<tr>");
+			pw.append("<td>"+ curDto.getId() +"</td>");
+			pw.append("<td>"+ curDto.getWriter() +"</td>");
+			pw.append("<td>"+ curDto.getMessage() +"</td>");
+			pw.append("</tr>");
 		}
 		pw.append("<tr>");
 		pw.append("<td>");
@@ -68,7 +59,7 @@ public class SelectMessage extends HttpServlet {
 		pw.append("</td>");
 		pw.append("</form>");
 		pw.append("</tr>");
-		
+
 		pw.append("<tr>");
 		pw.append("<td colspan='3'>");
 		pw.append("<form id='deleteForm'>");
@@ -77,27 +68,27 @@ public class SelectMessage extends HttpServlet {
 		pw.append("</form>");
 		pw.append("</td>");
 		pw.append("</tr>");
-		
+
 		pw.append("<tr>");
 		pw.append("<td colspan='3' align='center'>");
 		pw.append("<button type='button' id='btn_toIndex'>back</button>");
 		pw.append("</td>");
 		pw.append("</tr>");
 		pw.append("</table>");
-		
+
 		pw.append("<script>");
-		
+
 		pw.append("function idCheck(str){");
 		pw.append("if(!str){alert('ID 값은 빈값일 수 없습니다.');return false;}");
 		pw.append("else if(str.split(' ').join('').length !== str.length){alert('ID값엔 공백이 포함될 수 없습니다.');return false;}");
 		pw.append("else if(isNaN(str)){alert('ID 값은 숫자 값이어야 합니다.');return false;}");
 		pw.append("else{return true;}");
 		pw.append("}");
-		
+
 		pw.append("document.getElementById('btn_toIndex').onclick = function() {");
 		pw.append("location.href = 'index.html';");
 		pw.append("};");
-		
+
 		pw.append("document.getElementById('btn_modify').onclick = function() {");
 		pw.append("let input_id = document.getElementById('input_id_modify');");
 		pw.append("if(!idCheck(input_id.value)){");
@@ -111,7 +102,7 @@ public class SelectMessage extends HttpServlet {
 		pw.append("modifyForm.submit();");
 		pw.append("}");
 		pw.append("};");
-		
+
 		pw.append("document.getElementById('btn_delete').onclick = function(){");
 		pw.append("let input = document.getElementById('input_id_delete');");
 		pw.append("if(idCheck(input.value)){");
@@ -121,13 +112,13 @@ public class SelectMessage extends HttpServlet {
 		pw.append("deleteForm.action = 'DeleteMessage';");
 		pw.append("deleteForm.submit();");
 		pw.append("}else{input.value='';}");
-		
+
 		pw.append("};");
 		pw.append("</script>");
 		pw.append("</body>");
 		pw.append("</html>");
 	}
-	
+
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);

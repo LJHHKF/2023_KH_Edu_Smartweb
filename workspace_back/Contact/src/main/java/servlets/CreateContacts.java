@@ -29,11 +29,11 @@ public class CreateContacts extends HttpServlet {
 		}catch(Exception e) {
 			e.printStackTrace();
 			System.out.println("날짜 문자 변환 중 오류");
+			response.sendRedirect("error.html");
 		}
 		
 		try {
-			ContactsDAO dao = new ContactsDAO();
-			if(dao.insert(new ContactsDTO(0, name, contact, birthday)) > 0) {
+			if(ContactsDAO.getInstance().insert(new ContactsDTO(0, name, contact, birthday)) > 0) {
 				System.out.println("입력 성공");
 			}else {
 				System.out.println("입력 실패");

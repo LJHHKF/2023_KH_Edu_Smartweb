@@ -35,8 +35,7 @@ public class ReadContacts extends HttpServlet {
 		pw.append("</tr>");
 		
 		try {
-			ContactsDAO dao = new ContactsDAO();
-			for(ContactsDTO curDto : dao.selectAll()) {
+			for(ContactsDTO curDto : ContactsDAO.getInstance().selectAll()) {
 				pw.append("<tr>");
 				pw.append("<td>"+ curDto.getId() +"</td>");
 				pw.append("<td>"+ curDto.getName() + "</td>");
@@ -140,7 +139,6 @@ public class ReadContacts extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 
