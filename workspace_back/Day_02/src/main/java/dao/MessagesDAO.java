@@ -40,7 +40,7 @@ public class MessagesDAO {
 	}
 	
 	public ArrayList<MessagesDTO> select() throws Exception{
-		String sql = "select * from messages order by id";
+		String sql = "select * from messages order by id desc";
 		try(	Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);){
 			try(ResultSet rs = pstat.executeQuery();){
