@@ -43,11 +43,11 @@ public class JoinMembers extends HttpServlet {
 			}else {
 				System.out.println("회원가입 삽입 실패");
 			}
-			response.sendRedirect("/index?state=a_j.jsp");
+			response.sendRedirect("/index.jsp?state=a_j");
 		}catch(Exception e) {
 			e.printStackTrace();
 			System.out.println("DB 삽입 사용 중 오류가 났습니다.");
-			response.sendRedirect("error.html");
+			response.sendRedirect("/error.html");
 		}
 		
 	}

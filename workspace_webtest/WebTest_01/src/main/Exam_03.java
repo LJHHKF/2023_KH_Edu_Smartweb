@@ -27,6 +27,7 @@ public class Exam_03 {
 		for(String curHandle : handles) {
 			if(!curHandle.equals(parentHandle)) {
 				driver.switchTo().window(curHandle);
+				break;
 			}
 		}
 		driver.findElement(By.id("userId")).sendKeys("Tester");

@@ -1,0 +1,49 @@
+ui 테스트 진행 페이지: https://www.iei.or.kr/main/main.kh
+
+
+1.
+import java.time.Duration;
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+
+2.
+driver.get("https://www.iei.or.kr/login/login.kh");
+js.executeScript("document.getElementById('id').value = arguments[0]", Statics.kh_id);
+js.executeScript("document.getElementById('password').value = arguments[0]", Statics.kh_pw);
+WebElement loginConfirm = driver.findElement(By.id("login")).findElements(By.tagName("a")).get(0);
+loginConfirm.click();
+wait.until(ExpectedConditions.urlMatches("https://www.iei.or.kr/login/mypage.kh"));
+
+3.
+js.executeScript("location.href = '/login/currBoard.kh'");
+wait.until(ExpectedConditions.urlMatches("https://www.iei.or.kr/login/currBoard.kh"));
+
+4.
+js.executeScript("fnWriteForm()");
+wait.until(ExpectedConditions.presenceOfElementLocated(By.id("title")));
+
+5.
+driver.findElement(By.id("title")).sendKeys("시험문제 작성중입니다. 제목 - 이주화");
+
+6.
+driver.switchTo().frame(driver.findElement(By.id("tx_canvas_wysiwyg")));
+
+7.
+driver.findElements(By.className("tx-content-container")).get(0).sendKeys("시험문제 답안 작성중입니다. 내용 - frame 처리");
+
+8.
+driver.switchTo().defaultContent();
+
+9.
+js.executeScript("fnRegister()");
+
+10.
+wait.until(ExpectedConditions.alertIsPresent());
+driver.switchTo().alert().accept();
+driver.close();

@@ -1,6 +1,7 @@
 package dto;
 
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 
 public class MembersDTO {
 	private String id;
@@ -80,5 +81,8 @@ public class MembersDTO {
 	public void setJoin_date(Timestamp join_date) {
 		this.join_date = join_date;
 	}
-	
+	public String getFormedJoinDate() {
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy년 MM월 dd일");
+		return dateFormat.format(join_date);
+	}
 }

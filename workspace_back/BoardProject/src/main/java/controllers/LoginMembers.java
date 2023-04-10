@@ -21,19 +21,21 @@ public class LoginMembers extends HttpServlet {
 		}catch(Exception e) {
 			e.printStackTrace();
 			System.out.println("암호화 중 오류 발생");
-			response.sendRedirect("error.html");
+			response.sendRedirect("/error.html");
 		}
 		
 		try {
 			boolean result = MembersDAO.getInstance().login(id, pw);
 			System.out.println("로그인 성공 여부 : " + result);
-			response.sendRedirect("index.jsp");
+			if(result) {
+				request.getSession().setAttribute("loginID", id);
+			}
+			response.sendRedirect("/index.jsp");
 		}catch(Exception e) {
 			e.printStackTrace();
 			System.out.println("DB 로그인 사용 중 오류");
-			response.sendRedirect("error.html");
+			response.sendRedirect("/error.html");
 		}
-		
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

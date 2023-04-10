@@ -8,7 +8,7 @@ import org.openqa.selenium.chrome.ChromeOptions;
 public class Exam_04 {
 	public static void main(String[] args) {
 		ChromeOptions options = new ChromeOptions();
-		options.addArguments("--headless");
+//		options.addArguments("--headless");
 		options.addArguments("--blink-settings=imagesEnabled=false");
 		WebDriver driver = new ChromeDriver(options);
 		JavascriptExecutor js = (JavascriptExecutor)driver;

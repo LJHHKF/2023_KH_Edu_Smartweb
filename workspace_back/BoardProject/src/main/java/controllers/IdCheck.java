@@ -20,7 +20,7 @@ public class IdCheck extends HttpServlet {
 		}catch(Exception e) {
 			e.printStackTrace();
 			System.out.println("DB ID 조회 사용 중 오류가 났습니다.");
-			response.sendRedirect("error.html");
+			response.sendRedirect("/error.html");
 		}
 		request.setAttribute("isDup", result);
 		request.getRequestDispatcher("/member/dupresult.jsp").forward(request, response);
