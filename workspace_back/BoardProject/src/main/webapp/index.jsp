@@ -15,7 +15,7 @@
 		<c:choose>
 			<c:when test="${loginID == null}">
 				<div class="container">
-					<form action="/LoginMembers" method="post">
+					<form action="/login.members" method="post">
 						<div class="row justify-content-center">
 							<div class="col-6 border rounded border-primary">
 								<div class="row">
@@ -42,9 +42,9 @@
 										<button type="submit" class="btn btn-primary">로그인</button>
 										<button type="button" id="toJoin" class="btn btn-primary">회원가입</button>
 									</div>
-									<div class="col-12 text-center">
+									<!-- <div class="col-12 text-center">
 										<input type="checkbox">ID 기억하기
-									</div>
+									</div> -->
 								</div>
 							</div>
 						</div>
@@ -65,14 +65,17 @@
 				<div class="container">
 					<table class="table table-primary table-striped table-borderd" align="center">
 						<tr>
-							<th colspan="3">${loginID}님 환영합니다.</th>
+							<th colspan="4">${loginID}님 환영합니다.</th>
 						</tr>
 						<tr>
-							<td align="center">
-								<a href="/MyPage"><button>마이페이지</button></a>
+							<td>
+								<a href="/list.board"><button>게시판으로</button></a>
 							</td>
 							<td align="center">
-								<a href="/LogoutMemebers"><button id="Logout">로그아웃</button></a>
+								<a href="/myPage.members"><button>마이페이지</button></a>
+							</td>
+							<td align="center">
+								<a href="/logout.members"><button id="Logout">로그아웃</button></a>
 							</td>
 							<td align="center">
 								<button id="btn_outMembers">회원탈퇴</button>
@@ -84,7 +87,7 @@
 					$("#btn_outMembers").click(function(){
 						let result = confirm("정말로 탈퇴하시겠습니까?");
 						if(result){
-							location.href = "/OutMembers";
+							location.href = "/out.members";
 						}
 					});
 				</script>

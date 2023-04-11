@@ -25,7 +25,7 @@
 						<td>${i.message}</td>
 					</tr>
 				</c:forEach>
-				<form action="ModifyMessage" method="get" id="modifyForm">
+				<form action="update.message" method="get" id="modifyForm">
 					<tr>
 						<td colspan="2">
 							<input type="text" name="modifyId" placeholder="input id to modify">
@@ -45,7 +45,7 @@
 						</td>
 					</tr>
 				</form>
-				<form action="DeleteMessage" method="get" id="deleteForm">
+				<form action="delete.message" method="get" id="deleteForm">
 					<tr>
 						<td colspan="2">
 							<input type="text" name="deleteId" placeholder="Input id to Delete">

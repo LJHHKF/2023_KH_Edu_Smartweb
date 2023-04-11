@@ -27,7 +27,7 @@
                 <td>${i.getFormedBirthday()}</td>
             </tr>
         </c:forEach>
-        <form action="UpdateContacts" method="get" id="updateForm">
+        <form action="update.contacts" method="get" id="updateForm">
             <tr>
                 <td colspan="2">
                     <input type="text" name="updateID" placeholder="수정할 요소의 id를 입력해주세요.">
@@ -53,7 +53,7 @@
             </tr>
         </form>
         <tr>
-            <form action="DeleteContacts" method="get" id="deleteForm">
+            <form action="delete.contacts" method="get" id="deleteForm">
                 <td colspan="2">
                     <input type="text" name="deleteID" placeholder="삭제할 요소의 id를 입력해주세요.">
                 </td>
@@ -110,7 +110,7 @@
             let deleteID = document.getElementsByName("deleteID")[0];
             if(idCheck(deleteID.value)){
                 //document.getElementById("deleteForm").submit();
-                location.href = "DeleteContacts?deleteID="+deleteID.value;
+                location.href = "delete.contacts?deleteID="+deleteID.value;
             }else{
                 deleteID.value = "";
             }

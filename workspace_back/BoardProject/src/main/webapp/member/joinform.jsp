@@ -18,7 +18,7 @@
 
     <body>
         <div class="container border rounded border-primary">
-            <form action="/JoinMembers" id="registerForm" method="post">
+            <form action="/create.members" id="registerForm" method="post">
                 <div class="row">
                     <div class="col-12 text-center border border-primary bg-primary text-light">
                         <h1>회원 가입 정보</h1>
@@ -90,12 +90,14 @@
                     </div>
                 </div>
                 <div class="row align-items-center">
-                    <div class="col-6 text-end">
+                    <div class="col-4 text-center">
                         <button class="btn btn-primary">회원가입</button>
                     </div>
-                    <div class="col-6 text-start">
-                        <button type="button" id="btn_reWrite" class="btn btn-primary">
-                            다시 입력</button>
+                    <div class="col-4 text-center">
+                        <button type="button" id="btn_reWrite" class="btn btn-primary">다시 입력</button>
+                    </div>
+                    <div class="col-4 text-center">
+                        <a href="/index.jsp"><button type="button" class="btn btn-primary">돌아가기</button></a>
                     </div>
                 </div>
             </form>
@@ -201,7 +203,7 @@
             });
 
             $("#btn_id_dup").click(function () {
-                window.open("/IdCheck?id=" + $("#input_id").val(), "", "width=400px, height=200px");
+                window.open("/idCheck.members?id=" + $("#input_id").val(), "", "width=400px, height=200px");
             });
             $("#input_id").keydown(function (e) {
                 idValidFlag = false;

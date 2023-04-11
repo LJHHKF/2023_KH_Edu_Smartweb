@@ -43,6 +43,18 @@ public class MembersDAO {
 		}
 	}
 	
+	public boolean isPwNonChange(String id, String pw) throws Exception{
+		String sql = "select pw from members where id=? and pw=?";
+		try(	Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);){
+			pstat.setString(1, id);
+			pstat.setString(2, pw);
+			try(ResultSet rs = pstat.executeQuery();){
+				return rs.next();
+			}
+		}
+	}
+	
 	public int insert(MembersDTO dto) throws Exception {
 		//id(string), pw, name, phone, email, zipcode, address, adress2, join_date(default)
 		String sql = "insert into members values (?, ?, ?, ?, ?, ?, ?, ?, default)";
@@ -93,6 +105,32 @@ public class MembersDAO {
 			try(ResultSet rs = pstat.executeQuery();){
 				return this.transAllRsToList(rs).get(0);
 			}
+		}
+	}
+	
+	public int update(MembersDTO dto) throws Exception {
+		String sql = "update members set "
+				+ "pw=?,"
+				+ "name=?,"
+				+ "phone=?,"
+				+ "email=?,"
+				+ "zipcode=?,"
+				+ "address1=?,"
+				+ "address2=?"
+				+ " where id=?";
+		try(	Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);){
+			pstat.setString(1, dto.getPw());
+			pstat.setString(2, dto.getName());
+			pstat.setString(3, dto.getPhone());
+			pstat.setString(4, dto.getEmail());
+			pstat.setString(5, dto.getZipcode());
+			pstat.setString(6, dto.getAddress1());
+			pstat.setString(7, dto.getAddress2());
+			pstat.setString(8, dto.getId());
+			int result = pstat.executeUpdate();
+			con.commit();
+			return result;
 		}
 	}
 	
