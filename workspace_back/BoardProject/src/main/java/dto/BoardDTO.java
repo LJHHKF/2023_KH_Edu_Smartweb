@@ -1,6 +1,7 @@
 package dto;
 
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 
 public class BoardDTO {
 	private int seq;
@@ -57,6 +58,10 @@ public class BoardDTO {
 		this.write_date = write_date;
 	}
 	
+	public String getFormedDate() {
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy년 MM월 dd일");
+		return dateFormat.format(this.write_date);
+	}
 	
 	
 }

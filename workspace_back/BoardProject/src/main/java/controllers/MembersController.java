@@ -40,7 +40,6 @@ public class MembersController extends HttpServlet {
 				request.getRequestDispatcher("/member/dupresult.jsp").forward(request, response);
 
 			}else if(cmd.equals("/login.members")) {
-				request.setCharacterEncoding("utf8");
 				String id = request.getParameter("id");
 				String pw = EncryptionUtils.sha512(request.getParameter("pw"));
 
