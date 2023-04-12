@@ -2,6 +2,7 @@ package dto;
 
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class BoardDTO {
 	private int seq;
@@ -58,9 +59,20 @@ public class BoardDTO {
 		this.write_date = write_date;
 	}
 	
-	public String getFormedDate() {
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy년 MM월 dd일");
-		return dateFormat.format(this.write_date);
+	public String getFormedJoinDate_list() {
+		//ms 단위? 1000으로 나눠주면 1초단위가 됨.
+		long diff_date = (System.currentTimeMillis() - this.write_date.getTime())/1000;
+		
+		if(diff_date < 60) {
+			return "방금 전";
+		}else if(diff_date < 300) {
+			return "5분 이내";
+		}else if(diff_date < 3600) {
+			return "1시간 이내";
+		}else {
+			SimpleDateFormat dateFormat = new SimpleDateFormat("yy년 MM월 dd일");
+			return dateFormat.format(this.write_date);
+		}
 	}
 	
 	

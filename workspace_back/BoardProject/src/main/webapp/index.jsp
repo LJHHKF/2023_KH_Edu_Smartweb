@@ -69,16 +69,16 @@
 						</tr>
 						<tr>
 							<td>
-								<a href="/list.board"><button>게시판으로</button></a>
+								<a href="/list.board"><button class="btn btn-primary">게시판으로</button></a>
 							</td>
 							<td align="center">
-								<a href="/myPage.members"><button>마이페이지</button></a>
+								<a href="/myPage.members"><button class="btn btn-primary">마이페이지</button></a>
 							</td>
 							<td align="center">
-								<a href="/logout.members"><button id="Logout">로그아웃</button></a>
+								<a href="/logout.members"><button id="Logout" class="btn btn-primary">로그아웃</button></a>
 							</td>
 							<td align="center">
-								<button id="btn_outMembers">회원탈퇴</button>
+								<button id="btn_outMembers" class="btn btn-primary">회원탈퇴</button>
 							</td>
 						</tr>
 					</table>

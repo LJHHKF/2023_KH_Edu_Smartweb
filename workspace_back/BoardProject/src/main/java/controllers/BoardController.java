@@ -21,6 +21,8 @@ public class BoardController extends HttpServlet {
 		try {
 			if(cmd.equals("/list.board")) {
 				ArrayList<BoardDTO> list = BoardDAO.getInstance().readAll();
+				list.get(0).getFormedJoinDate_list();
+				list.get(2).getFormedJoinDate_list();
 				request.setAttribute("list", list);
 				request.getRequestDispatcher("/board/list.jsp").forward(request, response);
 			}else if(cmd.equals("/write.board")) {
@@ -28,11 +30,23 @@ public class BoardController extends HttpServlet {
 				String title = request.getParameter("title");
 				String contetns = request.getParameter("contents");
 				int result = BoardDAO.getInstance().create(new BoardDTO(0, writer, title, contetns, 0, null));
-				if(result > 0) {
-					System.out.println("삽입 성공");
-				}else {
-					System.out.println("삽입 실패");
-				}
+				response.sendRedirect("/list.board");
+			}else if(cmd.equals("/view.board")) {
+				int seq = Integer.parseInt(request.getParameter("seq"));
+				BoardDTO dto = BoardDAO.getInstance().readOne(seq);
+				request.setAttribute("dto", dto);
+				request.getRequestDispatcher("/board/viewContent.jsp").forward(request, response);
+			}else if(cmd.equals("/update.board")) {
+				int seq = Integer.parseInt(request.getParameter("seq"));
+				String title = request.getParameter("title");
+				String contents = request.getParameter("contents");
+				int result = BoardDAO.getInstance().update(seq, title, contents);
+				BoardDTO dto = BoardDAO.getInstance().readOne(seq);
+				request.setAttribute("dto", dto);
+				request.getRequestDispatcher("/board/viewContent.jsp").forward(request, response);
+			}else if(cmd.equals("/delete.board")) {
+				int seq = Integer.parseInt(request.getParameter("seq"));
+				int result = BoardDAO.getInstance().delete(seq);
 				response.sendRedirect("/list.board");
 			}
 		}catch(Exception e) {

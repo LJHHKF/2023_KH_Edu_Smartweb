@@ -10,11 +10,14 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css"
     rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
 </head>
 <body>
     <div class="container border border-primary rounded">
         <div class="row">
-            <div class="col-12 border border-primary">
+            <div class="col-12 border border-primary text-center">
+                게시글 작성
             </div>
         </div>
         <form action="/write.board" method="get" id="writeForm">
@@ -25,16 +28,36 @@
             </div>
             <div class="row">
                 <div class="col-12 border border-primary">
-                    <textarea name="contents" cols="30" rows="5" class="form-control"></textarea>
+                    <textarea class="summernote" name="contents" cols="30" rows="5"></textarea>
                 </div>
             </div>
             <div class="row">
-                <div class="col-12 text-end">
-                    <button>작성완료</button>
-                    <a href="/board/list.jsp"><button type="button">목록으로</button></a>
+                <div class="col-12 border border-primary text-end">
+                    <a href="/list.board"><button type="button" class="btn btn-primary">목록으로</button></a>
+                    <button class="btn btn-primary">작성완료</button>
                 </div>
             </div>
         </form>
     </div>
+    <script>
+        $(document).ready(function(){
+            $(".summernote").summernote({
+                height:300,
+                minHeight:null,
+                maxHeight:null,
+                focus:true,
+                lang:"ko-KR",
+                toolbar: [
+                    ['style', ['style']],
+                    ['font', ['bold', 'underline', 'clear']],
+                    ['color', ['color']],
+                    ['para', ['ul', 'ol', 'paragraph']],
+                    ['table', ['table']],
+                    ['insert', ['link', 'picture', 'video']],
+                    ['view', ['fullscreen', 'codeview', 'help']]
+                  ]
+            });
+        });
+        </script>
 </body>
 </html>

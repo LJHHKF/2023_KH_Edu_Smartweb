@@ -44,7 +44,7 @@
                                     <th>ZipCode:</th>
                                     <td>
                                         <input type="text" name="zipcode" value="${myDto.zipcode}" class="form-control" readonly>
-                                        <button type="button" id="btn_address" style="display:none;">주소찾기</button>
+                                        <button type="button" id="btn_address" style="display:none;" class="btn btn-primary">주소찾기</button>
                                     </td>
                                     
                                 </tr>
@@ -62,8 +62,8 @@
                                 </tr>
                                 <tr>
                                     <td colspan="2" align="center" id="control">
-                                        <button id="btn_update" type="button">정보수정</button>
-                                        <button type="button" id="btn_back">돌아가기</button>
+                                        <button id="btn_update" type="button" class="btn btn-primary">정보수정</button>
+                                        <button type="button" id="btn_back" class="btn btn-primary">돌아가기</button>
                                     </td>
                                 </tr>
                             </table>
@@ -87,10 +87,14 @@
 
                     let btn_updateComplete = $("<button>");
                     btn_updateComplete.text("수정완료");
+                    btn_updateComplete.addClass("btn");
+                    btn_updateComplete.addClass("btn-primary");
 
                     let btn_cancel = $("<button>");
                     btn_cancel.attr("type", "button");
                     btn_cancel.text("취소");
+                    btn_cancel.addClass("btn");
+                    btn_cancel.addClass("btn-primary");
                     btn_cancel.click(function () {
                         location.reload();
                     });

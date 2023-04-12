@@ -32,9 +32,9 @@
                             <c:forEach var="i" items="${list}">
                                 <tr>
                                     <td>${i.seq}</td>
-                                    <td>${i.title}</td>
+                                    <td><a href="/view.board?seq=${i.seq}">${i.title}</a></td>
                                     <td>${i.writer}</td>
-                                    <td>${i.getFormedDate()}</td>
+                                    <td>${i.getFormedJoinDate_list()}</td>
                                     <td>${i.view_count}</td>
                                 </tr>
                             </c:forEach>
@@ -43,8 +43,8 @@
                             </tr>
                             <tr>
                                 <td colspan="5" align="right">
-                                    <a href="/board/writeform.jsp"><button>작성하기</button></a>
-                                    <a href="/index.jsp"><button>메인화면으로</button></a>
+                                    <a href="/index.jsp"><button class="btn btn-primary">메인화면으로</button></a>
+                                    <a href="/board/writeform.jsp"><button class="btn btn-primary">작성하기</button></a>
                                 </td>
                             </tr>
                         </table>
