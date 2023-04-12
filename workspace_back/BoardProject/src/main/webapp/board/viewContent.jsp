@@ -30,7 +30,7 @@
                     </div>
                     <div class="row">
                         <div class="col-12 border border-primary">
-                            <textarea class="form-control" name="contents" readonly>${dto.contents}</textarea>
+                            <textarea class="summernote" name="contents" readonly>${dto.contents}</textarea>
                         </div>
                     </div>
                     <div class="row">
@@ -44,25 +44,7 @@
                                         $("#btn_update").click(function () {
                                             $("input, textarea").removeAttr("readonly");
                                             $("#btn_update, #btn_delete").css("display", "none");
-                                            $("[name=contents]").toggleClass("form-control");
-                                            $("[name=contents]").toggleClass("summernote");
-
-                                            $(".summernote").summernote({
-                                                height: 300,
-                                                minHeight: null,
-                                                maxHeight: null,
-                                                focus: true,
-                                                lang: "ko-KR",
-                                                toolbar: [
-                                                    ['style', ['style']],
-                                                    ['font', ['bold', 'underline', 'clear']],
-                                                    ['color', ['color']],
-                                                    ['para', ['ul', 'ol', 'paragraph']],
-                                                    ['table', ['table']],
-                                                    ['insert', ['link', 'picture', 'video']],
-                                                    ['view', ['fullscreen', 'codeview', 'help']]
-                                                ]
-                                            });
+                                            $(".summernote").summernote("enable");
 
                                             if (!($("#btn_confirm").length > 0)) {
                                                 let btn_confirm = $("<button>");
@@ -82,10 +64,7 @@
                                                     $("input, textarea").attr("readonly", "true");
                                                     $("#btn_update, #btn_delete").css("display", "inline-block");
                                                     $("#btn_confirm, #btn_cancel").css("display", "none");
-                                                    $("[name=contents]").toggleClass("form-control");
-                                                    $("[name=contents]").toggleClass("summernote");
-                                                    $("[name=contents]").css("display", "block");
-                                                    $(".note-editor").remove();
+                                                    $(".summernote").summernote("disable");
                                                 });
 
                                                 $("#control").prepend(btn_confirm);
@@ -109,6 +88,28 @@
                     </div>
                 </form>
             </div>
+
+            <script>
+                $(document).ready(function () {
+                    $(".summernote").summernote({
+                        height: 300,
+                        minHeight: null,
+                        maxHeight: null,
+                        focus: true,
+                        lang: "ko-KR",
+                        toolbar: [
+                            ['style', ['style']],
+                            ['font', ['bold', 'underline', 'clear']],
+                            ['color', ['color']],
+                            ['para', ['ul', 'ol', 'paragraph']],
+                            ['table', ['table']],
+                            ['insert', ['link', 'picture', 'video']],
+                            ['view', ['fullscreen', 'codeview', 'help']]
+                        ]
+                    });
+                    $(".summernote").summernote('disable');
+                });
+            </script>
         </body>
 
         </html>
