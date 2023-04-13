@@ -69,7 +69,7 @@
 						</tr>
 						<tr>
 							<td>
-								<a href="/list.board"><button class="btn btn-primary">게시판으로</button></a>
+								<a href="/list.board?cpage=1"><button class="btn btn-primary">게시판으로</button></a>
 							</td>
 							<td align="center">
 								<a href="/myPage.members"><button class="btn btn-primary">마이페이지</button></a>

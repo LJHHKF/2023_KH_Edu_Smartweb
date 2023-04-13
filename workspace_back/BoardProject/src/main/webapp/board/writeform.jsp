@@ -40,7 +40,7 @@
                     </div>
                     <div class="row">
                         <div class="col-12 border border-primary text-end">
-                            <a href="/list.board"><button type="button" class="btn btn-primary">목록으로</button></a>
+                            <a href="/list.board?cpage=1"><button type="button" class="btn btn-primary">목록으로</button></a>
                             <button class="btn btn-primary">작성완료</button>
                         </div>
                     </div>

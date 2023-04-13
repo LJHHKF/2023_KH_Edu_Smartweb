@@ -39,7 +39,7 @@
                                 </tr>
                             </c:forEach>
                             <tr>
-                                <td colspan="5" align="center">1 2 3 4 5 6 7 8 9 10</td>
+                                <td colspan="5" align="center">${navi}</td>
                             </tr>
                             <tr>
                                 <td colspan="5" align="right">

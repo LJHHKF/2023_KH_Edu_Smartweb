@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import dao.BoardDAO;
 import dto.BoardDTO;
+import statics.Settings;
 
 @WebServlet("*.board")
 public class BoardController extends HttpServlet {
@@ -20,17 +21,22 @@ public class BoardController extends HttpServlet {
 		
 		try {
 			if(cmd.equals("/list.board")) {
-				ArrayList<BoardDTO> list = BoardDAO.getInstance().readAll();
-				list.get(0).getFormedJoinDate_list();
-				list.get(2).getFormedJoinDate_list();
+				int currentPage = Integer.parseInt(request.getParameter("cpage"));
+				int start = currentPage * Settings.BOARD_RECORD_COUNT_PER_PAGE - (Settings.BOARD_NAVI_COUNT_PER_PAGE -1);
+				int end = currentPage * Settings.BOARD_RECORD_COUNT_PER_PAGE;
+				ArrayList<BoardDTO> list = BoardDAO.getInstance().selectBound(start, end);
+				String pageNavi = BoardDAO.getInstance().getPageNavi(currentPage);
+				
 				request.setAttribute("list", list);
+				request.getSession().setAttribute("curPage", currentPage);
+				request.setAttribute("navi", pageNavi);
 				request.getRequestDispatcher("/board/list.jsp").forward(request, response);
 			}else if(cmd.equals("/write.board")) {
 				String writer =(String)request.getSession().getAttribute("loginID");
 				String title = request.getParameter("title");
 				String contetns = request.getParameter("contents");
 				int result = BoardDAO.getInstance().create(new BoardDTO(0, writer, title, contetns, 0, null));
-				response.sendRedirect("/list.board");
+				response.sendRedirect("/list.board?cpage=1");
 			}else if(cmd.equals("/view.board")) {
 				int seq = Integer.parseInt(request.getParameter("seq"));
 				BoardDTO dto = BoardDAO.getInstance().readOne(seq);
@@ -48,7 +54,7 @@ public class BoardController extends HttpServlet {
 			}else if(cmd.equals("/delete.board")) {
 				int seq = Integer.parseInt(request.getParameter("seq"));
 				int result = BoardDAO.getInstance().delete(seq);
-				response.sendRedirect("/list.board");
+				response.sendRedirect("/list.board?cpage=1");
 			}
 		}catch(Exception e) {
 			e.printStackTrace();

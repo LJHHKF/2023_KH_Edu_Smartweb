@@ -11,6 +11,7 @@ import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
 import dto.BoardDTO;
+import statics.Settings;
 
 public class BoardDAO {
 	private static BoardDAO instance = null;
@@ -97,6 +98,86 @@ public class BoardDAO {
 			int result = pstat.executeUpdate();
 			con.commit();
 			return result;
+		}
+	}
+	
+	private int getRecordCount() throws Exception{
+		String sql = "select count(*) from board";
+		try(	Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);
+				ResultSet rs = pstat.executeQuery();){
+			rs.next();
+			return rs.getInt(1);
+		}
+	}
+	
+	public int getMaxSeq() throws Exception{
+		String sql = "select seq from board order by seq desc";
+		try(	Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);
+				ResultSet rs = pstat.executeQuery();){
+			rs.next();
+			return rs.getInt(1);
+		}
+	}
+	
+	public String getPageNavi(int currentPage) throws Exception{
+		//1. 전체 글의 개수
+		int recordTotalCount = this.getRecordCount();
+		//2. 페이지당 보여줄 글의 개수
+		int recordCountPerPage = Settings.BOARD_NAVI_COUNT_PER_PAGE;
+		//3. 페이지당 보여줄 네비게이터의 수
+		int naviCountPerPage = Settings.BOARD_RECORD_COUNT_PER_PAGE;
+		
+		//4. 1번과 2번 항목에 의해 총 페이지의 개수가 정해짐.
+		//전체 글의 개수를 페이지당 
+		int pageTotalCount = recordTotalCount%recordCountPerPage > 0 ?
+				recordTotalCount/recordCountPerPage + 1
+				:recordTotalCount/recordCountPerPage;
+		
+		if(currentPage < 1) {
+			currentPage = 1;
+		}else if(currentPage > pageTotalCount) {
+			currentPage = pageTotalCount;
+		}
+		
+		int startNavi = (currentPage-1)/naviCountPerPage*naviCountPerPage+1;
+		int endNavi = startNavi + (naviCountPerPage-1);
+		
+		if(endNavi > pageTotalCount) {
+			endNavi = pageTotalCount;
+		}
+		
+		boolean needPrev = true;
+		boolean needNext = true;
+		
+		StringBuilder sb = new StringBuilder();
+		
+		if(startNavi == 1) {needPrev = false;}
+		if(endNavi == pageTotalCount) {needNext = false;}
+		if(needPrev) {
+			sb.append("<a href='/list.board?cpage="+(startNavi-1)+"'> < </a>");
+		}
+		for(int i = startNavi; i <= endNavi; i++) {
+		    sb.append("<a href='/list.board?cpage="+i+"'> "+ i +" </a>");
+		}
+		
+		if(needNext) {
+			sb.append("<a href='/list.board?cpage="+(endNavi+1)+"'> > </a>");
+		}
+		
+		return sb.toString();
+	}
+	
+	public ArrayList<BoardDTO> selectBound(int start, int end) throws Exception{
+		String sql = "select * from (select board.*, row_number() over(order by seq desc) rn from board) where rn between ? and ?";
+		try(	Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);){
+			pstat.setInt(1, start);
+			pstat.setInt(2, end);
+			try(ResultSet rs = pstat.executeQuery();){
+				return this.transAllRsToList(rs);
+			}
 		}
 	}
 
