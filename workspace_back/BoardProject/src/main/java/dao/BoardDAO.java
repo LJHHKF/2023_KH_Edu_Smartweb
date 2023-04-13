@@ -59,17 +59,20 @@ public class BoardDAO {
 		try(	Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);){
 			pstat.setInt(1, seq);
-			
-			String sql2 = "update board set view_count=view_count+1 where seq=?";
-			try(PreparedStatement pstat2 = con.prepareStatement(sql2);){
-				pstat2.setInt(1, seq);
-				pstat2.executeUpdate();
-				con.commit();
-			}
-			
 			try(ResultSet rs = pstat.executeQuery()){
 				return this.transAllRsToList(rs).get(0);
 			}
+		}
+	}
+	
+	public int addViewCount(int seq) throws Exception {
+		String sql = "update board set view_count=view_count+1 where seq=?";
+		try(	Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql)){
+			pstat.setInt(1, seq);
+			int result = pstat.executeUpdate();
+			con.commit();
+			return result;
 		}
 	}
 	

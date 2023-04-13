@@ -34,6 +34,7 @@ public class BoardController extends HttpServlet {
 			}else if(cmd.equals("/view.board")) {
 				int seq = Integer.parseInt(request.getParameter("seq"));
 				BoardDTO dto = BoardDAO.getInstance().readOne(seq);
+				int result = BoardDAO.getInstance().addViewCount(seq);
 				request.setAttribute("dto", dto);
 				request.getRequestDispatcher("/board/viewContent.jsp").forward(request, response);
 			}else if(cmd.equals("/update.board")) {

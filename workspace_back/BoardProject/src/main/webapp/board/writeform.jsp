@@ -12,8 +12,8 @@
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
             <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
             <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
-            <!-- <script src="https://cdn.ckeditor.com/ckeditor5/37.0.1/classic/ckeditor.js"></script> -->
-            <!-- <script src="https://cdn.ckeditor.com/ckeditor5/37.0.1/decoupled-document/ckeditor.js"></script> -->
+            <script src="https://cdn.ckeditor.com/ckeditor5/37.0.1/classic/ckeditor.js"></script> -->
+            <!-- <script src="https://cdn.ckeditor.com/ckeditor5/37.0.1/decoupled-document/ckeditor.js"></script>
             <!-- <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
             <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script> -->
         </head>
@@ -33,8 +33,8 @@
                     </div>
                     <div class="row">
                         <div class="col-12 border border-primary">
-                            <textarea class="summernote" name="contents" cols="30" rows="5"></textarea>
-                            <!-- <textarea id="editor" name="contents" cols="30" rows="5"></textarea> -->
+                            <!-- <textarea class="summernote" name="contents" cols="30" rows="5"></textarea> -->
+                            <textarea id="editor" name="contents" cols="30" rows="5"></textarea>
                             <!-- <textarea id="editor" class="form-control" name="contents" cols="30" rows="5"></textarea>  -->
                         </div>
                     </div>
@@ -51,7 +51,7 @@
                 let quill = new Quill('#editor',{theme:'snow'});
             </script> -->
 
-            <script>
+            <!-- <script>
                 $(document).ready(function () {
                     $(".summernote").summernote({
                         height: 300,
@@ -70,12 +70,12 @@
                         ]
                     });
                 });
-            </script>
+            </script> -->
 
-            <!-- <script>
+            <script>
                 ClassicEditor.create(document.querySelector('#editor')).catch(error => {console.error(error)});
                 // DecoupledEditor.crate(document.querySelector('#editor')).
-            </script> -->
+            </script>
         </body>
 
         </html>
