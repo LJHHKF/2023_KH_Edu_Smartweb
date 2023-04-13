@@ -34,6 +34,7 @@
                         <div class="col-12 border border-primary">
                             <!-- <textarea class="summernote" name="contents" readonly>${dto.contents}</textarea> -->
                             <textarea id="editor" name="contents" readonly>${dto.contents}</textarea>
+                        
                         </div>
                     </div>
                     <div class="row">

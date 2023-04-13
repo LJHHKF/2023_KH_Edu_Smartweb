@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
         <!DOCTYPE html>
         <html>
 
@@ -39,7 +39,19 @@
                                 </tr>
                             </c:forEach>
                             <tr>
-                                <td colspan="5" align="center">${navi}</td>
+                                <td colspan="5" align="center">
+                                    <c:if test="${navi.needPrev}">
+                                        <a href="/list.board?cpage=${navi.naviList.get(0) - 1}"><</a>
+                                    </c:if>
+                                    <c:forEach var="i" items="${navi.naviList}">
+                                     
+                                        <a href="/list.board?cpage=${i.intValue()}">${i.intValue()}</a>
+                                     
+                                    </c:forEach>
+                                    <c:if test="${navi.needNext}">
+                                        <a href="/list.board?cpage=${navi.naviList.get(navi.naviList.length) + 1}">></a>
+                                    </c:if>
+                                </td>
                             </tr>
                             <tr>
                                 <td colspan="5" align="right">

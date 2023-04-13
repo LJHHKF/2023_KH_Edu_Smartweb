@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import dao.BoardDAO;
 import dto.BoardDTO;
+import dto.BoardNaviDTO;
 import statics.Settings;
 
 @WebServlet("*.board")
@@ -25,7 +26,8 @@ public class BoardController extends HttpServlet {
 				int start = currentPage * Settings.BOARD_RECORD_COUNT_PER_PAGE - (Settings.BOARD_NAVI_COUNT_PER_PAGE -1);
 				int end = currentPage * Settings.BOARD_RECORD_COUNT_PER_PAGE;
 				ArrayList<BoardDTO> list = BoardDAO.getInstance().selectBound(start, end);
-				String pageNavi = BoardDAO.getInstance().getPageNavi(currentPage);
+//				String pageNavi = BoardDAO.getInstance().getPageNavi(currentPage);
+				BoardNaviDTO pageNavi = BoardDAO.getInstance().getPageNavi(currentPage);
 				
 				request.setAttribute("list", list);
 				request.getSession().setAttribute("curPage", currentPage);

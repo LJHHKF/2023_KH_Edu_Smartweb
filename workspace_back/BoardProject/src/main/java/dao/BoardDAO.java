@@ -11,6 +11,7 @@ import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
 import dto.BoardDTO;
+import dto.BoardNaviDTO;
 import statics.Settings;
 
 public class BoardDAO {
@@ -121,7 +122,7 @@ public class BoardDAO {
 		}
 	}
 	
-	public String getPageNavi(int currentPage) throws Exception{
+	public BoardNaviDTO getPageNavi(int currentPage) throws Exception{
 		//1. 전체 글의 개수
 		int recordTotalCount = this.getRecordCount();
 		//2. 페이지당 보여줄 글의 개수
@@ -150,27 +151,23 @@ public class BoardDAO {
 		
 		boolean needPrev = true;
 		boolean needNext = true;
-		
-		StringBuilder sb = new StringBuilder();
+		ArrayList<Integer> list = new ArrayList<>();
 		
 		if(startNavi == 1) {needPrev = false;}
 		if(endNavi == pageTotalCount) {needNext = false;}
-		if(needPrev) {
-			sb.append("<a href='/list.board?cpage="+(startNavi-1)+"'> < </a>");
-		}
 		for(int i = startNavi; i <= endNavi; i++) {
-		    sb.append("<a href='/list.board?cpage="+i+"'> "+ i +" </a>");
+			list.add(i);
 		}
-		
-		if(needNext) {
-			sb.append("<a href='/list.board?cpage="+(endNavi+1)+"'> > </a>");
-		}
-		
-		return sb.toString();
+
+		return new BoardNaviDTO(list, needPrev, needNext);
 	}
 	
 	public ArrayList<BoardDTO> selectBound(int start, int end) throws Exception{
-		String sql = "select * from (select board.*, row_number() over(order by seq desc) rn from board) where rn between ? and ?";
+		String sql = "select * "
+				+ "from "
+				+ "(select board.*, row_number() over(order by seq desc) rn "
+				+ "from board) "
+				+ "where rn between ? and ?";
 		try(	Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);){
 			pstat.setInt(1, start);
