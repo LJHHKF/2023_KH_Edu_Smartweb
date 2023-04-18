@@ -10,8 +10,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dao.BoardDAO;
+import dao.ReplyDAO;
 import dto.BoardDTO;
 import dto.BoardNaviDTO;
+import dto.ReplyDTO;
 import statics.Settings;
 
 @WebServlet("*.board")
@@ -42,8 +44,10 @@ public class BoardController extends HttpServlet {
 			}else if(cmd.equals("/view.board")) {
 				int seq = Integer.parseInt(request.getParameter("seq"));
 				BoardDTO dto = BoardDAO.getInstance().readOne(seq);
+				ArrayList<ReplyDTO> replyList = ReplyDAO.getInstance().selectPSeq(seq);
 				int result = BoardDAO.getInstance().addViewCount(seq);
 				request.setAttribute("dto", dto);
+				request.setAttribute("replyList", replyList);
 				request.getRequestDispatcher("/board/viewContent.jsp").forward(request, response);
 			}else if(cmd.equals("/update.board")) {
 				int seq = Integer.parseInt(request.getParameter("seq"));
@@ -51,7 +55,9 @@ public class BoardController extends HttpServlet {
 				String contents = request.getParameter("contents");
 				int result = BoardDAO.getInstance().update(seq, title, contents);
 				BoardDTO dto = BoardDAO.getInstance().readOne(seq);
+				ArrayList<ReplyDTO> replyList = ReplyDAO.getInstance().selectPSeq(seq);
 				request.setAttribute("dto", dto);
+				request.setAttribute("replyList", replyList);
 				request.getRequestDispatcher("/board/viewContent.jsp").forward(request, response);
 			}else if(cmd.equals("/delete.board")) {
 				int seq = Integer.parseInt(request.getParameter("seq"));
