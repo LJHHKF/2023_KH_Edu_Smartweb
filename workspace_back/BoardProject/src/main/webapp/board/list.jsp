@@ -39,22 +39,67 @@
                                 </tr>
                             </c:forEach>
                             <tr>
+                                <c:choose>
+                                    <c:when test="${isSearch}">
+                                        <td colspan="5" align="center">
+                                            <c:if test="${navi.needPrev}">
+                                                <a href="/list.board?cpage=${navi.naviList.get(0) - 1}"><</a>
+                                            </c:if>
+                                            <form id="searchForm" method="get">
+                                                <input type="text" style="display: none;" name="option" value="${option}">
+                                                <input type="text" style="display: none;" name="keyword" value="${keyword}">
+                                                <input type="text" id="input_cpage" style="display: none;" name="cpage" value="1">
+                                                <c:forEach var="i" items="${navi.naviList}">
+                                                    <a href="#none" id="cpage${i.intValue()}">${i.intValue()}</a> 
+                                                    <script>
+                                                        let out = "#cpage" + "<c:out value='${i.intValue()}'></c:out>";
+                                                        $(out).click(function(){
+                                                            let out2 = "<c:out value='${i.intValue()}'></c:out>";
+                                                            $("#input_cpage").value(out2);
+                                                            $("#searchForm").action("/search.board");
+                                                            $("#searchForm").submit();
+                                                        });
+                                                    </script>
+                                                </c:forEach>
+                                            </form>
+                                            <c:if test="${navi.needNext}">
+                                                <a href="/list.board?cpage=${navi.naviList.get(navi.naviList.length) + 1}">></a>
+                                            </c:if>
+                                        </td>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <td colspan="5" align="center">
+                                            <c:if test="${navi.needPrev}">
+                                                <a href="/list.board?cpage=${navi.naviList.get(0) - 1}"><</a>
+                                            </c:if>
+                                            <c:forEach var="i" items="${navi.naviList}">
+                                                <a href="/list.board?cpage=${i.intValue()}">${i.intValue()}</a>
+                                            </c:forEach>
+                                            <c:if test="${navi.needNext}">
+                                                <a href="/list.board?cpage=${navi.naviList.get(navi.naviList.length) + 1}">></a>
+                                            </c:if>
+                                        </td>
+                                    </c:otherwise>
+                                </c:choose>
+                            </tr>
+                            <tr>
                                 <td colspan="5" align="center">
-                                    <c:if test="${navi.needPrev}">
-                                        <a href="/list.board?cpage=${navi.naviList.get(0) - 1}"><</a>
-                                    </c:if>
-                                    <c:forEach var="i" items="${navi.naviList}">
-                                     
-                                        <a href="/list.board?cpage=${i.intValue()}">${i.intValue()}</a>
-                                     
-                                    </c:forEach>
-                                    <c:if test="${navi.needNext}">
-                                        <a href="/list.board?cpage=${navi.naviList.get(navi.naviList.length) + 1}">></a>
-                                    </c:if>
+                                    <form action="/search.board" method="get">
+                                        <input type="text" name="cpage" value="1" style="display: none;">
+                                        <select name="option" class="form-select">
+                                            <option value="title">제목</option>
+                                            <option value="writer">작성자</option>
+                                        </select>
+                                        <input type="text" name="keyword" class="form-control">
+                                        <button class="btn btn-primary">검색</button>
+                                    </form>
                                 </td>
                             </tr>
                             <tr>
                                 <td colspan="5" align="right">
+                                    <c:if test="${isSearch}">
+                                        <a href="/list.board?cpage=1"><button class="btn btn-primary">검색 필터 해제</button></a>
+                                    </c:if>
                                     <a href="/index.jsp"><button class="btn btn-primary">메인화면으로</button></a>
                                     <a href="/board/writeform.jsp"><button class="btn btn-primary">작성하기</button></a>
                                 </td>
@@ -63,6 +108,7 @@
                     </div>
                 </div>
             </div>
+
         </body>
 
         </html>

@@ -34,6 +34,7 @@ public class BoardController extends HttpServlet {
 				request.setAttribute("list", list);
 				request.getSession().setAttribute("curPage", currentPage);
 				request.setAttribute("navi", pageNavi);
+				request.getSession().setAttribute("isSearch", false);
 				request.getRequestDispatcher("/board/list.jsp").forward(request, response);
 			}else if(cmd.equals("/write.board")) {
 				String writer =(String)request.getSession().getAttribute("loginID");
@@ -63,6 +64,21 @@ public class BoardController extends HttpServlet {
 				int seq = Integer.parseInt(request.getParameter("seq"));
 				int result = BoardDAO.getInstance().delete(seq);
 				response.sendRedirect("/list.board?cpage=1");
+			}else if(cmd.equals("/search.board")) {
+				int currentPage = Integer.parseInt(request.getParameter("cpage"));
+				int start = currentPage * Settings.BOARD_RECORD_COUNT_PER_PAGE - (Settings.BOARD_NAVI_COUNT_PER_PAGE -1);
+				int end = currentPage * Settings.BOARD_RECORD_COUNT_PER_PAGE;
+				String option = request.getParameter("option");
+				String keyword = request.getParameter("keyword");
+				ArrayList<BoardDTO> list = BoardDAO.getInstance().selectBoundSearched(start, end, option, keyword);
+				BoardNaviDTO pageNavi = BoardDAO.getInstance().getSearchedPageNavi(currentPage, option, keyword);
+				request.setAttribute("list", list);
+				request.getSession().setAttribute("curPage", currentPage);
+				request.getSession().setAttribute("isSearch", true);
+				request.setAttribute("navi", pageNavi);
+				request.getSession().setAttribute("option", option);
+				request.getSession().setAttribute("keyword", keyword);
+				request.getRequestDispatcher("/board/list.jsp").forward(request, response);
 			}
 		}catch(Exception e) {
 			e.printStackTrace();

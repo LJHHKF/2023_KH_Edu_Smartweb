@@ -46,15 +46,15 @@ public class BoardDAO {
 		}
 	}
 
-	public ArrayList<BoardDTO> readAll() throws Exception{
-		String sql = "select * from board order by seq desc";
-		try(	Connection con = this.getConnection();
-				PreparedStatement pstat = con.prepareStatement(sql);){
-			try(ResultSet rs = pstat.executeQuery()){
-				return this.transAllRsToList(rs);
-			}
-		}
-	}
+//	public ArrayList<BoardDTO> readAll() throws Exception{
+//		String sql = "select * from board order by seq desc";
+//		try(	Connection con = this.getConnection();
+//				PreparedStatement pstat = con.prepareStatement(sql);){
+//			try(ResultSet rs = pstat.executeQuery()){
+//				return this.transAllRsToList(rs);
+//			}
+//		}
+//	}
 
 	public BoardDTO readOne(int seq) throws Exception {
 		String sql = "select * from board where seq=?";
@@ -112,6 +112,23 @@ public class BoardDAO {
 		}
 	}
 	
+	private int getSearchedRecordCount(String option, String keyword) throws Exception{
+		String sql = null;
+		if(option.equals("title")) {
+			sql = "select count(*) from board where title like ?";
+		}else if(option.equals("writer")) {
+			sql = "select count(*) from board where writer like ?";
+		}
+		try(	Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);){
+			pstat.setString(1, "%"+keyword+"%");
+			try(ResultSet rs = pstat.executeQuery();){
+				rs.next();
+				return rs.getInt(1);
+			}
+		}
+	}
+	
 	public int getMaxSeq() throws Exception{
 		String sql = "select seq from board order by seq desc";
 		try(	Connection con = this.getConnection();
@@ -162,6 +179,46 @@ public class BoardDAO {
 		return new BoardNaviDTO(list, needPrev, needNext);
 	}
 	
+	public BoardNaviDTO getSearchedPageNavi(int currentPage, String option, String keyword) throws Exception {
+		//1. 전체 글의 개수
+				int recordTotalCount = this.getSearchedRecordCount(option, keyword);
+				//2. 페이지당 보여줄 글의 개수
+				int recordCountPerPage = Settings.BOARD_NAVI_COUNT_PER_PAGE;
+				//3. 페이지당 보여줄 네비게이터의 수
+				int naviCountPerPage = Settings.BOARD_RECORD_COUNT_PER_PAGE;
+				
+				//4. 1번과 2번 항목에 의해 총 페이지의 개수가 정해짐.
+				//전체 글의 개수를 페이지당 
+				int pageTotalCount = recordTotalCount%recordCountPerPage > 0 ?
+						recordTotalCount/recordCountPerPage + 1
+						:recordTotalCount/recordCountPerPage;
+				
+				if(currentPage < 1) {
+					currentPage = 1;
+				}else if(currentPage > pageTotalCount) {
+					currentPage = pageTotalCount;
+				}
+				
+				int startNavi = (currentPage-1)/naviCountPerPage*naviCountPerPage+1;
+				int endNavi = startNavi + (naviCountPerPage-1);
+				
+				if(endNavi > pageTotalCount) {
+					endNavi = pageTotalCount;
+				}
+				
+				boolean needPrev = true;
+				boolean needNext = true;
+				ArrayList<Integer> list = new ArrayList<>();
+				
+				if(startNavi == 1) {needPrev = false;}
+				if(endNavi == pageTotalCount) {needNext = false;}
+				for(int i = startNavi; i <= endNavi; i++) {
+					list.add(i);
+				}
+
+				return new BoardNaviDTO(list, needPrev, needNext);
+	}
+	
 	public ArrayList<BoardDTO> selectBound(int start, int end) throws Exception{
 		String sql = "select * "
 				+ "from "
@@ -172,6 +229,34 @@ public class BoardDAO {
 				PreparedStatement pstat = con.prepareStatement(sql);){
 			pstat.setInt(1, start);
 			pstat.setInt(2, end);
+			try(ResultSet rs = pstat.executeQuery();){
+				return this.transAllRsToList(rs);
+			}
+		}
+	}
+	
+	public ArrayList<BoardDTO> selectBoundSearched(int start, int end, String option, String keyword) throws Exception{
+		String sql = null;
+		if(option.equals("title")) {
+			sql = "select * "
+					+ "from "
+					+ "(select board.*, row_number() over(order by seq desc) rn "
+					+ "from board "
+					+ "where title like ?)"
+					+ "where rn between ? and ?";
+		}else if(option.equals("writer")) {
+			sql = "select * "
+					+ "from "
+					+ "(select board.*, row_number() over(order by seq desc) rn "
+					+ "from board "
+					+ "where writer like ?)"
+					+ "where rn between ? and ?";
+		}
+		try(	Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);){
+			pstat.setString(1, "%"+keyword+"%");
+			pstat.setInt(2, start);
+			pstat.setInt(3, end);
 			try(ResultSet rs = pstat.executeQuery();){
 				return this.transAllRsToList(rs);
 			}
