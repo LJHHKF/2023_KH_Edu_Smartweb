@@ -262,6 +262,16 @@ public class BoardDAO {
 			}
 		}
 	}
+	
+	public int getCurrVal() throws Exception{
+		String sql = "select board_seq.currval from dual";
+		try(	Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);
+				ResultSet rs = pstat.executeQuery();){
+			rs.next();
+			return rs.getInt(1);
+		}
+	}
 
 	private ArrayList<BoardDTO> transAllRsToList(ResultSet rs) throws Exception{
 		ArrayList<BoardDTO> result = new ArrayList<>();

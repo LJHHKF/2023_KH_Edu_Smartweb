@@ -17,8 +17,9 @@
         </tr>
         <c:forEach var="i" begin="0" end="${fn:length(dtoList)-1}" step="1">
             <tr>
-                <td>${dtoList.get(i).oriName}</td>
-                <td><img src="/upload/${dtoList.get(i).sysName}"></td>
+                <td>${dtoList.get(i).seq}</td>
+                <!-- <td><img src="/upload/${dtoList.get(i).sysName}"></td> -->
+                <td><a href="/download.file?sysName=${dtoList.get(i).sysName}&oriName=${dtoList.get(i).oriName}">${dtoList.get(i).oriName}</a></td>
             </tr>
         </c:forEach>
     </table>
