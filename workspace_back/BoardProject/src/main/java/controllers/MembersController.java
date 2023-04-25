@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
+
 import commons.EncryptionUtils;
 import dao.MembersDAO;
 import dto.MembersDTO;
@@ -18,6 +20,7 @@ public class MembersController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf8");
 		String cmd = request.getRequestURI();
+		Gson g = new Gson();
 
 		try {
 			if(cmd.equals("/create.members")) {
@@ -35,9 +38,16 @@ public class MembersController extends HttpServlet {
 
 			}else if(cmd.equals("/idCheck.members")) {
 				String id = request.getParameter("id");
+				System.out.println(id);
 				boolean result = MembersDAO.getInstance().isIdExist(id);
-				request.setAttribute("isDup", result);
-				request.getRequestDispatcher("/member/dupresult.jsp").forward(request, response);
+				
+				System.out.println(result);
+				
+				String resp = g.toJson(result);
+				response.getWriter().append(resp);
+				
+				//request.setAttribute("isDup", result);
+				//request.getRequestDispatcher("/member/dupresult.jsp").forward(request, response);
 
 			}else if(cmd.equals("/login.members")) {
 				String id = request.getParameter("id");

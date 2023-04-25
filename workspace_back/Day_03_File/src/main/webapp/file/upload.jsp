@@ -18,7 +18,11 @@
                     <td align="center"><input type="text" name="message" placeholder="전송할 메세지 입력"></td>
                 </tr>
                 <tr>
-                    <td align="center"><input type="file" name="file"></td>
+                    <td align="center">
+                    <input type="file" name="file1">
+                    <input type="file" name="file2">
+                    <input type="file" name="file3">
+                    </td>
                 </tr>
                 <tr>
                     <td align="center">

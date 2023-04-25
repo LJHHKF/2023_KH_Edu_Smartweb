@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Enumeration;
 
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
@@ -40,13 +41,23 @@ public class FileController extends HttpServlet {
 				
 				String message = multi.getParameter("message");
 				
-				//업로드 시킬 때 당시의 원본 이름
-				String oriName = multi.getOriginalFileName("file");
-				//업로드 되어 RenamePolicy 영향을 받은 후 이름.
-				String sysName = multi.getFilesystemName("file");
-				// 부모가 되는 게시글의 시퀀스(parent_seq)
+				Enumeration<String> names = multi.getFileNames();
+				while(names.hasMoreElements()) {
+					String fileName = names.nextElement();
+					if(multi.getFile(fileName) != null) {
+						String oriName = multi.getOriginalFileName(fileName);
+						String sysName = multi.getFilesystemName(fileName);
+						FilesDAO.getInstance().insert(new FilesDTO(0, oriName, sysName, 0));
+					}
+				}
 				
-				FilesDAO.getInstance().insert(new FilesDTO(0, oriName, sysName, 0));
+//				//업로드 시킬 때 당시의 원본 이름
+//				String oriName = multi.getOriginalFileName("file");
+//				//업로드 되어 RenamePolicy 영향을 받은 후 이름.
+//				String sysName = multi.getFilesystemName("file");
+//				// 부모가 되는 게시글의 시퀀스(parent_seq)
+//				FilesDAO.getInstance().insert(new FilesDTO(0, oriName, sysName, 0));
+				
 				response.sendRedirect("/");
 			}else if(cmd.equals("/list.file")) {
 				String realPath = request.getServletContext().getRealPath("upload");

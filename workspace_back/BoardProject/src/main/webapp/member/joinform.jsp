@@ -33,6 +33,8 @@
                         <button type="button" id="btn_id_dup" class="btn btn-primary">
                             중복 확인</button>
                     </div>
+                    <div class="col-2" id=dup_result>
+                    </div>
                 </div>
                 <div class="row align-items-center mb-1">
                     <div class="col-2 text-end">패스워드</div>
@@ -203,7 +205,23 @@
             });
 
             $("#btn_id_dup").click(function () {
-                window.open("/idCheck.members?id=" + $("#input_id").val(), "", "width=400px, height=200px");
+                //window.open("/idCheck.members?id=" + $("#input_id").val(), "", "width=400px, height=200px");
+                $.ajax({
+                	url : "/idCheck.members",
+                	type: "get",
+                	data: {
+                		id : $("#input_id").val()
+                	},
+                	dataType : "json"
+                }).done(function(resp){
+                	if(resp){
+                		$("#dup_result").text("중복 검사를 통과하지 못하였습니다.");
+                		idValidFlag = false;
+                	}else{
+                		$("#dup_result").text("중복 검사를 통과하셨습니다.");
+                		idValidFlag = true;
+                	}
+                });
             });
             $("#input_id").keydown(function (e) {
                 idValidFlag = false;

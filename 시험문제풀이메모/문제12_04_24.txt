@@ -1,0 +1,56 @@
+[문제1]
+BoardDAO에서 사용자가 입력한 게시글 내용을 데이터베이스에 삽입하는 메소드를 insertBoard를 작성하고 수행하였으나 오류가 발생했다.
+아래 주어진 값과 insertBoard 메소드의 코드를 분석하여 발생하는 오류의 원인과 조치내용을 작성하시오.
+(단, insertBoard 메소드의 매개변수에는 문제가 없고, 매개 변수 중 Board board에는 입력된 값이 알맞게 set 되어 있는 객체가 전달되었다고 가정)
+
+<문제점>
+1. pstmt.setInt(1, board.getMemberNo()); 라고 가장 처음에 멤버 넘버를 넣고 있으나, 물음표가 들어간 위치만으로 한정해서 테이블 열 순서를 보면,
+'title, content, memberNo' 순서이므로, 이 순서에 맞게 넣는 순서를 조정해줘야 합니다.
+
+2. pstmt에 값을 다 넣어넣고는 정작 pstmt의 실행과 commit을 하지 않아서 DB에 반영을 시키지 않고 있습니다. 수정해줘야 합니다.
+또한 result 값도 갱신되는 부분 없이 계속해서 0인 상태로 되돌리고 있습니다. 돌려줘야 합니다.
+
+<해결책>
+1.
+pstmt.setString(1, board.getBoardTitle());
+pstmt.setString(2, board.getBoardContent());
+pstmt.setInt(3, board.getMemberNo());
+로 고쳐주면 됩니다.
+
+2. result = pstmt.executeUpdate() 및 con.commit() 코드를 추가해줘야 합니다.
+pstmt 및 con의 close는 이미 해주고 있으므로 건드리지 않아도 됩니다.
+
+<해결 후 코드>
+이번의 경우엔 ojdbc6부터해서 사전 세팅을 해두고, 윗 문제에서 생략된 Connection con 과 PreparedStatement pstmt 선언부 등도 준비하고 해줘야 하여서 문제에만 집중하여 실제 코드 작성은 미비합니다.
+따라서 첨부 생략합니다.
+
+
+---------------------------------------------------------------------------------------
+회원가입 폼에서 회원 정보를 입력 받아 데이터베이스에 삽입하고,
+삽입 성공/실패에 따라 서로 다른 메세지를 결과 페이지로 보내는 코드를 작성하였지만 정상 오류가 발생하였습니다.
+아래 소스코드를 참고하여 오류 발생 원인(발생 위치, 원인)과 조치 사항을 작성하시오.
+
+[문제점인가 불확실]
+a. 문제에서 MemberDAO가 없음. 그러나 사용은 하고 있음.
+
+<문제점>
+1. 2번, 회원가입 페이지에서 'memberID' 같이 member을 붙인 이름으로 파라미터 값을 넘기고 있는데,
+3번 회원가입 처리 서블릿에서는 getParemeter("id")와 같이 받고 있어서, name값과 getParemeter의 매개변수 값이 일치하지 않아 값을 제대로 읽어들일 수 없습니다. 수정해줘야합니다.
+
+2.사용법을 보면 받을 수 있는 듯 하나, 이 'service'란 함수가 Get이나 Post 방식의 메시지를 모두 받아 처리할 수 있는지 처음 보아서 확신할 수가 없습니다.
+안전책을 취하겠습니다.
+
+
+이 외의 문제점은 없는 듯 합니다.
+
+<해결책>
+1. 2번 회원가입 페이지에서 name 값들을 매칭시켜줘도 되나, 3번의 서블릿에서
+request.getParameter("memberID");
+request.getParameter("memberPw");
+request.getParameter("memberName");
+으로 고쳐 매칭시켜주었습니다.
+
+2. doGet 및 doPost에서 service(request, response)를 호출하도록 해 주어야 할 것입니다.
+
+<해결 후 코드>
+1번과 마찬가지로, 제시되지 않은 부분까지 만들어야 완성될 부분이라 정적 분석으로 처리하여 제시할 완성 코드가 없습니다.
