@@ -36,8 +36,9 @@ public class FileController extends HttpServlet {
 				if(!realPathFile.exists()) {
 					realPathFile.mkdir();
 				}
+				int maxSize = 1024 * 1024 * 10;
 				//1024(1KB) * 1024(1MB) * 10(10MB)
-				MultipartRequest multi = new MultipartRequest(request,realPath,1024*1024*10,"utf8",new DefaultFileRenamePolicy());
+				MultipartRequest multi = new MultipartRequest(request,realPath,maxSize,"utf8",new DefaultFileRenamePolicy());
 				
 				String message = multi.getParameter("message");
 				

@@ -1,7 +1,9 @@
 package controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -12,8 +14,12 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import com.oreilly.servlet.MultipartRequest;
+import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
+import dao.FilesDAO;
 import dto.ContactDTO;
+import dto.FilesDTO;
 
 @WebServlet("*.ajax")
 public class AjaxController extends HttpServlet {
@@ -79,6 +85,25 @@ public class AjaxController extends HttpServlet {
 			jsonObject.add("dto", g.toJsonTree(dto));
 			
 			response.getWriter().append(g.toJson(jsonObject));
+		}else if(cmd.equals("/exam08.ajax")) {
+			String realPath = request.getServletContext().getRealPath("upload");
+			System.out.println(realPath);
+			File realPathFile = new File(realPath);
+			if(!realPathFile.exists()) {
+				realPathFile.mkdir();
+			}
+			int maxSize = 1024 * 1024 * 10; //1024(1KB) * 1024(1MB) * 10(10MB)
+			MultipartRequest multi = new MultipartRequest(request,realPath,maxSize,"utf8",new DefaultFileRenamePolicy());
+			
+//			Enumeration<String> names = multi.getFileNames();
+//			while(names.hasMoreElements()) {
+//				String fileName = names.nextElement();
+//				if(multi.getFile(fileName) != null) {
+//					String oriName = multi.getOriginalFileName(fileName);
+//					String sysName = multi.getFilesystemName(fileName);
+//					FilesDAO.getInstance().insert(new FilesDTO(0, oriName, sysName, 0));
+//				}
+//			}
 		}
 	}
 

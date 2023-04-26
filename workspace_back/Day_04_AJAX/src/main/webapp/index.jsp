@@ -37,6 +37,11 @@
         <legend>7. 여러 데이터를 돌려받는 비동기 통신</legend>
         <button id="ajax7">테스트</button>
     </fieldset>
+    <fieldset>
+        <legend>8. 비동기로 파일 전송하기</legend>
+        <input type="file" id="fileInput">
+        <button id="upload">업로드</button>
+    </fieldset>
     
 
     <script>
@@ -103,6 +108,26 @@
             }).done(function(resp){
                 console.log(resp);
             });
+        });
+        //8. AJAX로 파일 전송하기 : client -> server
+        $("#upload").click(function(){
+            let fileInput = $("#fileInput")[0];
+            let file = fileInput.files[0];
+            if(!file){
+                alert("파일을 먼저 선택해야 합니다.");
+                return;
+            }
+
+            let formData = new FormData();
+            formData.append("file", file); // name="file", value=file
+
+            $.ajax({
+                url : "/exam08.ajax",
+                type : "post",
+                data : formData,
+                processData : false,
+                contentType : false,
+            })
         });
     </script>
 </body>
