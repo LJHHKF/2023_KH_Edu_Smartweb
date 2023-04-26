@@ -3,7 +3,6 @@ package controller;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Enumeration;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -17,9 +16,7 @@ import com.google.gson.JsonObject;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
-import dao.FilesDAO;
 import dto.ContactDTO;
-import dto.FilesDTO;
 
 @WebServlet("*.ajax")
 public class AjaxController extends HttpServlet {
