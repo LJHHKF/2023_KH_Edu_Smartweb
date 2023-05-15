@@ -183,15 +183,15 @@ public class BoardDAO {
 		//1. 전체 글의 개수
 				int recordTotalCount = this.getSearchedRecordCount(option, keyword);
 				//2. 페이지당 보여줄 글의 개수
-				int recordCountPerPage = Settings.BOARD_NAVI_COUNT_PER_PAGE;
+				int recordCountPerPage = Settings.BOARD_RECORD_COUNT_PER_PAGE;
 				//3. 페이지당 보여줄 네비게이터의 수
-				int naviCountPerPage = Settings.BOARD_RECORD_COUNT_PER_PAGE;
+				int naviCountPerPage = Settings.BOARD_NAVI_COUNT_PER_PAGE;
 				
 				//4. 1번과 2번 항목에 의해 총 페이지의 개수가 정해짐.
 				//전체 글의 개수를 페이지당 
 				int pageTotalCount = recordTotalCount%recordCountPerPage > 0 ?
-						recordTotalCount/recordCountPerPage + 1
-						:recordTotalCount/recordCountPerPage;
+						recordTotalCount/recordCountPerPage
+						:recordTotalCount/recordCountPerPage + 1;
 				
 				if(currentPage < 1) {
 					currentPage = 1;
