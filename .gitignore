@@ -97,3 +97,4 @@ hs_err_pid*
 TestWorkSpace/Test_Selenium/src/test11/Statics.java
 workspace_back/Board_GIT/
 workspace_back/Test01/
+*.password
