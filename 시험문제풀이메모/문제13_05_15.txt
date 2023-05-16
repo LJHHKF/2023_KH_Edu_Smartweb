@@ -1,0 +1,50 @@
+1. BuyCar Class
+public class BuyCar {
+	private Driver bestDriver;
+	// object aid에선 모양이 달리 나오나, 의미 상 이것일 것으로 해석하고 작성.  
+	private Car carType = new Benz();
+	
+	public void BuyCar(Driver d) {}
+}
+
+2. Driver Class
+public class Driver {
+	private String name;
+	private int age;
+}
+
+
+3.Benz Class
+public class Benz extends Car {
+	private int price;
+
+	@Override
+	protected void specialFunction() {
+	}
+	public Status autoDrive() {
+		return new Status();
+	}
+}
+
+
+4. Status Class
+public class Status {
+	private int speed;
+	private String engineStatus;
+	private String oilStatus;
+}
+
+5.Audi Class
+public class Audi extends Car {
+	private int price;
+
+	@Override
+	protected void specialFunction() {}
+	public void saveMode() {}
+}
+
+6.Car Class
+public abstract class Car {
+	public void defaultFunction() {}
+	protected abstract void specialFunction(); 
+}
