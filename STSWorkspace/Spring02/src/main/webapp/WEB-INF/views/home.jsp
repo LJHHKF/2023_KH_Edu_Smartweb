@@ -7,6 +7,14 @@
 <title>Home</title>
 </head>
 <body>
-	Hello, Spring!
+	<table border="1" align="center">
+		<tr>
+			<th colspan=2>Index
+		</tr>
+		<tr>
+			<td><a href="/toInput">toInput</a></td>
+			<td><a href="/toOutput">toOutput</a></td>
+		</tr>
+	</table>
 </body>
 </html>
