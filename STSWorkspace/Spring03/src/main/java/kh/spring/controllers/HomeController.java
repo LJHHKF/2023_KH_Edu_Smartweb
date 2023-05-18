@@ -8,18 +8,17 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import kh.spring.dto.MoviesDTO;
-import kh.spring.repositories.MoviesDAO;
+import kh.spring.dto.MessageDTO;
+import kh.spring.repositories.MessageDAO;
 
 @Controller
 public class HomeController {
 	
 	@Autowired
-	private MoviesDAO dao;
+	private MessageDAO dao;
 	
 	@RequestMapping("/")
 	public String home() {
-		//아래의 return이 'request.getDispatcher("WEB-INF/views/home.jsp").forward(request, response)'와 같음.
 		return "home";
 	}
 	
@@ -30,26 +29,25 @@ public class HomeController {
 	
 	@RequestMapping("/toOutput")
 	public String toOutput(Model model) throws Exception {
-		List<MoviesDTO> list = dao.selectAll();
+		List<MessageDTO> list = dao.selectAll();
 		model.addAttribute("list", list);
 		return "list";
 	}
 	
 	@RequestMapping("/inputProc")
-	public String inputProc(MoviesDTO dto) throws Exception {
+	public String inputProc(MessageDTO dto) throws Exception {
 		int result = dao.insert(dto);
-		System.out.println(dto.getTitle() + " : " + dto.getGenre());
 		return "redirect:/";
 	}
 	
 	@RequestMapping("/deleteProc")
-	public String deleteProc(int id) throws Exception{
-		int result = dao.delete(id);
+	public String deleteProc(int seq) throws Exception{
+		int result = dao.delete(seq);
 		return "redirect:/toOutput";
 	}
 	
 	@RequestMapping("/modifyProc")
-	public String modifyProc(MoviesDTO dto) throws Exception{
+	public String modifyProc(MessageDTO dto) throws Exception{
 		int result = dao.update(dto);
 		return "redirect:/toOutput";
 	}
@@ -59,6 +57,5 @@ public class HomeController {
 		e.printStackTrace();
 		return "redirect:/error";
 	}
-	
 	
 }
