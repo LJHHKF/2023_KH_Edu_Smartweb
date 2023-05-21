@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>kh.spring</groupId>
 	<artifactId>controllers</artifactId>
-	<name>Spring03</name>
+	<name>BoardProject</name>
 	<packaging>war</packaging>
 	<version>1.0.0-BUILD-SNAPSHOT</version>
 	<properties>
@@ -115,7 +115,7 @@
 			<artifactId>junit</artifactId>
 			<version>4.7</version>
 			<scope>test</scope>
-		</dependency>
+		</dependency>       
 		
 		<!-- Database related -->
 		<dependency>
@@ -133,7 +133,7 @@
 		    <artifactId>HikariCP</artifactId>
 		    <version>5.0.1</version>
 		</dependency>
-		        
+		 
 	</dependencies>
     <build>
         <plugins>

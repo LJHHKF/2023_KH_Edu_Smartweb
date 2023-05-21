@@ -18,4 +18,6 @@
 	</bean>
 	
 	<context:component-scan base-package="kh.spring.repositories"/>
+	
+	
 </beans>

@@ -54,6 +54,20 @@ public class HomeController {
 		return "redirect:/toOutput";
 	}
 	
+	@RequestMapping("/selectById")
+	public String selectById(int id) {
+		MoviesDTO dto = dao.selectById(id);
+		System.out.println(dto.getId() + " : " + dto.getTitle() + " : " + dto.getGenre());
+		return "redirect:/";
+	}
+	
+	@RequestMapping("/selectCount")
+	public String selectCount() {
+		int result = dao.selectCount();
+		System.out.println(result);
+		return "redirect:/";
+	}
+	
 	@ExceptionHandler(Exception.class)
 	public String exceptionHandler(Exception e) {
 		e.printStackTrace();
