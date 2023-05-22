@@ -68,13 +68,13 @@
 					</tr>
 					<tr>
 						<td>
-							<a href="/list.board?cpage=1"><button class="btn btn-primary">게시판으로</button></a>
+							<a href="/board/list"><button class="btn btn-primary">게시판으로</button></a>
 							</td>
 						<td align="center">
-							<a href="/myPage.members"><button class="btn btn-primary">마이페이지</button></a>
+							<a href="/member/mypage"><button class="btn btn-primary">마이페이지</button></a>
 						</td>
 						<td align="center">
-							<a href="/logout.members"><button id="Logout" class="btn btn-primary">로그아웃</button></a>
+							<a href="/member/logout"><button class="btn btn-primary">로그아웃</button></a>
 						</td>
 						<td align="center">
 							<button id="btn_outMembers" class="btn btn-primary">회원탈퇴</button>
@@ -86,7 +86,7 @@
 				$("#btn_outMembers").click(function(){
 					let result = confirm("정말로 탈퇴하시겠습니까?");
 					if(result){
-						location.href = "/out.members";
+						location.href = "/member/memberout";
 					}
 				});
 				</script>
