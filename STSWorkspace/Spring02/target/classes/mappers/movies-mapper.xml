@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Movies">
+
+	<insert id="insert">
+		insert into MOVIES values(MOVIES_SEQ.nextval, #{title}, #{genre})
+	</insert>
+	
+	<select id="selectAll" resultType="kh.spring.dto.MoviesDTO">
+		select * from MOVIES order by ID
+	</select>
+	
+	<select id="selectByID" resultType="kh.spring.dto.MoviesDTO">
+		select * from MOVIES where ID = ${id}
+	</select>
+	
+	<delete id="delete">
+		delete from MOVIES where ID=${id}
+	</delete>
+	
+	<update id="update">
+		update MOVIES set TITLE=#{title}, GENRE=#{genre} where ID=${id}
+	</update>
+	
+	<select id="selectByCon" resultType="kh.spring.dto.MoviesDTO">
+		select * from MOVIES
+		<if test="value != ''">
+		<!--  
+			where ${column} like '%'||#{value}||'%'
+		-->
+			where ${column} = #{value}
+		</if>
+	</select>
+	
+	<select id="selectByMultiCon" resultType="kh.spring.dto.MoviesDTO">
+		select * from MOVIES
+		<trim prefix="where" prefixOverrides="and">
+			<if test="title != ''">
+				title=#{title}
+			</if>
+			<if test="genre!=''">
+				and genre=#{genre}
+			</if>
+		</trim>
+	</select>
+</mapper>

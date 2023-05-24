@@ -10,7 +10,7 @@ public class MembersDTO {
 	private String email;
 	private String zipcode;
 	private String address1;
-	private String Address2;
+	private String address2;
 	private Timestamp join_date;
 	public MembersDTO() {
 		super();
@@ -26,7 +26,7 @@ public class MembersDTO {
 		this.email = email;
 		this.zipcode = zipcode;
 		this.address1 = address1;
-		Address2 = address2;
+		address2 = address2;
 		this.join_date = join_date;
 	}
 	public String getId() {
@@ -72,10 +72,10 @@ public class MembersDTO {
 		this.address1 = address1;
 	}
 	public String getAddress2() {
-		return Address2;
+		return address2;
 	}
 	public void setAddress2(String address2) {
-		Address2 = address2;
+		this.address2 = address2;
 	}
 	public Timestamp getJoin_date() {
 		return join_date;

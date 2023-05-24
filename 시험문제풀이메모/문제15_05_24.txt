@@ -1,0 +1,686 @@
+pom.xml 에는 ojdbc6 , spring jdbc , gson ( 또는 jackson ) , Spring-MyBatis , dbcp 를 추가합니다.
+pom.xml 에는 ojdbc6 , spring jdbc , gson ( 또는 jackson ) , Spring-MyBatis , dbcp 를 추가합니다.   
+		<!-- Database related -->
+		<dependency>
+
+		    <groupId>com.oracle.database.jdbc</groupId>
+
+		    <artifactId>ojdbc8</artifactId>
+
+		    <version>21.9.0.0</version>
+
+		</dependency>
+
+				<dependency>
+
+		    <groupId>com.zaxxer</groupId>
+
+		    <artifactId>HikariCP</artifactId>
+
+		    <version>5.0.1</version>
+
+		</dependency>
+
+		<dependency>
+
+		    <groupId>org.springframework</groupId>
+
+		    <artifactId>spring-jdbc</artifactId>
+
+		    <version>${org.springframework-version}</version>
+
+		</dependency>
+
+		<dependency>
+
+		    <groupId>org.mybatis</groupId>
+
+		    <artifactId>mybatis</artifactId>
+
+		    <version>3.5.11</version>
+
+		</dependency>
+
+		<dependency>
+
+		    <groupId>org.mybatis</groupId>
+
+		    <artifactId>mybatis-spring</artifactId>
+
+		    <version>3.0.0</version>
+
+		</dependency>
+
+
+		<!-- gson -->
+
+		<dependency>
+
+		    <groupId>com.google.code.gson</groupId>
+
+		    <artifactId>gson</artifactId>
+
+		    <version>2.10.1</version>
+
+		</dependency>
+
+servlet-context.xml 에는 SqlSessionFactory 및 SqlSessionTemplate bean , DataSource bean 을 설정합니다. ( Mapper 경로 설정은 자유롭게 지정합니다. )
+servlet-context.xml 에는 SqlSessionFactory 및 SqlSessionTemplate bean , DataSource bean 을 설정합니다. ( Mapper 경로 설정은 자유롭게 지정합니다. )   
+	<beans:bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<beans:property name="dataSource" ref="dataSource"/>
+		<beans:property name="mapperLocations" value="classpath:/mappers/*-mapper.xml"/>
+	</beans:bean>
+	<beans:bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+		<beans:constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory"/>
+	</beans:bean>
+	<beans:bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource">
+		<beans:property name="username" value="kh"/>
+		<beans:property name="password" value="kh"/>
+		<beans:property name="jdbcUrl" value="jdbc:oracle:thin:@Localhost:1521:xe"/>
+		<beans:property name="driverClassName" value="oracle.jdbc.OracleDriver"/>
+	</beans:bean>
+
+
+클라이언트의 입력요청으로 name 값과 message 값이 비동기요청(AJAX)으로 전달되어 올 수 있으니, 컨트롤러는 값을 받아 Database 로 저장할 수 있는 RequestMapping 을 작성합니다.
+
+- 컨트롤러는 HomeController 를 사용하고, Mapping URL 은 insertMessage 입니다.
+
+클라이언트의 입력요청으로 name 값과 message 값이 비동기요청(AJAX)으로 전달되어 올 수 있으니, 컨트롤러는 값을 받아 Database 로 저장할 수 있는 RequestMapping 을 작성합니다.
+
+- 컨트롤러는 HomeController 를 사용하고, Mapping URL 은 insertMessage 입니다.
+
+   
+[[단계 별 제작 중 올림. 완성본은 전체코드에서]]
+
+
+
+@Controller
+
+public class HomeController {
+	@RequestMapping("/")
+	public String home() {
+		return "home";
+	}
+	@ResponseBody
+	@RequestMapping("/insertMessage")
+	public String insertMessage(String name, String message) {
+		return "실패";
+	}
+}​
+
+
+Controller는 전달 받은 Parameter 를 DAO 클래스의 insert Method에 그대로 전달합니다.
+
+- DAO 클래스의 이름은 MessageDAO 로 합니다.
+
+Controller는 전달 받은 Parameter 를 DAO 클래스의 insert Method에 그대로 전달합니다.
+
+- DAO 클래스의 이름은 MessageDAO 로 합니다.
+
+   
+[[단계 별 제작 중 올림. 완성본은 전체코드에서]]
+
+
+
+@Controller
+
+public class HomeController {
+	@Autowired
+	private MessageDAO messageDAO;
+	@RequestMapping("/")
+	public String home() {
+		return "home";
+	}
+	@ResponseBody
+	@RequestMapping("/insertMessage")
+	public String insertMessage(String name, String message) {
+		int result = messageDAO.insert(name, message);
+		return "success";
+	}
+}​
+
+
+DAO 클래스는 MyBatis Mapper 에 데이터를 전달하여 DB 입력을 수행합니다.
+DAO 클래스는 MyBatis Mapper 에 데이터를 전달하여 DB 입력을 수행합니다.   
+[[단계 별 제작 중 올림. 해당 기능은 완성됨.]]
+
+
+
+<<MessageDAO>>
+
+
+
+@Repository
+
+public class MessageDAO {
+	@Autowired
+	private SqlSessionTemplate mybatis;
+	public int insert(String name, String message) {
+		Map<String, String> param = new HashMap<>();
+		param.put("name", name);
+		param.put("message", message);
+		return mybatis.insert("Message.insert", param);
+	}
+}​
+
+
+
+<<message-mapper.xml>>
+
+
+
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Message">
+
+	<insert id="insert">
+
+		insert into MESSAGE(SEQ, NAME, MESSAGE, WRITEDATE)
+
+		 values(MESSAGE_SEQ.nextval, #{name}, #{message}, #{writedate})
+
+	</insert>
+
+</mapper>​
+
+성공 시 입력결과를 텍스트 형태로 "성공"이 라고 응답합니다.
+
+반면 오류 발생 시 , ExceptionHandler 메서드를 작성하여 error.jsp 페이지로 redirect 되게 일괄처리로 작성합니다.
+
+성공 시 입력결과를 텍스트 형태로 "성공"이 라고 응답합니다.
+
+반면 오류 발생 시 , ExceptionHandler 메서드를 작성하여 error.jsp 페이지로 redirect 되게 일괄처리로 작성합니다.
+
+   
+[[단계 별 제작 중에 올림. 해당 기능은 완성된 것]]
+
+
+
+	@ResponseBody
+
+	@RequestMapping("/insertMessage")
+	public String insertMessage(String name, String message){
+		int result = messageDAO.insert(name, message);
+		if(result > 0) {
+			return "성공";
+		}
+		return this.exceptionHandler(null);
+	}
+	@ExceptionHandler
+	public String exceptionHandler(Exception e) {
+		e.printStackTrace();
+		return "error";
+	}
+
+
+클라이언트의 출력요청이 비동기요청으로 전달되어 올 수 있으니, 컨트롤러는 Database 로부터 데이터를 꺼내올 수 있는 RequestMapping 을 작성합니다.
+
+- 마찬가지로 HomeController 를 사용하고, Mapping URL 은 listMessage 입니다.
+
+클라이언트의 출력요청이 비동기요청으로 전달되어 올 수 있으니, 컨트롤러는 Database 로부터 데이터를 꺼내올 수 있는 RequestMapping 을 작성합니다.
+
+- 마찬가지로 HomeController 를 사용하고, Mapping URL 은 listMessage 입니다.
+
+   
+[[단계 별 제작 중 올림. 완성본은 전체 코드에서.]]
+
+
+
+	@ResponseBody
+
+	@RequestMapping("/listMessage")
+	public List<MessageDTO> listMessage() {
+	}
+
+
+컨트롤러는 DAO 클래스의 select Method를 호출합니다.
+
+- 마찬가지로 클래스이름은 MessageDAO 입니다.
+
+컨트롤러는 DAO 클래스의 select Method를 호출합니다.
+
+- 마찬가지로 클래스이름은 MessageDAO 입니다.
+
+   
+[[단계 별 제작 중 올림. 완성본은 전체 코드에서]]
+
+
+
+	@ResponseBody
+
+	@RequestMapping("/listMessage")
+	public String listMessage() {
+		List<MessageDTO> list = messageDAO.selectAll();
+	}
+
+
+DAO 클래스는 MyBatis Mapper로 부터 메세지 목록을 Return 받습니다.
+DAO 클래스는 MyBatis Mapper로 부터 메세지 목록을 Return 받습니다.   
+[[단계 별 제작 중 올림. 해당 기능은 완성됨]]
+
+
+
+<<MessageDAO>>
+
+
+
+	public List<MessageDTO> selectAll() {
+
+		return mybatis.selectList("Message.selectAll");
+	}
+
+
+
+<<message-mapper.xml>>
+
+
+
+	<select id="selectAll" resultType="kh.spring.dto.MessageDTO">
+
+		select * from MESSAGE order by SEQ
+
+	</select>
+
+
+
+성공 시 메세지 목록을 JSONObject 에 대한 배열로 생성하여 반환합니다.
+성공 시 메세지 목록을 JSONObject 에 대한 배열로 생성하여 반환합니다.   
+[[단계 별 제작 중 올림. 해당 기능은 완성됨]]
+
+
+
+	@ResponseBody
+
+	@RequestMapping("/listMessage")
+	public String listMessage() {
+		List<MessageDTO> list = messageDAO.selectAll();
+		return gson.toJson(list);
+	}
+
+
+============================================
+<완성 전체 코드>
+<<pom.xml 추가 코드>>
+		<!-- Database related -->
+
+		<dependency>
+
+		    <groupId>com.oracle.database.jdbc</groupId>
+
+		    <artifactId>ojdbc8</artifactId>
+
+		    <version>21.9.0.0</version>
+
+		</dependency>
+
+				<dependency>
+
+		    <groupId>com.zaxxer</groupId>
+
+		    <artifactId>HikariCP</artifactId>
+
+		    <version>5.0.1</version>
+
+		</dependency>
+
+		<dependency>
+
+		    <groupId>org.springframework</groupId>
+
+		    <artifactId>spring-jdbc</artifactId>
+
+		    <version>${org.springframework-version}</version>
+
+		</dependency>
+
+		<dependency>
+
+		    <groupId>org.mybatis</groupId>
+
+		    <artifactId>mybatis</artifactId>
+
+		    <version>3.5.11</version>
+
+		</dependency>
+
+		<dependency>
+
+		    <groupId>org.mybatis</groupId>
+
+		    <artifactId>mybatis-spring</artifactId>
+
+		    <version>3.0.0</version>
+
+		</dependency>
+
+
+		<!-- gson -->
+
+		<dependency>
+
+		    <groupId>com.google.code.gson</groupId>
+
+		    <artifactId>gson</artifactId>
+
+		    <version>2.10.1</version>
+
+		</dependency>
+
+
+
+<<servlet-context.xml 추가 코드>>
+
+	<beans:bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+
+		<beans:property name="dataSource" ref="dataSource"/>
+
+		<beans:property name="mapperLocations" value="classpath:/mappers/*-mapper.xml"/>
+
+	</beans:bean>
+
+	<beans:bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+
+		<beans:constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory"/>
+
+	</beans:bean>
+
+	<beans:bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource">
+
+		<beans:property name="username" value="kh"/>
+
+		<beans:property name="password" value="kh"/>
+
+		<beans:property name="jdbcUrl" value="jdbc:oracle:thin:@Localhost:1521:xe"/>
+
+		<beans:property name="driverClassName" value="oracle.jdbc.OracleDriver"/>
+
+	</beans:bean>
+
+
+
+<<HomeController 전체 코드>>
+
+package kh.spring.controllers;
+
+
+
+import java.util.List;
+
+
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import org.springframework.stereotype.Controller;
+
+import org.springframework.web.bind.annotation.ExceptionHandler;
+
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import org.springframework.web.bind.annotation.ResponseBody;
+
+
+
+import com.google.gson.Gson;
+
+
+
+import kh.spring.dto.MessageDTO;
+
+import kh.spring.repositories.MessageDAO;
+
+
+
+@Controller
+
+public class HomeController {
+
+
+	@Autowired
+
+	private MessageDAO messageDAO;
+
+	@Autowired
+
+	private Gson gson;
+
+
+	@RequestMapping("/")
+
+	public String home() {
+
+		return "home";
+
+	}
+
+
+	@ResponseBody
+
+	@RequestMapping("/insertMessage")
+
+	public String insertMessage(String name, String message){
+
+		int result = messageDAO.insert(name, message);
+
+		if(result > 0) {
+
+			return "성공";
+
+		}
+
+		return this.exceptionHandler(null);
+
+	}
+
+
+	@ResponseBody
+
+	@RequestMapping("/listMessage")
+
+	public String listMessage() {
+
+		List<MessageDTO> list = messageDAO.selectAll();
+
+		return gson.toJson(list);
+
+	}
+
+
+	@ExceptionHandler
+
+	public String exceptionHandler(Exception e) {
+
+		e.printStackTrace();
+
+		return "error";
+
+	}
+
+}
+
+
+
+<<MessageDAO 전체 코드>>
+
+package kh.spring.repositories;
+
+
+
+import java.util.HashMap;
+
+import java.util.List;
+
+import java.util.Map;
+
+
+
+import org.mybatis.spring.SqlSessionTemplate;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import org.springframework.stereotype.Repository;
+
+
+
+import kh.spring.dto.MessageDTO;
+
+
+
+@Repository
+
+public class MessageDAO {
+
+	@Autowired
+
+	private SqlSessionTemplate mybatis;
+
+
+	public int insert(String name, String message) {
+
+		Map<String, String> param = new HashMap<>();
+
+		param.put("name", name);
+
+		param.put("message", message);
+
+		return mybatis.insert("Message.insert", param);
+
+	}
+
+
+	public List<MessageDTO> selectAll() {
+
+		return mybatis.selectList("Message.selectAll");
+
+	}
+
+}
+
+
+
+<<message-mapper.xml 전체 코드>>
+
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Message">
+
+	<insert id="insert">
+
+		insert into MESSAGE(SEQ, NAME, MESSAGE, WRITEDATE)
+
+		 values(MESSAGE_SEQ.nextval, #{name}, #{message}, #{writedate})
+
+	</insert>
+
+	<select id="selectAll" resultType="kh.spring.dto.MessageDTO">
+
+		select * from MESSAGE order by SEQ
+
+	</select>
+
+</mapper>
+
+
+
+<<MessageDTO 전체 코드>> (문제로는 안 나왔으나 필요에 따라 제작)
+
+package kh.spring.dto;
+
+
+
+import java.sql.Timestamp;
+
+
+
+public class MessageDTO {
+
+	private int seq;
+
+	private String name;
+
+	private String message;
+
+	private Timestamp writeDate;
+
+	public MessageDTO() {
+
+		super();
+
+	}
+
+	public MessageDTO(int seq, String name, String message, Timestamp writeDate) {
+
+		super();
+
+		this.seq = seq;
+
+		this.name = name;
+
+		this.message = message;
+
+		this.writeDate = writeDate;
+
+	}
+
+	public int getSeq() {
+
+		return seq;
+
+	}
+
+	public void setSeq(int seq) {
+
+		this.seq = seq;
+
+	}
+
+	public String getName() {
+
+		return name;
+
+	}
+
+	public void setName(String name) {
+
+		this.name = name;
+
+	}
+
+	public String getMessage() {
+
+		return message;
+
+	}
+
+	public void setMessage(String message) {
+
+		this.message = message;
+
+	}
+
+	public Timestamp getWriteDate() {
+
+		return writeDate;
+
+	}
+
+	public void setWriteDate(Timestamp writeDate) {
+
+		this.writeDate = writeDate;
+
+	}
+
+
+}
+

@@ -2,9 +2,8 @@ package kh.spring.repositories;
 
 import java.util.List;
 
+import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import kh.spring.dto.MessageDTO;
@@ -13,26 +12,22 @@ import kh.spring.dto.MessageDTO;
 public class MessageDAO {
 	
 	@Autowired
-	private JdbcTemplate jdbc;
+	private SqlSessionTemplate mybatis;
 	
 	public int insert(MessageDTO dto) {
-		String sql = "insert into MESSAGE values (MESSAGE_SEQ.nextval, ?, ?)";
-		return jdbc.update(sql, dto.getWriter(), dto.getMessage());
+		return mybatis.insert("Message.insert", dto);
 	}
 	
 	public List<MessageDTO> selectAll(){
-		String sql = "select * from MESSAGE order by SEQ";
-		return jdbc.query(sql, new BeanPropertyRowMapper<MessageDTO>(MessageDTO.class));
+		return mybatis.selectList("Message.selectAll");
 	}
 	
 	public int delete(int seq) {
-		String sql = "delete from MESSAGE where SEQ=?";
-		return jdbc.update(sql, seq);
+		return mybatis.delete("Message.delete", seq);
 	}
 	
 	public int update(MessageDTO dto) {
-		String sql = "update MESSAGE set WRITER=?, MESSAGE=? where SEQ=?";
-		return jdbc.update(sql, dto.getWriter(), dto.getMessage(), dto.getSeq());
+		return mybatis.update("Message.update", dto);
 	}
 	
 	

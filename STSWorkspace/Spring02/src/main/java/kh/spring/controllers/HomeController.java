@@ -35,6 +35,11 @@ public class HomeController {
 		return "list";
 	}
 	
+	@RequestMapping("/toMyBatis")
+	public String toMyBatis() throws Exception{
+		return "mybatis";
+	}
+	
 	@RequestMapping("/inputProc")
 	public String inputProc(MoviesDTO dto) throws Exception {
 		int result = dao.insert(dto);
@@ -54,19 +59,39 @@ public class HomeController {
 		return "redirect:/toOutput";
 	}
 	
-	@RequestMapping("/selectById")
-	public String selectById(int id) {
-		MoviesDTO dto = dao.selectById(id);
-		System.out.println(dto.getId() + " : " + dto.getTitle() + " : " + dto.getGenre());
-		return "redirect:/";
+	@RequestMapping("/selectByCon")
+	public String selectByCon(String column, String value) throws Exception{
+		List<MoviesDTO> list = dao.selectByCon(column, value);
+		
+		for(MoviesDTO dto : list) {
+			System.out.println(dto.getId() + " : " + dto.getTitle() +" : "+ dto.getGenre());
+		}
+		return "mybatis";
 	}
 	
-	@RequestMapping("/selectCount")
-	public String selectCount() {
-		int result = dao.selectCount();
-		System.out.println(result);
-		return "redirect:/";
+	@RequestMapping("/selectByMultiCon")
+	public String selectByMultiCon(MoviesDTO dto) throws Exception{
+		List<MoviesDTO> list = dao.selectByMultiCon(dto);
+		
+		for(MoviesDTO e : list) {
+			System.out.println(e.getId() + " : " + e.getTitle() +" : "+ e.getGenre());
+		}
+		return "mybatis";
 	}
+	
+//	@RequestMapping("/selectById")
+//	public String selectById(int id) {
+//		MoviesDTO dto = dao.selectById(id);
+//		System.out.println(dto.getId() + " : " + dto.getTitle() + " : " + dto.getGenre());
+//		return "redirect:/";
+//	}
+//	
+//	@RequestMapping("/selectCount")
+//	public String selectCount() {
+//		int result = dao.selectCount();
+//		System.out.println(result);
+//		return "redirect:/";
+//	}
 	
 	@ExceptionHandler(Exception.class)
 	public String exceptionHandler(Exception e) {
