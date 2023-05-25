@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>kh.spring</groupId>
 	<artifactId>controllers</artifactId>
-	<name>BoardProject</name>
+	<name>Spring04</name>
 	<packaging>war</packaging>
 	<version>1.0.0-BUILD-SNAPSHOT</version>
 	<properties>
@@ -115,7 +115,14 @@
 			<artifactId>junit</artifactId>
 			<version>4.7</version>
 			<scope>test</scope>
-		</dependency>       
+		</dependency>
+		
+		<!-- File related -->  
+		<dependency>
+		    <groupId>commons-fileupload</groupId>
+		    <artifactId>commons-fileupload</artifactId>
+		    <version>1.5</version>
+		</dependency>
 		
 		<!-- Database related -->
 		<dependency>
@@ -144,20 +151,14 @@
 		    <version>3.0.0</version>
 		</dependency>
 		
-		<!-- File related -->  
-		<dependency>
-		    <groupId>commons-fileupload</groupId>
-		    <artifactId>commons-fileupload</artifactId>
-		    <version>1.5</version>
-		</dependency>
-		
 		<!-- gson -->
 		<dependency>
 		    <groupId>com.google.code.gson</groupId>
 		    <artifactId>gson</artifactId>
 		    <version>2.10.1</version>
 		</dependency>
-		 
+		
+		   
 	</dependencies>
     <build>
         <plugins>

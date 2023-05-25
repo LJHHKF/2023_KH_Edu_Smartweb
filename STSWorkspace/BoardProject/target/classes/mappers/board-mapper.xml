@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Board">
+
+	<select id="selectAll" resultType="kh.spring.dto.BoardDTO">
+		select * from BOARD order by SEQ desc
+	</select>
+	
+	<select id="selectBySeq" resultType="kh.spring.dto.BoardDTO">
+		select * from BOARD where SEQ=${seq}
+	</select>
+	
+	<select id="getCurSeq" resultType="Integer">
+		select BOARD_SEQ.currval from DUAL
+	</select>
+	
+	<select id="getNextVal" resultType="Integer">
+		select BOARD_SEQ.nextval from DUAL
+	</select>
+	
+	<insert id="insert">
+		<choose>
+			<when test="seq > 0">
+				insert into BOARD(SEQ, WRITER, TITLE, CONTENTS, VIEW_COUNT, WRITE_DATE)
+		 		 values(${seq}, #{writer}, #{title}, #{contents}, default, sysdate)
+			</when>
+			<otherwise>
+				insert into BOARD(SEQ, WRITER, TITLE, CONTENTS, VIEW_COUNT, WRITE_DATE)
+		 		 values(BOARD_SEQ.nextval, #{writer}, #{title}, #{contents}, default, sysdate)
+			</otherwise>
+		</choose>
+	</insert>
+	
+	<update id="update">
+		update BOARD set TITLE=#{title}, CONTENTS=#{contents} where SEQ=${seq}
+	</update>
+	
+	<update id="addViewCount">
+		update BOARD set VIEW_COUNT=VIEW_COUNT+1 where SEQ=${seq}
+	</update>
+	
+	<delete id="delete">
+		delete from BOARD where SEQ=${seq}
+	</delete>
+</mapper>

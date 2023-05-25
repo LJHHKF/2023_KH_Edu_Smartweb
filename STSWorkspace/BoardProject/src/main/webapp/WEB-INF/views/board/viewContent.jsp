@@ -27,12 +27,24 @@
                             <div class="col-12 border border-primary">
                                 <input type="text" name="title" class="form-control" value="${dto.title}" readonly>
                             </div>
+                            <div class="col-12 border border-primary">
+                            	<fieldset>
+                            		<legend>첨부 파일 목록</legend>
+                            		<div class="row">
+                            			<c:forEach var="i" items="${fileList}">
+                            				<div class="col-12 border border-primary">
+                            					<a href="/board/download?sysName=${i.sysName}&oriName=${i.oriName}">
+                            						${i.oriName}
+                            					</a>
+                            				</div>
+                            			</c:forEach>
+                            		</div>
+                            	</fieldset>
+                            </div>
                         </div>
                         <div class="row">
                             <div class="col-12 border border-primary">
-                                <!-- <textarea class="summernote" name="contents" readonly>${dto.contents}</textarea> -->
                                 <textarea id="editor" name="contents" readonly>${dto.contents}</textarea>
-
                             </div>
                         </div>
                         <div class="row">
@@ -244,13 +256,13 @@
                         })
                         .catch(error => { console.error(error) });
 
-                    ClassicEditor
-                        .create(document.querySelector('#editor2'))
-                        .then(function (editor) {
-                            const toolbarElement = editor.ui.view.toolbar.element;
-                            toolbarElement.style.display = 'none';
-                        })
-                        .catch(error => { console.error(error) });
+                    //ClassicEditor
+                    //    .create(document.querySelector('#editor2'))
+                    //    .then(function (editor) {
+                    //        const toolbarElement = editor.ui.view.toolbar.element;
+                    //        toolbarElement.style.display = 'none';
+                    //    })
+                    //    .catch(error => { console.error(error) });
                 </script>
 </body>
 </html>

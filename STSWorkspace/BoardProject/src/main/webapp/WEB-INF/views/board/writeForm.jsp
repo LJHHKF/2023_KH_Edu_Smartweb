@@ -19,15 +19,19 @@
                         게시글 작성
                     </div>
                 </div>
-                <form action="/board/write" method="get" id="writeForm">
+                <form action="/board/write" method="post" enctype="multipart/form-data">
                     <div class="row">
                         <div class="col-12 border border-primary">
                             <input type="text" name="title" class="form-control" placeholder="글 제목을 입력하세요.">
                         </div>
+                        <fieldset>
+                        	<legend>파일 첨부</legend>
+                        	<input type="file" name="files" class="form-control" multiple>
+                        </fieldset>
                     </div>
                     <div class="row">
                         <div class="col-12 border border-primary">
-                            <textarea id="editor" name="contents" cols="30" rows="5"></textarea>
+                            <textarea id="editor" name="contents"></textarea>
                         </div>
                     </div>
                     <div class="row">

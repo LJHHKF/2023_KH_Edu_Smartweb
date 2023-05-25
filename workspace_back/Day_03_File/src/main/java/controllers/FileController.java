@@ -70,9 +70,12 @@ public class FileController extends HttpServlet {
 				oriName = new String(oriName.getBytes("utf8"), "ISO-8859-1"); //크롬이 ISO-8859-1. 다른 브라우저면 변경해줘야 함.
 				response.reset();
 				response.setHeader("Content-Disposition", "attachment;filename="+oriName);
+				//응답 헤더에 보내려는 데이터가 첨부파일임을 밝히고, 적절히 인코딩 된 파일 이름을 지정
 				
 				String uploadPath = request.getServletContext().getRealPath("upload");
 				String sysName = request.getParameter("sysName");
+				// 다운 받을 파일을 선택하여 File 객체로 생성
+				
 				
 				File target = new File(uploadPath + "/" + sysName);
 				try(	FileInputStream fis = new FileInputStream(target);
