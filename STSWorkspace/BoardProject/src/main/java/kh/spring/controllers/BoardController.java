@@ -14,27 +14,26 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import kh.spring.dto.BoardDTO;
 import kh.spring.dto.FilesDTO;
-import kh.spring.repositories.BoardDAO;
-import kh.spring.repositories.FilesDAO;
+import kh.spring.services.BoardService;
+import kh.spring.services.FilesService;
 
 @Controller
 @RequestMapping("/board/")
 public class BoardController {
 	
 	@Autowired
-	private BoardDAO dao;
+	private BoardService boardService;
 	@Autowired
-	private FilesDAO filesDAO;
+	private FilesService filesService;
 	@Autowired
 	private HttpSession session;
 	
 	@RequestMapping("list")
 	public String list(Model model) {
-		model.addAttribute("list", dao.selectAll());
+		model.addAttribute("list", boardService.selectAll());
 		return "board/list";
 	}
 	
@@ -44,38 +43,21 @@ public class BoardController {
 	}
 	
 	@RequestMapping("write")
-	public String write(BoardDTO dto, String title, String contents, MultipartFile[] files, RedirectAttributes rttb) throws Exception {
+	public String write(BoardDTO dto, MultipartFile[] files) throws Exception {
 		//보드 기본 쓰기 설정
 		dto.setWriter((String)session.getAttribute("loginID"));
-		dto.setSeq(dao.getNextVal());
-		int result = dao.insert(dto);
-		rttb.addFlashAttribute("list", dao.selectAll());
-		
-		//파일 업로드 설정
+		int parent_seq = boardService.insertReturnSeq(dto);
 		String realPath = session.getServletContext().getRealPath("upload");
-		File realPathFile = new File(realPath);
-		if(!realPathFile.exists()) {realPathFile.mkdir();}
-		
-		if(files != null) {
-			for(MultipartFile file : files) {
-				if(file.isEmpty()) {continue;}
-				
-				String oriName = file.getOriginalFilename();
-				String sysName = UUID.randomUUID() + "_" + oriName;
-				
-				file.transferTo(new File(realPath+"/"+sysName));
-				filesDAO.insert(new FilesDTO(0, oriName, sysName, dto.getSeq()));				
-			}
-		}
+		filesService.insert(files, realPath, parent_seq);
 		
 		return "redirect:/board/list";
 	}
 	
 	@RequestMapping("viewContent")
 	public String view(int seq, Model model) {
-		dao.addViewCount(seq);
-		model.addAttribute("dto", dao.selectBySeq(seq));
-		model.addAttribute("fileList", filesDAO.selectByParentSeq(seq));
+		boardService.addViewCount(seq);
+		model.addAttribute("dto", boardService.selectBySeq(seq));
+		model.addAttribute("fileList", filesService.selectByParentSeq(seq));
 		return "board/viewContent";
 	}
 	
@@ -102,13 +84,13 @@ public class BoardController {
 	
 	@RequestMapping("update")
 	public String update(BoardDTO dto) {
-		int result = dao.update(dto);
+		int result = boardService.update(dto);
 		return "redirect:/board/viewContent?seq="+dto.getSeq();
 	}
 	
 	@RequestMapping("delete")
 	public String delete(int seq) {
-		int result = dao.delete(seq);
+		int result = boardService.delete(seq);
 		return "redirect:/board/list";
 	}
 }

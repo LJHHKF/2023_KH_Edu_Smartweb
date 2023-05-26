@@ -11,6 +11,9 @@
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
+
+	<img src="/images/아비꼬1.jpg" width="400px" height="300px">
+
 	<c:choose>
 		<c:when test="${loginID == null}">
 			<div class="container">

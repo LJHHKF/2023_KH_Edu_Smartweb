@@ -21,6 +21,7 @@
 		<constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory"/>
 	</bean>
 	
+	<context:component-scan base-package="kh.spring.services" />
 	<context:component-scan base-package="kh.spring.repositories"/>
 	
 	

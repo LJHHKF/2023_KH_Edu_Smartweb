@@ -12,25 +12,13 @@
 		select * from BOARD where SEQ=${seq}
 	</select>
 	
-	<select id="getCurSeq" resultType="Integer">
-		select BOARD_SEQ.currval from DUAL
-	</select>
-	
-	<select id="getNextVal" resultType="Integer">
-		select BOARD_SEQ.nextval from DUAL
-	</select>
-	
 	<insert id="insert">
-		<choose>
-			<when test="seq > 0">
-				insert into BOARD(SEQ, WRITER, TITLE, CONTENTS, VIEW_COUNT, WRITE_DATE)
-		 		 values(${seq}, #{writer}, #{title}, #{contents}, default, sysdate)
-			</when>
-			<otherwise>
-				insert into BOARD(SEQ, WRITER, TITLE, CONTENTS, VIEW_COUNT, WRITE_DATE)
-		 		 values(BOARD_SEQ.nextval, #{writer}, #{title}, #{contents}, default, sysdate)
-			</otherwise>
-		</choose>
+		<selectKey keyProperty="seq" resultType="int" order="BEFORE">
+			select BOARD_SEQ.nextval from DUAL
+		</selectKey>
+		insert into BOARD(SEQ, WRITER, TITLE, CONTENTS, VIEW_COUNT, WRITE_DATE)
+		 values(${seq}, #{writer}, #{title}, #{contents}, default, sysdate)
+
 	</insert>
 	
 	<update id="update">

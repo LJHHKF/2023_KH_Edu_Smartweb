@@ -22,8 +22,9 @@ public class BoardDAO {
 		return mybatis.selectOne("Board.selectBySeq", seq);
 	}
 	
-	public int insert(BoardDTO dto) {
-		return mybatis.insert("Board.insert", dto);
+	public int insertReturnSeq(BoardDTO dto) {
+		mybatis.insert("Board.insert", dto);
+		return dto.getSeq();
 	}
 	
 	public int update(BoardDTO dto) {
@@ -36,13 +37,5 @@ public class BoardDAO {
 	
 	public int addViewCount(int seq) {
 		return mybatis.update("Board.addViewCount", seq);
-	}
-	
-	public int getCurSeq() {
-		return mybatis.selectOne("Board.getCurSeq");
-	}
-	
-	public int getNextVal() {
-		return mybatis.selectOne("Board.getNextVal");
 	}
 }
