@@ -7,6 +7,7 @@ import java.util.Map;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import kh.spring.dto.MoviesDTO;
 
@@ -18,6 +19,10 @@ public class MoviesDAO {
 	
 	public int insert(MoviesDTO dto) {
 		return mybatis.insert("Movies.insert", dto);
+	}
+	
+	public int insertHistory(MoviesDTO dto) {
+		return mybatis.insert("Movies.insertHistory", dto);
 	}
 	
 	public List<MoviesDTO> selectAll(){

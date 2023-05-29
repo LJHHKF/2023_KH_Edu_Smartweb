@@ -33,7 +33,7 @@
                             		<div class="row">
                             			<c:forEach var="i" items="${fileList}">
                             				<div class="col-12 border border-primary">
-                            					<a href="/board/download?sysName=${i.sysName}&oriName=${i.oriName}">
+                            					<a href="/files/download?sysName=${i.sysName}&oriName=${i.oriName}">
                             						${i.oriName}
                             					</a>
                             				</div>

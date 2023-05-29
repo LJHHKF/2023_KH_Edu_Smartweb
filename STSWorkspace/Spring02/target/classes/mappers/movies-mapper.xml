@@ -5,7 +5,13 @@
 <mapper namespace="Movies">
 
 	<insert id="insert">
-		insert into MOVIES values(MOVIES_SEQ.nextval, #{title}, #{genre})
+		insert into MOVIES(ID, TITLE, GENRE)
+		 values(MOVIES_SEQ.nextval, #{title}, #{genre})
+	</insert>
+	
+	<insert id="insertHistory">
+		insert into HISTORY(ID, TITLE, PDATE)
+		 value(HISTORY_SEQ.nextval, #{title}, sysdate)
 	</insert>
 	
 	<select id="selectAll" resultType="kh.spring.dto.MoviesDTO">
