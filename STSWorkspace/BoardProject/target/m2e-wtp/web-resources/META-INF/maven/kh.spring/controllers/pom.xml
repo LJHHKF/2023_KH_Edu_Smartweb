@@ -40,6 +40,23 @@
 			<version>${org.aspectj-version}</version>
 		</dependency>	
 		
+		<!-- websocket -->
+		<!-- https://mvnrepository.com/artifact/javax.websocket/javax.websocket-api -->
+		<dependency>
+		    <groupId>javax.websocket</groupId>
+		    <artifactId>javax.websocket-api</artifactId>
+		    <version>1.1</version>
+		    <scope>provided</scope>
+		</dependency>
+		
+		<!-- Guava -->
+		<dependency>
+		    <groupId>com.google.guava</groupId>
+		    <artifactId>guava</artifactId>
+		    <version>32.0.0-jre</version>
+		</dependency>
+		
+		
 		<!-- Logging -->
 		<dependency>
 			<groupId>org.slf4j</groupId>

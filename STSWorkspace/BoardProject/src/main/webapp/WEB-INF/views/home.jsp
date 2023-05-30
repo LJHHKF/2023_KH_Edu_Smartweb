@@ -67,12 +67,17 @@
 			<div class="container">
 				<table class="table table-primary table-striped table-borderd" align="center">
 					<tr>
-						<th colspan="4">${loginID}님 환영합니다.</th>
+						<th colspan="5">${loginID}님 환영합니다.</th>
 					</tr>
 					<tr>
-						<td>
+						<td align="center">
+							<a href="/chat/main">
+								<button type="button" id="btn_chat" class="btn btn-primary">채팅으로</button>
+							</a>
+						</td>
+						<td align="center">
 							<a href="/board/list"><button class="btn btn-primary">게시판으로</button></a>
-							</td>
+						</td>
 						<td align="center">
 							<a href="/member/mypage"><button class="btn btn-primary">마이페이지</button></a>
 						</td>

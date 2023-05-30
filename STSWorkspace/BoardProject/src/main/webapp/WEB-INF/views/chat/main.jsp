@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>WebSocket Practice</title>
+<title>메인 채팅방</title>
 <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
 <style>
 	*{
@@ -43,7 +43,7 @@
             overflow:hidden;
             width: 100%;
             border: none;
-        }
+   }
         
      #message-area>.row>.message {
             float: left;
@@ -51,15 +51,18 @@
             max-width: 90%;
             background-color: yellow;
             border-radius: 10px;
-        }
+   }
 
     #message-area>.row>.dateBox {
             float: right;
             max-width: 10%;
             float: right;
             border: none;
-        }
-	
+   }
+        
+   .util-buttons{
+   		text-align:right;
+   }
 </style>
 </head>
 <body>
@@ -67,6 +70,11 @@
 		<div id="message-area"></div>
 		<div class="chat-body">
 			<div id="input-area" contenteditable="true"></div>
+		</div>
+		<div class="util-buttons">
+			<a href="/">
+				<button type="button">돌아가기</button>
+			</a>
 		</div>
 	</div>
 	
@@ -99,27 +107,20 @@
 			});
 			
 			ws.onmessage = function(e){
+				console.log(e.data);
 				
-				let data = JSON.parse(e.data);
+				const row = $("<div>").addClass("row");
+				const message = $("<div>").addClass("message");
+				const dateBox = $("<div>").addClass("dateBox");
+				const date = new Date();
 				
-				console.log(typeof data);
+				const data = JSON.parse(e.data);
+				let tempMessage = data.id + " : " + data.message;
+				dateBox.append(date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds());
+				message.append(tempMessage);
+				row.append(message, dateBox);
 				
-				if(!Array.isArray(data)){
-					data=[data];
-				}
-				for(let i = 0; i < data.length; i++){
-					const row = $("<div>").addClass("row");
-					const message = $("<div>").addClass("message");
-					const dateBox = $("<div>").addClass("dateBox");
-					const date = new Date(data[i].write_date);
-						
-					let tempMessage = data[i].sender + " : " + data[i].message;
-					dateBox.append(date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds());
-					message.append(tempMessage);
-					row.append(message, dateBox);
-						
-					$("#message-area").append(row);
-				}
+				$("#message-area").append(row);
 				updateScroll_down();
 			}
 		})

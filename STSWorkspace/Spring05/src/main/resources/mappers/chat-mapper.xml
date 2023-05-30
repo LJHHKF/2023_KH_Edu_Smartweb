@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Chat">
+	<insert id="insert">
+		<selectKey keyProperty="seq" resultType="int" order="BEFORE">
+			select CHAT_SEQ.nextval from DUAL
+		</selectKey>
+		insert into CHAT(SEQ, SENDER, MESSAGE, WRITE_DATE)
+		 values(${seq}, #{sender}, #{message}, sysdate)
+	</insert>
+	
+	<select id="selectAll" resultType="kh.spring.dto.ChatDTO">
+		select * from CHAT order by SEQ desc
+	</select>
+</mapper>
