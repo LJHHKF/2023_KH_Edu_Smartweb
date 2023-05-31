@@ -30,6 +30,22 @@
 	
 	<context:component-scan base-package="kh.spring.controllers" />
 	
-	
+	<interceptors>
+		<interceptor>
+			<mapping path="/**" />
+			<exclude-mapping path="/" />
+			<exclude-mapping path="/member/signup" />
+			<exclude-mapping path="/member/create" />
+			<exclude-mapping path="/member/idCheck" />
+			<exclude-mapping path="/member/login" />
+			<exclude-mapping path="/error" />
+			<exclude-mapping path="/images/**" />
+			<beans:bean class="kh.spring.interceptors.LoginValidator" />
+		</interceptor>
+		<interceptor>
+			<mapping path="/**" />
+			<beans:bean class="kh.spring.interceptors.Profiler" />
+		</interceptor>
+	</interceptors>
 	
 </beans:beans>

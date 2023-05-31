@@ -49,7 +49,7 @@ public class MembersController {
 	
 	@RequestMapping("/logout")
 	public String logout() {
-		session.invalidate();
+		session.removeAttribute("loginID");
 		return "redirect:/";
 	}
 	
