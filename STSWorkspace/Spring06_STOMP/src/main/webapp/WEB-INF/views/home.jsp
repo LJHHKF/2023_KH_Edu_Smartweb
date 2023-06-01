@@ -26,6 +26,13 @@
 			//반환 값은 나중에 구독 취소하고 싶을 때 사용할 용도.
 			const subscription = stompClient.subscribe("/topic/test", function(message){
 				console.log(message);
+				if(typeof JSON.parse(message.body) == "object"){
+					console.log("object");
+					console.log(JSON.parse(message.body).message);
+				}else{
+					console.log("message");
+					console.log(message.body);
+				}
 			});
 		},function(error){
 			console.log("연결 실패");

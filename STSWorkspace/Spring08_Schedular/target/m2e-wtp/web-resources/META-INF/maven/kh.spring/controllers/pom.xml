@@ -3,8 +3,8 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>kh.spring</groupId>
-	<artifactId>controller</artifactId>
-	<name>Spring06_STOMP</name>
+	<artifactId>controllers</artifactId>
+	<name>Spring08_Schedular</name>
 	<packaging>war</packaging>
 	<version>1.0.0-BUILD-SNAPSHOT</version>
 	<properties>
@@ -115,35 +115,7 @@
 			<artifactId>junit</artifactId>
 			<version>4.7</version>
 			<scope>test</scope>
-		</dependency>
-		
-		<!-- Websocket related -->
-	      <dependency>
-	         <groupId>org.springframework</groupId>
-	         <artifactId>spring-websocket</artifactId>
-	         <version>${org.springframework-version}</version>
-	      </dependency>
-	
-	      <!-- Spring Messaging -->
-	      <dependency>
-	         <groupId>org.springframework</groupId>
-	         <artifactId>spring-messaging</artifactId>
-	         <version>${org.springframework-version}</version>
-	      </dependency>
-	      
-	      <!-- gson -->
-	      <dependency>
-		    <groupId>com.google.code.gson</groupId>
-		    <artifactId>gson</artifactId>
-		    <version>2.10.1</version>
-		  </dependency>
-			      
-	      
-		  
-		
-	      
-	      
-		        
+		</dependency>        
 	</dependencies>
     <build>
         <plugins>
