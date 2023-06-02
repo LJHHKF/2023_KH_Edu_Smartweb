@@ -1,0 +1,239 @@
+[pom.xml 추가 코드]
+    <dependency>
+
+		    <groupId>com.oracle.database.jdbc</groupId>
+
+		    <artifactId>ojdbc8</artifactId>
+
+		    <version>21.9.0.0</version>
+
+		</dependency>
+
+				<dependency>
+
+		    <groupId>com.zaxxer</groupId>
+
+		    <artifactId>HikariCP</artifactId>
+
+		    <version>5.0.1</version>
+
+		</dependency>
+
+		<dependency>
+
+		    <groupId>org.springframework</groupId>
+
+		    <artifactId>spring-jdbc</artifactId>
+
+		    <version>${org.springframework-version}</version>
+
+		</dependency>
+
+		<dependency>
+
+		    <groupId>org.mybatis</groupId>
+
+		    <artifactId>mybatis</artifactId>
+
+		    <version>3.5.11</version>
+
+		</dependency>
+
+		<dependency>
+
+		    <groupId>org.mybatis</groupId>
+
+		    <artifactId>mybatis-spring</artifactId>
+
+		    <version>3.0.0</version>
+
+		</dependency>
+
+
+
+[root-context.xml 추가 코드]
+
+<bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource">
+
+		<property name="username" value="kh"/>
+
+		<property name="password" value="kh"/>
+
+		<property name="jdbcUrl" value="jdbc:oracle:thin:@Localhost:1521:xe"/>
+
+		<property name="driverClassName" value="oracle.jdbc.OracleDriver"/>
+
+	</bean>
+
+
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+
+		<property name="dataSource" ref="dataSource"/>
+
+		<property name="mapperLocations" value="classpath:/mappers/*-mapper.xml"/>
+
+	</bean>
+
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+
+		<constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory"/>
+
+	</bean>
+
+
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+
+		<property name="dataSource" ref="dataSource"/>
+
+	</bean>
+
+
+	<context:component-scan base-package="kh.spring.services" />
+
+	<context:component-scan base-package="kh.spring.repositories"/>
+
+
+
+[member-mapper.xml]
+
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="mybatis">
+
+	<insert id="insertMember">
+
+		<selectKey keyProperty="user_no" resultType="int" order="BEFORE">
+
+			select USER_NO_SEQ.nextval from DUAL
+
+		</selectKey>
+
+		insert into MEMBER(USER_NO, USER_ID, USER_PW, USER_NAME, USER_ADDR, REG_DATE)
+
+		 values(${user_no}, #{user_id}, #{user_pw}, #{user_name}, #{user_addr}, default)
+
+	</insert>
+
+</mapper>
+
+
+
+[MemberDAO.java]
+
+@Repository
+
+public class MemberDAO {
+
+
+	@Autowired
+
+	private SqlSessionTemplate mybatis;
+
+
+	public int insertMember(MemberVO vo) {
+
+		return mybatis.insert("mybatis.insertMember", vo);
+
+	}
+
+
+}
+
+
+
+[MemberService.java]
+
+​@Service
+
+public class MemberService {
+
+
+	@Autowired
+
+	private MemberDAO memberDAO;
+
+
+	@Transactional
+
+	public int insertMember(MemberVO vo) {
+
+		return memberDAO.insertMember(vo);
+
+	}
+
+}​
+
+
+
+[MemberVO.java]
+
+public class MemberVO {
+
+	private int user_no;
+
+	private String user_id;
+
+	private String user_pw;
+
+	private String user_name;
+
+	private String uesr_addr;
+
+	private Timestamp reg_date;
+
+
+	public MemberVO() {
+
+		super();
+
+	}
+
+	public MemberVO(int user_no, String user_id, String user_pw, String user_name, String uesr_addr,
+
+			Timestamp reg_date) {
+
+		super();
+
+		this.user_no = user_no;
+
+		this.user_id = user_id;
+
+		this.user_pw = user_pw;
+
+		this.user_name = user_name;
+
+		this.uesr_addr = uesr_addr;
+
+		this.reg_date = reg_date;
+
+	}
+
+
+
+	public int getUser_no() {return user_no;}
+
+	public void setUser_no(int user_no) {this.user_no = user_no;}
+
+	public String getUser_id() {return user_id;}
+
+	public void setUser_id(String user_id) {this.user_id = user_id;}
+
+	public String getUser_pw() {return user_pw;}
+
+	public void setUser_pw(String user_pw) {this.user_pw = user_pw;}
+
+	public String getUser_name() {return user_name;}
+
+	public void setUser_name(String user_name) {this.user_name = user_name;}
+
+	public String getUesr_addr() {return uesr_addr;}
+
+	public void setUesr_addr(String uesr_addr) {this.uesr_addr = uesr_addr;}
+
+	public Timestamp getReg_date() {return reg_date;}
+
+	public void setReg_date(Timestamp reg_date) {this.reg_date = reg_date;}
+
+}​

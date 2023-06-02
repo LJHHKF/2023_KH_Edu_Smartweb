@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mybatis">
+	<insert id="insertMember">
+		<selectKey keyProperty="user_no" resultType="int" order="BEFORE">
+			select USER_NO_SEQ.nextval from DUAL
+		</selectKey>
+		insert into MEMBER(USER_NO, USER_ID, USER_PW, USER_NAME, USER_ADDR, REG_DATE)
+		 values(${user_no}, #{user_id}, #{user_pw}, #{user_name}, #{user_addr}, default)
+	</insert>
+</mapper>
