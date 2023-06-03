@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Board">
+
+	<select id="selectAll" resultType="kh.spring.dto.BoardDTO">
+		select * from BOARD order by SEQ desc
+	</select>
+	
+	<select id="selectBySeq" resultType="kh.spring.dto.BoardDTO">
+		select * from BOARD where SEQ=${seq}
+	</select>
+	
+	<insert id="insert">
+		<selectKey keyProperty="seq" resultType="int" order="BEFORE">
+			select BOARD_SEQ.nextval from DUAL
+		</selectKey>
+		insert into BOARD(SEQ, WRITER, TITLE, CONTENTS, VIEW_COUNT, WRITE_DATE)
+		 values(${seq}, #{writer}, #{title}, #{contents}, default, sysdate)
+
+	</insert>
+	
+	<update id="update">
+		update BOARD set TITLE=#{title}, CONTENTS=#{contents} where SEQ=${seq}
+	</update>
+	
+	<update id="addViewCount">
+		update BOARD set VIEW_COUNT=VIEW_COUNT+1 where SEQ=${seq}
+	</update>
+	
+	<delete id="delete">
+		delete from BOARD where SEQ=${seq}
+	</delete>
+</mapper>
