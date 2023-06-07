@@ -1,0 +1,35 @@
+/* 전지역 스타일 지정 영역 */
+
+* {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+}
+
+div {
+  border: 1px solid black;
+}
+
+.container {
+  width: 800px;
+  margin: auto;
+  display: flex;
+}
+
+.container div {
+  flex: 1; /* 자신이 차지할 비율 값임 */
+  text-align: center;
+}
+
+.tableBox table {
+  width: 100%;
+  border: 1px solid black;
+}
+
+.ulBox li{
+  list-style-type:none;
+}
+
+img{
+  width:100%;
+}
