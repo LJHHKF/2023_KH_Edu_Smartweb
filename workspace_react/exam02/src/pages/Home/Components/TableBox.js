@@ -1,4 +1,4 @@
-
+import './TableBox.css';
 
 const TableBox = () => {
     return(

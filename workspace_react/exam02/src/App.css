@@ -18,16 +18,3 @@ div {
   flex: 1;
   text-align: center;
 }
-
-.tableBox table{
-  width:100%;
-  border: 1px solid black;
-}
-
-.ulBox li{
-  list-style-type: none;
-}
-
-.img{
-  width:100%;
-}

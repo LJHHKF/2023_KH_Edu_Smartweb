@@ -1,4 +1,4 @@
-
+import './ULBox.css';
 
 function ULBox(){
     let message = "변수 메시지1"
