@@ -50,6 +50,31 @@ function ImageBox() {
   );
 }
 
+//전개 연산자(spread operator)
+const arr1 = ["Apple", "Orange", "Mango"];
+const arr2 = [...arr1];
+console.log(arr2);
+
+const obj1 = {name:"Tom", phone:"01012341234"}
+const obj2 = {...obj1};
+console.log(obj2);
+
+//Desturct
+const [a,b,c] = arr1;
+console.log(`${a} ${b} ${c}`);
+
+const {name, phone} = obj1;
+console.log(`${name}, ${phone}`);
+
+//arr.map
+arr1.map((e)=>{
+  console.log(e);
+});
+const result = arr1.map((e, index)=>{
+  return e; //값 하나씩 result에 들어갈 값에 배열로 들어가기 시작함.
+});
+console.log(result);
+
 function App() {
   return (
     <div className="container">
