@@ -1,0 +1,13 @@
+.container{
+  display:flex;
+}
+
+.table{
+  flex:1;
+  height:200px;
+}
+
+.box{
+  flex:4;
+  height:500px;
+}
