@@ -1,6 +1,7 @@
 //import logo from './logo.svg';
 import './App.css';
 import { BrowserRouter, Link, Outlet, Route, Routes } from 'react-router-dom';
+import { useState } from 'react';
 
 const Index = function () {
   return (
@@ -29,7 +30,21 @@ const Index = function () {
   );
 };
 
-const Input = function () {
+const Input = function ({seq, setSeq,setMessages}) {
+
+  const [data, setData] = useState({seq: seq, writer:"", message:""});
+
+  function input(){
+    setMessages((prev) => {return [...prev, {seq:seq, writer:data.writer, message:data.message}]});
+    setSeq(seq + 1);
+    setData({seq:seq, writer:"", message:""});
+  }
+
+  function handleData(e){
+    let {name, value} = e.target;
+    setData({...data, [name] : value});
+  }
+
   return (
     <div className="container">
       <table border={1} align={'center'}>
@@ -41,18 +56,19 @@ const Input = function () {
         <tbody>
           <tr>
             <td>
-              <input type="text" placeholder="Input writer"></input>
+              <input type="text" placeholder="Input writer" name="writer" onChange={handleData} value={data.writer}></input>
             </td>
           </tr>
           <tr>
             <td>
-              <input type="text" placeholder="Input message"></input>
+              <input type="text" placeholder="Input message" name="message" onChange={handleData} value={data.message}></input>
             </td>
           </tr>
           <tr>
             <td style={{ display: 'flex', justifyContent: 'space-evenly' }}>
               <button
                 onClick={() => {
+                  input();
                   console.log('Write Click!');
                 }}
               >
@@ -68,12 +84,7 @@ const Input = function () {
     </div>
   );
 };
-const Output = function () {
-  const message = [
-    { seq: 1, writer: 'Jane', message: 'React Router' },
-    { seq: 2, writer: 'Ryan', message: 'Router Practice' },
-    { seq: 3, writer: 'Tom', message: 'Practice Hard' },
-  ];
+const Output = function ({messages}) {
 
   return (
     <div className="container">
@@ -89,7 +100,7 @@ const Output = function () {
           </tr>
         </thead>
         <tbody>
-          {message.map((item, index) => {
+          {messages.map((item, index) => {
             return (
               <tr key={item.seq}>
                 <td>{item.seq}</td>
@@ -187,12 +198,21 @@ function App() {
   // Browser 의 주소창을 활용한다는 측면에선 기존 방식과 다르지 않음.
   // - location.href, a 도 여전히 활용 가능. (주소창을 바꾸고 엔터를 치는 기능. 서버로 요청이 날라감. 불필요한 리퀘스트가 서버에 발송됨.)
   // - React에서는 일반적으로 react-router-dom 라이브러리를 활용하여 전환한다.
+
+  const [messages, setMessages] = useState([
+    { seq: 1, writer: 'Jane', message: 'React Router' },
+    { seq: 2, writer: 'Ryan', message: 'Router Practice' },
+    { seq: 3, writer: 'Tom', message: 'Practice Hard' },
+  ]);
+  const [seq, setSeq] = useState(4);
+
   return (
     <BrowserRouter>
       <Index />
       <Routes>
-        <Route path="/input" element={<Input />} />
-        <Route path="/output" element={<Output />} />
+        <Route path="/" element={<Input /> } />
+        <Route path="/input" element={<Input setMessages={setMessages} seq={seq} setSeq={setSeq} />} />
+        <Route path="/output" element={<Output messages={messages}  />} />
         <Route path="/sub/*" element={<Sub />}>
           <Route path="red" element={<RedBox />} />
           <Route path="green" element={<GreenBox />} />
