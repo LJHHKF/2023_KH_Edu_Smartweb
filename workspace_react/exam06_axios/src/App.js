@@ -15,13 +15,13 @@ const Index = function () {
         <tbody>
           <tr>
             <td>
-              <Link to="/input">toInput</Link>
+              <Link to="/react/input">toInput</Link>
             </td>
             <td>
-              <Link to="/output">toOutput</Link>
+              <Link to="/react/output">toOutput</Link>
             </td>
             <td>
-              <Link to="/sub">toSub</Link>
+              <Link to="/react/sub">toSub</Link>
             </td>
           </tr>
         </tbody>
@@ -81,7 +81,7 @@ const Input = function ({seq, setSeq,setMessages}) {
               >
                 write
               </button>
-              <Link to="/">
+              <Link to="/react">
                 <button>back</button>
               </Link>
             </td>
@@ -125,7 +125,7 @@ const Output = function ({messages, setMessages}) {
           })}
           <tr>
             <td colSpan={4} style={{ textAlign: 'center' }}>
-              <Link to="/">
+              <Link to="/react">
                 <button>back</button>
               </Link>
             </td>
@@ -196,7 +196,7 @@ const Sub = function () {
           </tr>
           <tr>
             <td colSpan={3} style={{ textAlign: 'center' }}>
-              <Link to="/">
+              <Link to="/react">
                 <button>back</button>
               </Link>
             </td>
@@ -224,10 +224,10 @@ function App() {
     <BrowserRouter>
       <Index />
       <Routes>
-        <Route path="/" element={<Input /> } />
-        <Route path="/input" element={<Input setMessages={setMessages} seq={seq} setSeq={setSeq} />} />
-        <Route path="/output" element={<Output {...{messages, setMessages}} />} />
-        <Route path="/sub/*" element={<Sub />}>
+        <Route path="/toReact" element={<Input /> } />
+        <Route path="/react/input" element={<Input setMessages={setMessages} seq={seq} setSeq={setSeq} />} />
+        <Route path="/react/output" element={<Output {...{messages, setMessages}} />} />
+        <Route path="/react/sub/*" element={<Sub />}>
           <Route path="red" element={<RedBox />} />
           <Route path="green" element={<GreenBox />} />
           <Route path="blue" element={<BlueBox />} />
