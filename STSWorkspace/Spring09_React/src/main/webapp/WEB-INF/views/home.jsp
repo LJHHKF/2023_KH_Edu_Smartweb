@@ -8,6 +8,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<a href="/toReact">to React</a>
+	<a href="/react/">to React</a>
 </body>
 </html>

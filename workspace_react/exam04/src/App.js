@@ -1,7 +1,9 @@
 //import logo from './logo.svg';
 import './App.css';
-import { BrowserRouter, Link, Outlet, Route, Routes } from 'react-router-dom';
-import { useState } from 'react';
+import { BrowserRouter, Link, Outlet, Route, Routes, useNavigate } from 'react-router-dom';
+import { createContext, useContext, useState } from 'react';
+
+const MessageContext = createContext();
 
 const Index = function () {
   return (
@@ -30,9 +32,13 @@ const Index = function () {
   );
 };
 
-const Input = function ({seq, setSeq,setMessages}) {
+const Input = function () {
+
+  const {setMessages, seq, setSeq} = useContext(MessageContext);
 
   const [data, setData] = useState({seq: seq, writer:"", message:""});
+  const navigate = useNavigate();
+
 
   function handleWrite(){
 
@@ -45,6 +51,7 @@ const Input = function ({seq, setSeq,setMessages}) {
     setMessages((prev) => {return [...prev, {seq:seq, writer:data.writer, message:data.message}]});
     setSeq((prev) => {return prev+1});
     setData({seq:seq, writer:"", message:""});
+    navigate("/output");
   }
 
   function handleData(e){
@@ -91,7 +98,9 @@ const Input = function ({seq, setSeq,setMessages}) {
     </div>
   );
 };
-const Output = function ({messages, setMessages}) {
+const Output = function () {
+
+  const {messages, setMessages} = useContext(MessageContext);
 
   function handleDelete(seq){
     const result = messages.filter((item) => item.seq !== seq);
@@ -221,20 +230,22 @@ function App() {
   const [seq, setSeq] = useState(4);
 
   return (
-    <BrowserRouter>
-      <Index />
-      <Routes>
-        <Route path="/" element={<Input /> } />
-        <Route path="/input" element={<Input setMessages={setMessages} seq={seq} setSeq={setSeq} />} />
-        <Route path="/output" element={<Output {...{messages, setMessages}} />} />
-        <Route path="/sub/*" element={<Sub />}>
-          <Route path="red" element={<RedBox />} />
-          <Route path="green" element={<GreenBox />} />
-          <Route path="blue" element={<BlueBox />} />
-        </Route>
-        <Route path="*" element={<Index />} />
-      </Routes>
-    </BrowserRouter>
+    <MessageContext.Provider value={{messages, setMessages, seq, setSeq}}>
+      <BrowserRouter basename='/react'>
+        <Index />
+        <Routes>
+          <Route path="/" element={<Input /> } />
+          <Route path="/input" element={<Input />} />
+          <Route path="/output" element={<Output />} />
+          <Route path="/sub/*" element={<Sub />}>
+            <Route path="red" element={<RedBox />} />
+            <Route path="green" element={<GreenBox />} />
+            <Route path="blue" element={<BlueBox />} />
+          </Route>
+          <Route path="/*" element={<Index />} />
+        </Routes>
+      </BrowserRouter>
+    </MessageContext.Provider>
   );
 }
 

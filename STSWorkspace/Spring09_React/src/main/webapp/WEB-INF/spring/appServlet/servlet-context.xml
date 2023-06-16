@@ -14,7 +14,7 @@
 
 	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
 	<!--  <resources mapping="/resources/**" location="/resources/" />-->
-	<resources mapping="/react/**" location="resources/react/" />
+	<resources mapping="/test/**" location="resources/react/" />
 	<!--  <resources mapping="/static/js/**" location="resources/react/static/js/" />
 	<resources mapping="/static/css/**" location="resources/react/static/css/" />
 	<resources mapping="/manifest.json" location="resources/react/manifest.json" />
