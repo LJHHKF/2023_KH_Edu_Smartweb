@@ -1,0 +1,136 @@
+<문제>
+다음은 이름과 메시지를 작성해 서버에 전송하여 Console 출력하는 단순한 예제입니다.
+
+하지만 결과가 정상 출력되지 않고 에러가 발생했습니다.
+
+Error Message 는 다음과 같습니다.
+
+HTTP Status 405 - Request method 'GET' not supported
+
+type Status report
+
+message Request method 'GET' not supported
+
+description The specified HTTP method is not allowed for the requested resource.
+
+Apache Tomcat/8.0.36
+
+원인을 분석하고 개발자의 의도대로 동작하게 조치사항을 작성하세요.
+
+-------------------- home.jsp
+
+<html>
+
+<head>
+
+<title>Home</title>
+
+</head>
+
+<body>
+
+<form action="input" method="get">
+
+<input type=text name=name>
+
+<input type=text name=message>
+
+<input type=submit>
+
+</form>
+
+</body>
+
+</html>
+
+------------------- Controller
+
+@Controller
+
+public class HomeController {
+
+@RequestMapping(value = "/")
+
+public String home() {
+
+return "home";
+
+}
+
+@RequestMapping(value="input",method=RequestMethod.POST)
+
+public String inputProc(String name, String message) {
+
+System.out.println(name + " : " + message);
+
+return "home";
+
+}
+
+}
+
+============================================
+
+
+<문제점>
+1. 405 에러, Get Method 방식이 지원되지 않는다는 에러 메시지 대로, '/input'이란 폼이 'Post' 방식으로 매핑이 되어 있는데 프론트단(jsp단)에서는 'Get' method로 보내서 생기는 에러입니다.
+
+2. value='input'도 문제가 될 것입니다. Controller에 RequestMapping이 된 것도 없는데 상대 경로로 참조하려고 하고 있습니다.
+
+<해결책>
+1. 따라서 프론트 또는 백 하나를 수정하면 되는데, REST API 방식에 따라서 insert는 Post로 매핑하는 것이 좋을 것이므로 프론트 단의 <form ~ method='get'>을 <form ~ method'post'> 로 수정해야 합니다.
+
+2. @RequestMapping(value='/input' ~)으로 고치고 프론트에서도 <form action='/input'> 으로 고쳐야 합니다.
+
+<수정된 코드>
+-------------------- home.jsp
+
+<html>
+
+<head>
+
+<title>Home</title>
+
+</head>
+
+<body>
+
+<form action="/input" method="post">
+
+<input type=text name=name>
+
+<input type=text name=message>
+
+<input type=submit>
+
+</form>
+
+</body>
+
+</html>
+
+------------------- Controller
+
+@Controller
+
+public class HomeController {
+
+@RequestMapping(value = "/")
+
+public String home() {
+
+return "home";
+
+}
+
+@RequestMapping(value="/input",method=RequestMethod.POST)
+
+public String inputProc(String name, String message) {
+
+System.out.println(name + " : " + message);
+
+return "home";
+
+}
+
+}
